@@ -52,7 +52,7 @@ class Megaphone extends Component
 
     public function getListeners()
     {
-        if(!env('BROADCAST_DRIVER', false)) {
+        if(env('BROADCAST_DRIVER') == null) {
             return [];
         }
 
