@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Core;
 
 use Alkhachatryan\LaravelWebConsole\LaravelWebConsole;
 use App\Charts\Dashboard;
+use App\Dao\Enums\Core\UserType;
 use App\Dao\Traits\RedirectAuth;
 use App\Facades\Model\UserModel;
 use App\Http\Controllers\Controller;
@@ -20,7 +21,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        if(auth()->check()){
+        if(auth()->check())
+        {
             return redirect()->route('login');
         }
     }
@@ -32,6 +34,11 @@ class HomeController extends Controller
      */
     public function index(Dashboard $chart)
     {
+        if(empty(auth()->user()))
+        {
+            header('Location: '.route('public'));
+        }
+
         return view('core.home.dashboard', [
             'chart' => $chart->build(),
         ]);
