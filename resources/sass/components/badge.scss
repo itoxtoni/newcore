@@ -1,6 +1,8 @@
 .badge {
-   padding: 5px 10px;
+   padding: 7px 10px;
    font-size: $default-font-size - 3;
+   border-radius: 5px;
+
    &.badge-success {
       background: $color-success;
    }
