@@ -3,7 +3,7 @@
 		<ul>
 			<li>
 				<a class="icon {{ request()->segment(1) == 'home' ? 'active' : '' }}" href="{{ route('home') }}">
-					<i class="bi bi-bar-chart-line"></i>
+					<i class="bi bi-bar-chart-fill"></i>
 					<h5 class="text-center text-white">
 						Dashboard
 					</h5>
