@@ -6,7 +6,7 @@ trait RedirectAuth{
 
     public function redirectAuthCustom()
     {
-        if (empty(auth()->user()->group))
+        if (empty(auth()->user()->role))
         {
             return route('public');
         }
