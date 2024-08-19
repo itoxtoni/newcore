@@ -36,7 +36,7 @@
 @mixin btn-outline($color) {
 	background: none;
 	border-color: $color;
-	color: darken($color, 5%);
+	color: darken($color, 60%);
 	border-width: 1px;
 
 	&:not(:disabled):not(.disabled):hover {
@@ -281,6 +281,7 @@ a {
 
 	&.btn-default {
 		@include btn($color-light);
+		@include btn-outline($color-border);
 	}
 
 	&.btn-gradient-success {

@@ -6,9 +6,7 @@
     @endif
 
     @if(!empty($prepend))
-    <div class="input-group-prepend">
         <label class="input-group-text" for="{{ $id }}">{{ __($prepend) }}</label>
-    </div>
     @endif
 
     <select
@@ -58,10 +56,8 @@
     </select>
 
     @if(!empty($append))
-		<div class="input-group-append">
-			<label class="input-group-text" for="{{ $id }}">{{ __($append) }}</label>
-		</div>
-		@endif
+        <label class="input-group-text" for="{{ $id }}">{{ __($append) }}</label>
+    @endif
 
 	@if((!empty($prepend) or !empty($append)))
 	</div>

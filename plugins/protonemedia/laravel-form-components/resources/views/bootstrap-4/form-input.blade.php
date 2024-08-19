@@ -10,17 +10,13 @@ $class = 'form-control';
     @endif
 
     @if(!empty($prepend))
-        <div class="input-group-prepend">
-            <div class="input-group-text">
-                {!! $prepend !!}
-            </div>
-        </div>
+        <span class="input-group-text">
+            {!! $prepend !!}
+        </span>
     @endif
 
     @if(!empty($toggle))
-        <div class="input-group-prepend">
-            <button class="btn btn-default filter" type="button">{{ __($toggle) }}</button>
-        </div>
+        <span class="input-group-text filter cursor">{{ __($toggle) }}</span>
     @endif
 
     <input
@@ -47,25 +43,19 @@ $class = 'form-control';
     />
 
     @if(!empty($append))
-        <div class="input-group-append">
-            <div class="input-group-text">
-                {!! $append !!}
-            </div>
+        <div class="input-group-text">
+            {!! $append !!}
         </div>
     @endif
 
     @if(!empty($button))
-    <div class="input-group-append">
         <button class="btn btn-default" type="submit">{{ __($button) }}</button>
-    </div>
     @endif
 
     @if(!empty($icon))
-    <div class="input-group-append">
         <button class="btn btn-default" type="submit">
             <i class="bi bi-{{ $icon }}"></i>
         </button>
-    </div>
     @endif
 
     @if($hasErrorAndShow($name))
