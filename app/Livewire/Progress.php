@@ -12,7 +12,6 @@ class Progress extends Component
     #[Url]
     public $batch = '';
     public $percent = 0;
-    public $progress = 0;
 
     public function render()
     {
@@ -22,7 +21,6 @@ class Progress extends Component
         {
             $job = ($bus->totalJobs - $bus->pendingJobs);
             $this->percent = intval(($job / $bus->totalJobs) * 100);
-            $this->progress = round(($job / $bus->totalJobs), 2);
         }
 
         return view('livewire.progress');
