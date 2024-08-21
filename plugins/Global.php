@@ -323,12 +323,12 @@ if (! function_exists('exportCsv')) {
         ->name('Export Users')
         ->then(function (Batch $batch) use ($name, $user_id) {
 
-                Storage::disk('public')->put($name, file_get_contents($name));
+                Storage::put($name, file_get_contents($name));
 
                 $notification = new \MBarlow\Megaphone\Types\NewFeature(
                     'Download File Success',
                     'File Ready to download',
-                    asset('files/' . $name),
+                    asset(str_replace('public/', '', $name)),
                     'Download'
                 );
 

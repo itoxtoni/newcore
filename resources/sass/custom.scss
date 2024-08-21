@@ -325,13 +325,12 @@ body {
 
 .wrap-circles {
   position: absolute;
-  right: 130px;
-  top: -30px;
+  right: 170px;
+  top: 5px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 2rem 1rem;
 }
 
 .circle {
@@ -358,6 +357,19 @@ body {
     font-size: 0.65rem;
     font-weight: bold;
     color: #505050;
+  }
+}
+
+.progress
+{
+  .bar{
+    position:fixed;
+    z-index: 10;
+    top:0px;
+    left:0px;
+    height: 5px;
+    background: #1565C0;
+    border-bottom-right-radius: 5px;
   }
 }
 
@@ -400,6 +412,16 @@ body {
     &::after {
       margin-left: 0.5em;
     }
+  }
+
+  .dropdown-menu{
+
+    .dropdown-item{
+      &:hover {
+        background-color: #F5F5F5;
+      }
+    }
+
   }
 }
 

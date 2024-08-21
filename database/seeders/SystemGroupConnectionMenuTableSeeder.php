@@ -54,6 +54,11 @@ class SystemGroupConnectionMenuTableSeeder extends Seeder
                 'system_group_code' => 'setting',
                 'system_menu_code' => 'groups',
             ),
+            7 =>
+            array (
+                'system_group_code' => 'laporan',
+                'system_menu_code' => 'report_user',
+            ),
         ));
 
 

@@ -1,11 +1,11 @@
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
-if(import.meta.env.BROADCAST_DRIVER != null){
+if(import.meta.env.VITE_BROADCAST_DRIVER != null){
     window.Pusher = Pusher;
 
     window.Echo = new Echo({
-        broadcaster: 'reverb',
+        broadcaster: import.meta.env.VITE_BROADCAST_DRIVER,
         key: import.meta.env.VITE_REVERB_APP_KEY,
         wsHost: import.meta.env.VITE_REVERB_HOST,
         wsPort: import.meta.env.VITE_REVERB_PORT ?? 80,
