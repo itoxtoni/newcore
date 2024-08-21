@@ -14,28 +14,28 @@ class SystemGroupConnectionRoleTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('system_group_connection_role')->delete();
-        
+
         \DB::table('system_group_connection_role')->insert(array (
-            0 => 
+            0 =>
             array (
                 'system_role_code' => 'admin',
                 'system_group_code' => 'aplikasi',
             ),
-            1 => 
+            1 =>
             array (
                 'system_role_code' => 'admin',
-                'system_group_code' => 'master',
+                'system_group_code' => 'laporan',
             ),
-            2 => 
+            2 =>
             array (
                 'system_role_code' => 'admin',
                 'system_group_code' => 'setting',
             ),
         ));
-        
-        
+
+
     }
 }

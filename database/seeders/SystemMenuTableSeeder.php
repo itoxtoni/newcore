@@ -19,9 +19,8 @@ class SystemMenuTableSeeder extends Seeder
 
         DB::table('system_menu')->delete();
 
-        DB::table('system_menu')->insert(array (
-            0 =>
-            array (
+        DB::table('system_menu')->insert(array(
+            [
                 'system_menu_code' => 'roles',
                 'system_menu_name' => 'Roles',
                 'system_menu_url' => 'roles',
@@ -32,9 +31,8 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_description' => NULL,
                 'system_menu_enable' => NULL,
                 'system_menu_can_delete' => 1,
-            ),
-            1 =>
-            array (
+            ],
+            [
                 'system_menu_code' => 'user',
                 'system_menu_name' => 'User',
                 'system_menu_url' => 'user',
@@ -45,9 +43,8 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_description' => '',
                 'system_menu_enable' => NULL,
                 'system_menu_can_delete' => 1,
-            ),
-            2 =>
-            array (
+            ],
+            [
                 'system_menu_code' => 'master',
                 'system_menu_name' => 'Master',
                 'system_menu_url' => 'master',
@@ -58,9 +55,8 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_description' => NULL,
                 'system_menu_enable' => NULL,
                 'system_menu_can_delete' => 1,
-            ),
-            3 =>
-            array (
+            ],
+            [
                 'system_menu_code' => 'setting',
                 'system_menu_name' => 'Setting Website',
                 'system_menu_url' => 'pengaturan',
@@ -71,9 +67,8 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_description' => '',
                 'system_menu_enable' => NULL,
                 'system_menu_can_delete' => 1,
-            ),
-            4 =>
-            array (
+            ],
+            [
                 'system_menu_code' => 'groups',
                 'system_menu_name' => 'Group',
                 'system_menu_url' => 'groups',
@@ -84,9 +79,8 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_description' => NULL,
                 'system_menu_enable' => NULL,
                 'system_menu_can_delete' => 1,
-            ),
-            5 =>
-            array (
+            ],
+            [
                 'system_menu_code' => 'menu',
                 'system_menu_name' => 'Menu',
                 'system_menu_url' => 'menu',
@@ -97,9 +91,8 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_description' => '',
                 'system_menu_enable' => NULL,
                 'system_menu_can_delete' => 1,
-            ),
-            6 =>
-            array (
+            ],
+            [
                 'system_menu_code' => 'link',
                 'system_menu_name' => 'Link',
                 'system_menu_url' => 'link',
@@ -110,9 +103,8 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_description' => NULL,
                 'system_menu_enable' => NULL,
                 'system_menu_can_delete' => 1,
-            ),
-            7 =>
-            array (
+            ],
+            [
                 'system_menu_code' => 'permission',
                 'system_menu_name' => 'Permission',
                 'system_menu_url' => 'permission',
@@ -123,7 +115,19 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_description' => NULL,
                 'system_menu_enable' => NULL,
                 'system_menu_can_delete' => 1,
-            ),
+            ],
+            [
+                'system_menu_code' => 'report_user',
+                'system_menu_name' => 'Report User',
+                'system_menu_url' => 'report_user',
+                'system_menu_controller' => 'App\Http\Controllers\ReportUserController',
+                'system_menu_action' => 'report_user.getCreate',
+                'system_menu_type' => 1,
+                'system_menu_sort' => NULL,
+                'system_menu_description' => NULL,
+                'system_menu_enable' => NULL,
+                'system_menu_can_delete' => 1,
+            ]
         ));
 
     }
