@@ -2,9 +2,9 @@ import '../sass/app.scss';
 
 import './bootstrap';
 
-import ajax from '@imacrayon/alpine-ajax';
-
 import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
+
+import ajax from '@imacrayon/alpine-ajax';
 
 Alpine.plugin(ajax)
 

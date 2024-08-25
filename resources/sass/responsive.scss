@@ -223,6 +223,10 @@
 			}
 		}
 	}
+
+	.input-group-text{
+		min-width: 15%;
+	}
 }
 
 @media (max-width: 992px) {
@@ -456,6 +460,11 @@
 		.card-body {
 			padding: 1rem 0px;
 		}
+	}
+
+	.input-group-text{
+		min-width: 35%;
+		text-align: right;
 	}
 }
 

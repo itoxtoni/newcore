@@ -13,8 +13,8 @@
 
                 <x-action />
 
-                <div class="container-fluid">
-                    <div class="table-responsive" id="table_data">
+                <div class="container-fluid" id="table">
+                    <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -33,7 +33,7 @@
                                     @endforeach
                                 </tr>
                             </thead>
-                            <tbody id="table">
+                            <tbody>
                                 @forelse($data as $table)
                                     <tr>
                                         <td>

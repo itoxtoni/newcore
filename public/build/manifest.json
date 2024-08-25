@@ -1,11 +1,16 @@
 {
   "resources/js/vite.js": {
-    "file": "assets/vite-Ch_LMPnG.js",
+    "file": "assets/vite-BI_G8L4M.js",
     "name": "vite",
     "src": "resources/js/vite.js",
     "isEntry": true,
     "css": [
-      "assets/vite-yeCKTP0V.css"
+      "assets/vite-Cs94L4Ou.css"
     ]
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/vite-Cs94L4Ou.css",
+    "src": "resources/sass/app.scss",
+    "isEntry": true
   }
 }

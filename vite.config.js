@@ -7,6 +7,8 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/js/vite.js',
+                'resources/sass/app.scss',
+                'resources/sass/auth.scss',
             ],
             refresh: true,
         }),
