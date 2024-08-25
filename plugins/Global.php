@@ -82,7 +82,7 @@ function modulePathForm($name = null, $template = null, $path = false)
 {
     if (is_string($path))
     {
-        $path = $path.'.';
+        $path = $path;
     }
     else
     {

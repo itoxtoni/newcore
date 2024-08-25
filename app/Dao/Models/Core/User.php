@@ -43,6 +43,7 @@ implements AuthMustVerifyEmail
         'password',
         'username',
         'role',
+        'birthday',
         'level',
         'vendor',
         'active',

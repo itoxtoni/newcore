@@ -79,4 +79,19 @@ class UserController extends MasterController
     {
         return moduleView(modulePathForm(path: true), $this->share());
     }
+
+    public function getProfile()
+    {
+        $this->beforeForm();
+        return moduleView(modulePathForm(name: 'form', path: 'core.profile'), $this->share([
+            'model' => auth()->user()
+        ]));
+    }
+
+    public function updateProfile(UserRequest $request, UpdateService $service)
+    {
+        $data = $service->update($this->model, $request, auth()->id());
+        return Response::redirectBack($data);
+    }
+
 }

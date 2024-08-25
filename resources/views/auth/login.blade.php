@@ -41,6 +41,10 @@
         </div>
     </div>
 
+    <div class="form-full">
+        <a href="{{ route('password.request') }}">Forgot Password</a>
+    </div>
+
 </form>
 
 @endsection

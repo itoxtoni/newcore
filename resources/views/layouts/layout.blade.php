@@ -3,7 +3,7 @@
 @include('layouts.meta')
 
 <head>
-    @vite(['resources/js/vite.js'])
+    @vite(['resources/sass/app.scss'])
     @livewireStyles
 </head>
 
@@ -34,6 +34,7 @@
 
     @stack('footer')
 
+    @vite(['resources/js/vite.js'])
     @livewireScriptConfig
     @livewire('notification')
     <x-livewire-alert::scripts />

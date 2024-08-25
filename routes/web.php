@@ -7,6 +7,7 @@ use App\Events\SendBell;
 use App\Events\SendBroadcast;
 use App\Facades\Model\UserModel;
 use App\Http\Controllers\Core\HomeController;
+use App\Http\Controllers\Core\ProfileController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PublicController;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
@@ -35,6 +36,8 @@ Route::get('/delete/{code}', 'App\Http\Controllers\Core\HomeController@delete')-
 Route::get('/doc', 'App\Http\Controllers\Core\HomeController@doc')->middleware(['access'])->name('doc');
 
 Route::match(['POST', 'GET'], 'change-password', 'App\Http\Controllers\Core\UserController@changePassword', ['name' => 'change-password'])->middleware('auth');
+Route::get('profile', 'App\Http\Controllers\Core\UserController@getProfile')->middleware('auth')->name('getProfile');
+Route::post('profile', 'App\Http\Controllers\Core\UserController@updateProfile')->middleware('auth')->name('updateProfile');
 Auth::routes(['verify' => true]);
 
 Route::get('/', [PublicController::class, 'index'])->name('public');
