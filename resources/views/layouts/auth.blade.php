@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta charset="utf-8">
+		<title>RegistrationForm_v9 by Colorlib</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<head>
-    <meta charset="utf-8">
-    <title>Form-v4 by Colorlib</title>
+		@vite(['resources/auth/css/style.scss'])
+	</head>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<body>
 
-    @vite(['resources/css/auth.css'])
+		<div class="wrapper">
+			<div class="inner">
 
-</head>
+                @yield('content')
 
-<body class="form-v4">
-    <div class="page-content">
-       @yield('content')
-    </div>
+			</div>
+		</div>
 
-</body>
 
+	</body>
 </html>

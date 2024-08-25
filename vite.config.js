@@ -8,7 +8,7 @@ export default defineConfig({
             input: [
                 'resources/js/vite.js',
                 'resources/sass/app.scss',
-                'resources/sass/auth.scss',
+                'resources/auth/css/style.scss',
             ],
             refresh: true,
         }),

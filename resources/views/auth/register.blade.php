@@ -2,51 +2,65 @@
 
 @section('content')
 
-<div class="form-v4-content">
-    <div class="form-left">
-        <h2 class="logo">
-                <img class="logo"
-                src="{{ env('APP_LOGO') ? url('storage/' . env('APP_LOGO')) : url('assets/media/image/logo.png') }}">
-        </h2>
-        <h3>Welcome Back!</h3>
-        <p class="text-1">To keep connected with us please login with your personal info.</p>
+<form class="form-detail login" method="POST" action="{{ route('register') }}">
+    @csrf
 
-        <div class="form-left-last">
-            <a class="account" href="{{ route('login') }}">Login</a>
+    <h2 class="logo">
+        <img class="logo"
+        src="{{ env('APP_LOGO') ? url('storage/' . env('APP_LOGO')) : url('assets/media/image/logo.png') }}">
+    </h2>
+
+    <h3>Register Form</h3>
+
+    <div class="form-full">
+        <div class="form-wrapper">
+            <label for="">Your Full Name *</label>
+            <input type="text" class="form-control" value="{{ old('name') }}"  name="name" placeholder="input your name">
+            @error('name')
+            <span class="error error-top">* {{ $message }}</span>
+            @enderror
+        </div>
+    </div>
+
+    <div class="form-full">
+        <div class="form-wrapper">
+            <label for="">Email *</label>
+            <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Input your email">
+            @error('email')
+            <span class="error error-top">* {{ $message }}</span>
+            @enderror
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-wrapper">
+            <label for="">Password *</label>
+            <input type="password" class="form-control" name="password" placeholder="input your password">
         </div>
 
+        <div class="form-wrapper">
+            <label for="">Confirm Password *</label>
+            <input type="password" class="form-control" name="password_confirmation" placeholder="confirmation password">
+            @error('password')
+            <span class="error">* {{ $message }}</span>
+            @enderror
+        </div>
+    </div>
+
+
+    <div class="form-row form-button">
+        <div class="form-wrapper">
+            <a class="button black" href="{{ route('login') }}">Login</a>
+        </div>
+
+        <div class="form-wrapper">
+            <button class="button" type="submit" data-text="Submit">
+                <span>Register</span>
+            </button>
+        </div>
 
     </div>
-    <form class="form-detail" method="POST" action="{{ route('register') }}" id="myform">
-        @csrf
 
-        <h2>Register Form</h2>
-
-        <div class="form-row">
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="input-text" required>
-        </div>
-
-        <div class="form-row">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="input-text" required>
-        </div>
-
-        <div class="form-row">
-            <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="input-text" required>
-        </div>
-
-        <div class="form-row">
-            <label for="password-confirm">Confirm Password</label>
-                <input type="password" name="password-confirm" id="password-confirm" class="input-text" required>
-        </div>
-
-        <div class="form-row-last">
-            <button type="submit" class="register">Save</button>
-        </div>
-    </form>
-
-</div>
+</form>
 
 @endsection
