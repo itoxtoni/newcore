@@ -2,7 +2,6 @@
 
 namespace App\Http\Services\Master;
 
-use App\Dao\Interfaces\CrudInterface;
 use Plugins\Alert;
 
 class CreateService
@@ -12,16 +11,16 @@ class CreateService
         $check = false;
         try {
             $check = $model->saveRepository($data->all());
-            if(isset($check['status']) && $check['status']){
+            if (isset($check['status']) && $check['status']) {
 
                 Alert::create();
-            }
-            else{
+            } else {
                 $message = env('APP_DEBUG') ? $check['data'] : $check['message'];
                 Alert::error($message);
             }
         } catch (\Throwable $th) {
             Alert::error($th->getMessage());
+
             return $th->getMessage();
         }
 

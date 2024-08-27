@@ -2,20 +2,20 @@
 
 namespace App\Dao\Traits;
 
-use App\Dao\Enums\Core\BooleanType;
-use Plugins\Filter;
 use Plugins\Notes;
 
 trait ApiTrait
 {
     abstract public function apiTransform();
 
-    public function getApiResource($query){
+    public function getApiResource($query)
+    {
 
         return Notes::data($this->apiTransform()::make($query->first()));
     }
 
-    public function getApiCollection($query){
+    public function getApiCollection($query)
+    {
 
         return Notes::data($this->apiTransform()::collection($query));
     }

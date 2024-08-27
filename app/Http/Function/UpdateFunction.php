@@ -11,6 +11,7 @@ trait UpdateFunction
     public function postUpdate($code, GeneralRequest $request, UpdateService $service)
     {
         $data = $service->update($this->model, $request, $code);
+
         return Response::redirectBack($data);
     }
 }

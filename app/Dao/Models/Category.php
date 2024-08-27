@@ -10,16 +10,16 @@ use App\Dao\Models\Core\SystemModel;
  * @property $category_id
  * @property $category_name
  * @property $category_user_id
- *
  * @property User $user
- * @package App
+ *
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-
 class Category extends SystemModel
 {
     protected $perPage = 20;
+
     protected $table = 'category';
+
     protected $primaryKey = 'category_id';
 
     /**

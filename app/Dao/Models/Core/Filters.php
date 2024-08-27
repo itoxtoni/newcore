@@ -14,9 +14,16 @@ use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
 class Filters extends Model
 {
-    use Sortable, FilterQueryString, Sanitizable, DataTableTrait, DefaultEntity, FiltersEntity, ActiveTrait;
+    use ActiveTrait;
+    use DataTableTrait;
+    use DefaultEntity;
+    use FilterQueryString;
+    use FiltersEntity;
+    use Sanitizable;
+    use Sortable;
 
     protected $table = 'system_filter';
+
     protected $primaryKey = 'filter_id';
 
     protected $fillable = [
@@ -42,6 +49,7 @@ class Filters extends Model
     ];
 
     public $timestamps = false;
+
     public $incrementing = false;
 
     public static function field_name()
@@ -49,7 +57,8 @@ class Filters extends Model
         return 'filter_code';
     }
 
-    public function fieldSearching(){
+    public function fieldSearching()
+    {
         return $this->field_primary();
     }
 

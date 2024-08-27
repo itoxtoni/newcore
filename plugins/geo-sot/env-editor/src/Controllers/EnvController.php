@@ -25,7 +25,7 @@ class EnvController extends BaseController
             return $this->returnGenericResponse(true, ['items' => $envValues]);
         }
 
-        return view(ServiceProvider::PACKAGE . '::index', compact('envValues'));
+        return view(ServiceProvider::PACKAGE.'::index', compact('envValues'));
     }
 
     /**
@@ -35,6 +35,7 @@ class EnvController extends BaseController
     {
         if (EnvEditor::keyExists($request->input('key'))) {
             $result = EnvEditor::editKey($request->input('key'), $request->input('value'));
+
             return $this->returnGenericResponse($result, [], 'keyWasEdited', $request->input('key'));
         } else {
             $result = EnvEditor::addKey(
@@ -42,6 +43,7 @@ class EnvController extends BaseController
                 $request->input('value'),
                 $request->except(['key', 'value'])
             );
+
             return $this->returnGenericResponse($result, [], 'keyWasAdded', $request->input('key'));
         }
 
@@ -79,7 +81,7 @@ class EnvController extends BaseController
             return $this->returnGenericResponse(true, ['items' => $backUpFiles]);
         }
 
-        return view(ServiceProvider::PACKAGE . '::index', compact('backUpFiles'));
+        return view(ServiceProvider::PACKAGE.'::index', compact('backUpFiles'));
     }
 
     /**
@@ -151,7 +153,7 @@ class EnvController extends BaseController
     /**
      * Generic ajax response.
      *
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     protected function returnGenericResponse(
         bool $success,
@@ -159,10 +161,10 @@ class EnvController extends BaseController
         string $translationWord = '',
         string $keyName = ''
     ): JsonResponse {
-        if (!empty($translationWord) && $success) {
+        if (! empty($translationWord) && $success) {
             $data = array_merge($data, [
                 'message' => __(
-                    ServiceProvider::TRANSLATE_PREFIX . "controllerMessages.$translationWord",
+                    ServiceProvider::TRANSLATE_PREFIX."controllerMessages.$translationWord",
                     ['name' => $keyName]
                 ),
             ]);

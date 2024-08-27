@@ -65,7 +65,7 @@ class EnvEditor
     /**
      * Add the  Key  on the Current Env.
      *
-     * @param array<string, int|string> $options
+     * @param  array<string, int|string>  $options
      *
      * @throws EnvException
      */

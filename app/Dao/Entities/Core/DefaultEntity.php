@@ -6,7 +6,7 @@ trait DefaultEntity
 {
     public static function getModel()
     {
-        return new static();
+        return new static;
     }
 
     public static function getTableName()

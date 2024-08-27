@@ -23,6 +23,7 @@ trait CrudRepository
     {
         try {
             $activity = $this->create($request);
+
             return Notes::create($activity);
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
@@ -34,6 +35,7 @@ trait CrudRepository
         try {
             $update = $this->findOrFail($code);
             $update->update($request);
+
             return Notes::update($update);
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
@@ -44,6 +46,7 @@ trait CrudRepository
     {
         try {
             is_array($request) ? $this->destroy(array_values($request)) : $this->destroy($request);
+
             return Notes::delete($request);
         } catch (QueryException $ex) {
             return Notes::error($ex->getMessage());
@@ -58,5 +61,4 @@ trait CrudRepository
             abort(500, $ex->getMessage());
         }
     }
-
 }

@@ -21,7 +21,8 @@ class LoginController extends Controller
     |
      */
 
-    use AuthenticatesUsers, RedirectAuth;
+    use AuthenticatesUsers;
+    use RedirectAuth;
 
     /**
      * Where to redirect users after login.
@@ -29,6 +30,7 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+
     protected $username;
 
     /**
@@ -49,8 +51,7 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        if (method_exists($this, 'redirectAuthCustom'))
-        {
+        if (method_exists($this, 'redirectAuthCustom')) {
             return $this->redirectAuthCustom();
         }
 

@@ -39,7 +39,7 @@ class EnvFileContentManager
             $collection->push($entryObj);
 
             if ($entryObj->isSeparator()) {
-                ++$groupIndex;
+                $groupIndex++;
             }
         }
 
@@ -55,7 +55,7 @@ class EnvFileContentManager
     {
         $envFile = $this->envEditor->getFilesManager()->getFilePath($file);
 
-        if (!$this->filesystem->exists($envFile)) {
+        if (! $this->filesystem->exists($envFile)) {
             throw new EnvException(__(ServiceProvider::TRANSLATE_PREFIX.'exceptions.fileNotExists', ['name' => $envFile]), 0);
         }
 
@@ -69,7 +69,7 @@ class EnvFileContentManager
     /**
      * Save the new collection on .env file.
      *
-     * @param Collection<int, EntryObj> $envValues
+     * @param  Collection<int, EntryObj>  $envValues
      *
      * @throws EnvException
      */
@@ -86,6 +86,6 @@ class EnvFileContentManager
             $content
         );
 
-        return false !== $result;
+        return $result !== false;
     }
 }

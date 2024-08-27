@@ -13,6 +13,7 @@ class SystemPermision extends SystemModel
     use SystemPermisionEntity;
 
     protected $table = 'system_permision';
+
     protected $primaryKey = 'system_permision_id';
 
     protected $fillable = [
@@ -51,7 +52,7 @@ class SystemPermision extends SystemModel
 
     public static function boot()
     {
-        parent::saving(function($model){
+        parent::saving(function ($model) {
             $model->{self::field_module()} = Core::getControllerName($model->{self::field_controller()});
         });
         parent::boot();

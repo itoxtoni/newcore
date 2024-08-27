@@ -5,15 +5,17 @@ namespace App\Dao\Models\Core;
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\SystemLinkEntity;
 use App\Dao\Enums\Core\MenuType;
-use Plugins\Core;
 use Illuminate\Support\Str;
+use Plugins\Core;
 
 class SystemLink extends SystemModel
 {
     use SystemLinkEntity;
 
     protected $table = 'system_link';
+
     protected $primaryKey = 'system_link_code';
+
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -36,7 +38,7 @@ class SystemLink extends SystemModel
     ];
 
     protected $casts = [
-        'system_link_sort' => 'integer'
+        'system_link_sort' => 'integer',
     ];
 
     public static function field_name()
@@ -59,24 +61,23 @@ class SystemLink extends SystemModel
     public static function boot()
     {
         parent::creating(function ($model) {
-            if(empty($model->{SystemLink::field_action()}) && ($model->{SystemLink::field_type()} == MenuType::Menu)){
+            if (empty($model->{SystemLink::field_action()}) && ($model->{SystemLink::field_type()} == MenuType::Menu)) {
                 $act = '.getTable';
-                if(str_contains($model->{SystemLink::field_name()}, 'report')){
+                if (str_contains($model->{SystemLink::field_name()}, 'report')) {
                     $act = '.getCreate';
                 }
                 $model->{SystemLink::field_action()} = Core::getControllerName($model->{SystemLink::field_controller()}).$act;
             }
         });
 
-        parent::saving(function($model){
-            if($model->{SystemLink::field_type()} == MenuType::Menu){
+        parent::saving(function ($model) {
+            if ($model->{SystemLink::field_type()} == MenuType::Menu) {
 
                 $model->{SystemLink::field_primary()} = Core::getControllerName($model->{SystemLink::field_controller()});
-                if(empty($model->{SystemLink::field_url()})){
+                if (empty($model->{SystemLink::field_url()})) {
                     $model->{SystemLink::field_url()} = Core::getControllerName($model->{SystemLink::field_controller()});
                 }
-            }
-            else{
+            } else {
                 $model->{SystemLink::field_primary()} = Str::snake($model->{SystemLink::field_name()});
             }
         });

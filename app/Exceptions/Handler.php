@@ -3,19 +3,17 @@
 namespace App\Exceptions;
 
 use Doctrine\DBAL\Query\QueryException;
+use GuzzleHttp\Client;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Log;
-use Throwable;
 use Illuminate\Validation\ValidationException;
-use GuzzleHttp\Client;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Arr;
 use Plugins\Notes;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -33,10 +31,7 @@ class Handler extends ExceptionHandler
     /**
      * Register the exception handling callbacks for the application.
      */
-    public function register(): void
-    {
-
-    }
+    public function register(): void {}
 
     private function checkError(Throwable $e)
     {
@@ -71,7 +66,6 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $e
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Throwable
@@ -79,12 +73,12 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         Log::error($e->getMessage());
-        if(!empty(env('BOT_TELEGRAM')) && !empty(env('TELEGRAM_ID'))){
-            $client  = new Client();
-            $url = "https://api.telegram.org/bot".env("BOT_TELEGRAM")."/sendMessage";//<== ganti jadi token yang kita tadi
+        if (! empty(env('BOT_TELEGRAM')) && ! empty(env('TELEGRAM_ID'))) {
+            $client = new Client;
+            $url = 'https://api.telegram.org/bot'.env('BOT_TELEGRAM').'/sendMessage'; //<== ganti jadi token yang kita tadi
 
             $data = $this->buildMessage(
-                "File : ".$e->getFile().
+                'File : '.$e->getFile().
                             "\nLine : ".$e->getLine().
                             "\nCode : ".$e->getCode().
                             "\nMessage : ".$e->getMessage().
@@ -93,27 +87,26 @@ class Handler extends ExceptionHandler
                             "\nRequest : ".json_encode(request()->all(), JSON_PRETTY_PRINT)
             );
 
-            if(!$this->checkError($e)){
+            if (! $this->checkError($e)) {
                 $client->request('GET', $url, $data);
             }
         }
 
+        if (request()->hasHeader('authorization')) {
 
-        if(request()->hasHeader('authorization')){
-
-            if($e instanceof ValidationException){
+            if ($e instanceof ValidationException) {
                 return Notes::validation($e->getMessage());
             }
 
-            if($e instanceof ModelNotFoundException){
+            if ($e instanceof ModelNotFoundException) {
                 return Notes::error($e->getMessage());
             }
 
-            if($e instanceof NotFoundHttpException){
+            if ($e instanceof NotFoundHttpException) {
                 return Notes::error($e->getMessage());
             }
 
-            if($e instanceof QueryException){
+            if ($e instanceof QueryException) {
                 return Notes::error($e->getMessage());
             }
 
@@ -140,14 +133,14 @@ class Handler extends ExceptionHandler
         };
     }
 
-    private function buildMessage($message){
+    private function buildMessage($message)
+    {
         $data = ['json' => [
-            "chat_id" => env("TELEGRAM_ID"), //<== ganti dengan id_message yang kita dapat tadi
-            "text" => $message
-            ]
+            'chat_id' => env('TELEGRAM_ID'), //<== ganti dengan id_message yang kita dapat tadi
+            'text' => $message,
+        ],
         ];
 
         return $data;
     }
-
 }

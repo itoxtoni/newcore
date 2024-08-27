@@ -20,7 +20,7 @@ class EntryObj implements \JsonSerializable
     protected bool $isSeparator = false;
 
     /**
-     * @param int|string|null $value
+     * @param  int|string|null  $value
      */
     public function __construct(string $key, mixed $value, int $group, int $index, bool $isSeparator = false)
     {
@@ -34,7 +34,7 @@ class EntryObj implements \JsonSerializable
     public static function parseEnvLine(string $line, int $group, int $index): self
     {
         $entry = explode('=', $line, 2);
-        $isSeparator = 1 === count($entry);
+        $isSeparator = count($entry) === 1;
 
         return new self(Arr::get($entry, 0), Arr::get($entry, 1), $group, $index, $isSeparator);
     }
@@ -63,7 +63,7 @@ class EntryObj implements \JsonSerializable
     }
 
     /**
-     * @param int|string|mixed|null $value
+     * @param  int|string|mixed|null  $value
      */
     public function setValue(mixed $value): void
     {

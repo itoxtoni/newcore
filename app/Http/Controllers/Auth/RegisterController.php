@@ -23,7 +23,8 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers, RedirectAuth;
+    use RedirectAuth;
+    use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -45,7 +46,6 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -60,13 +60,11 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
      * @return \App\Models\User
      */
     protected function create(array $data)
     {
-        if(env('APP_AUTH', false))
-        {
+        if (env('APP_AUTH', false)) {
             return UserModel::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
@@ -78,8 +76,7 @@ class RegisterController extends Controller
 
     public function redirectTo()
     {
-        if (method_exists($this, 'redirectAuthCustom'))
-        {
+        if (method_exists($this, 'redirectAuthCustom')) {
             return $this->redirectAuthCustom();
         }
 

@@ -7,7 +7,7 @@ $rules = [
     '@Symfony' => true,
     'php_unit_method_casing' => ['case' => 'snake_case'],
     'elseif' => true,
-    'phpdoc_align' => ['align' => 'left']
+    'phpdoc_align' => ['align' => 'left'],
 ];
 
 $dirsToCheck = [
@@ -16,7 +16,7 @@ $dirsToCheck = [
     __DIR__.'/database',
     __DIR__.'/resources',
     __DIR__.'/routes',
-    __DIR__.'/tests'
+    __DIR__.'/tests',
 ];
 
 $finder = Finder::create()
@@ -27,7 +27,7 @@ $finder = Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return (new Config())
+return (new Config)
     ->setFinder($finder)
     ->setRules($rules)
     ->setRiskyAllowed(true)

@@ -1,11 +1,9 @@
 <?php
 
 use Alkhachatryan\LaravelWebConsole\LaravelWebConsoleServiceProvider;
-
 use App\Dao\Enums\Core\BooleanType;
-use App\Dao\Enums\Core\MenuType;
-use App\Dao\Enums\Core\FilterType;
 use App\Dao\Enums\Core\LevelType;
+use App\Dao\Enums\Core\MenuType;
 use App\Dao\Models\Core\SystemGroup;
 use App\Providers\CacheableAuthUserServiceProvider;
 use App\Providers\FacadeServiceProviders;
@@ -13,11 +11,11 @@ use Coderello\SharedData\Facades\SharedData;
 use GeoSot\EnvEditor\Facades\EnvEditor;
 use GeoSot\EnvEditor\ServiceProvider;
 use Ibex\CrudGenerator\CrudServiceProvider;
+use Illuminate\Support\Str;
+use MBarlow\Megaphone\MegaphoneServiceProvider;
 use Plugins\Query;
 use Plugins\Template;
 use Plugins\Views;
-use Illuminate\Support\Str;
-use MBarlow\Megaphone\MegaphoneServiceProvider;
 
 return [
 
@@ -181,7 +179,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\WebDavServiceProvider::class,
-
 
         /*
          * Package Service Providers...

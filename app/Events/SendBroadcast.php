@@ -12,10 +12,14 @@ use MBarlow\Megaphone\Types\BaseAnnouncement;
 
 class SendBroadcast implements ShouldBroadcastNow
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public $data;
+
     public $type;
+
     public $user_id;
 
     /**

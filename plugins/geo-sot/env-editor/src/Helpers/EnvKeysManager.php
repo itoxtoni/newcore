@@ -38,7 +38,7 @@ class EnvKeysManager
     /**
      * Add the  Key  on the Current Env.
      *
-     * @param array<string, int|string> $options
+     * @param  array<string, int|string>  $options
      *
      * @throws EnvException
      */
@@ -52,13 +52,13 @@ class EnvKeysManager
 
         $groupIndex = $givenGroup ?? $env->pluck('group')->unique()->sort()->last() + 1;
 
-        if (!$givenGroup && !$env->last()->isSeparator()) {
+        if (! $givenGroup && ! $env->last()->isSeparator()) {
             $separator = EntryObj::makeKeysSeparator((int) $groupIndex, $env->count() + 1);
             $env->push($separator);
         }
 
         $lastSameGroupIndex = $env->last(function (EntryObj $entry, $key) use ($givenGroup) {
-            return explode('_', $entry->key, 2)[0] == strtoupper($givenGroup) && null !== $entry->key;
+            return explode('_', $entry->key, 2)[0] == strtoupper($givenGroup) && $entry->key !== null;
         });
 
         $index = Arr::get(
@@ -81,7 +81,7 @@ class EnvKeysManager
      */
     public function edit(string $keyToChange, mixed $newValue = null): bool
     {
-        if (!$this->has($keyToChange)) {
+        if (! $this->has($keyToChange)) {
             throw new EnvException(__(ServiceProvider::TRANSLATE_PREFIX.'exceptions.keyNotExists', ['name' => $keyToChange]), 11);
         }
         $env = $this->getEnvData();
@@ -103,7 +103,7 @@ class EnvKeysManager
      */
     public function delete(string $key): bool
     {
-        if (!$this->has($key)) {
+        if (! $this->has($key)) {
             throw new EnvException(__(ServiceProvider::TRANSLATE_PREFIX.'exceptions.keyNotExists', ['name' => $key]), 10);
         }
         $env = $this->getEnvData();

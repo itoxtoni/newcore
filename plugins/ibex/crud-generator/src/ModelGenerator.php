@@ -13,15 +13,13 @@ class ModelGenerator
     private $functions = null;
 
     private $table;
+
     private $properties;
+
     private $modelNamespace;
 
     /**
      * ModelGenerator constructor.
-     *
-     * @param  string  $table
-     * @param  string  $properties
-     * @param  string  $modelNamespace
      */
     public function __construct(string $table, string $properties, string $modelNamespace)
     {

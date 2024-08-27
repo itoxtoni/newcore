@@ -24,8 +24,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Do not make these columns fillable in Model or views.
-     *
-     * @var array
      */
     protected array $unwantedColumns = [
         'id',
@@ -69,7 +67,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
     /**
      * Create a new controller creator command instance.
      *
-     * @param  Filesystem  $files
      *
      * @return void
      */
@@ -111,10 +108,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Build the directory if necessary.
-     *
-     * @param  string  $path
-     *
-     * @return string
      */
     protected function makeDirectory(string $path): string
     {
@@ -127,9 +120,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Write the file/Class.
-     *
-     * @param $path
-     * @param $content
      */
     protected function write($path, $content): void
     {
@@ -141,10 +131,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
     /**
      * Get the stub file.
      *
-     * @param  string  $type
-     * @param  boolean  $content
      *
-     * @return string
      * @throws FileNotFoundException
      */
     protected function getStub(string $type, bool $content = true): string
@@ -164,71 +151,36 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
         return $this->files->get($path);
     }
 
-    /**
-     * @param  int  $no
-     *
-     * @return string
-     */
     private function _getSpace(int $no = 1): string
     {
         return str_repeat("\t", $no);
     }
 
-    /**
-     * @param $name
-     *
-     * @return string
-     */
     protected function _getControllerPath($name): string
     {
         return app_path($this->_getNamespacePath($this->controllerNamespace)."{$name}Controller.php");
     }
 
-    /**
-     * @param $name
-     *
-     * @return string
-     */
     protected function _getApiControllerPath($name): string
     {
         return app_path($this->_getNamespacePath($this->apiControllerNamespace)."{$name}Controller.php");
     }
 
-    /**
-     * @param $name
-     *
-     * @return string
-     */
     protected function _getResourcePath($name): string
     {
         return app_path($this->_getNamespacePath($this->resourceNamespace)."{$name}Resource.php");
     }
 
-    /**
-     * @param $name
-     *
-     * @return string
-     */
     protected function _getLivewirePath($name): string
     {
         return app_path($this->_getNamespacePath($this->livewireNamespace)."{$name}.php");
     }
 
-    /**
-     * @param $name
-     *
-     * @return string
-     */
     protected function _getRequestPath($name): string
     {
         return app_path($this->_getNamespacePath($this->requestNamespace)."{$name}Model.php");
     }
 
-    /**
-     * @param $name
-     *
-     * @return string
-     */
     protected function _getModelPath($name): string
     {
         return $this->makeDirectory(app_path($this->_getNamespacePath($this->modelNamespace)."$name.php"));
@@ -236,10 +188,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Get the path from namespace.
-     *
-     * @param $namespace
-     *
-     * @return string
      */
     private function _getNamespacePath($namespace): string
     {
@@ -250,19 +198,12 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Get the default layout path.
-     *
-     * @return string
      */
     private function _getLayoutPath(): string
     {
-        return $this->makeDirectory(resource_path("/views/layouts/app.blade.php"));
+        return $this->makeDirectory(resource_path('/views/layouts/app.blade.php'));
     }
 
-    /**
-     * @param $view
-     *
-     * @return string
-     */
     protected function _getViewPath($view): string
     {
         $name = Str::kebab($this->name);
@@ -276,8 +217,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Build the replacement.
-     *
-     * @return array
      */
     protected function buildReplacements(): array
     {
@@ -309,13 +248,8 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
     /**
      * Build the form fields for form.
      *
-     * @param $title
-     * @param $column
-     * @param  string  $type
      *
-     * @return string
      * @throws FileNotFoundException
-     *
      */
     protected function getField($title, $column, string $type = 'form-field'): string
     {
@@ -326,15 +260,12 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
         ]);
 
         return str_replace(
-            array_keys($replace), array_values($replace), $this->getStub("views/{$this->options['stack']}/$type")
+            array_keys($replace),
+            array_values($replace),
+            $this->getStub("views/{$this->options['stack']}/$type")
         );
     }
 
-    /**
-     * @param $title
-     *
-     * @return string
-     */
     protected function getHead($title): string
     {
         $replace = array_merge($this->buildReplacements(), [
@@ -353,11 +284,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
         );
     }
 
-    /**
-     * @param $column
-     *
-     * @return string
-     */
     protected function getBody($column): string
     {
         $replace = array_merge($this->buildReplacements(), [
@@ -410,8 +336,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Get the DB Table columns.
-     *
-     * @return array|null
      */
     protected function getColumns(): ?array
     {
@@ -422,9 +346,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
         return $this->tableColumns;
     }
 
-    /**
-     * @return array
-     */
     protected function getFilteredColumns(): array
     {
         $unwanted = $this->unwantedColumns;
@@ -441,8 +362,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Make model attributes/replacements.
-     *
-     * @return array
      */
     protected function modelReplacements(): array
     {
@@ -526,8 +445,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Get the desired class name from the input.
-     *
-     * @return string
      */
     protected function getNameInput(): string
     {
@@ -549,8 +466,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Get the console command arguments.
-     *
-     * @return array
      */
     protected function getArguments(): array
     {
@@ -566,10 +481,6 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     /**
      * Installs the given Composer Packages into the application.
-     *
-     * @param  array  $packages
-     * @param  bool  $asDev
-     * @return bool
      */
     protected function requireComposerPackages(array $packages, bool $asDev = false): bool
     {
@@ -580,17 +491,14 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
         );
 
         return (new Process($command, base_path(), ['COMPOSER_MEMORY_LIMIT' => '-1']))
-                ->setTimeout(null)
-                ->run(function ($type, $output) {
-                    $this->output->write($output);
-                }) === 0;
+            ->setTimeout(null)
+            ->run(function ($type, $output) {
+                $this->output->write($output);
+            }) === 0;
     }
 
     /**
      * Run the given commands.
-     *
-     * @param  array  $commands
-     * @return void
      */
     protected function runCommands(array $commands): void
     {

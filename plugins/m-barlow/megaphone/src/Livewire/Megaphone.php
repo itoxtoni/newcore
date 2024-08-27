@@ -4,7 +4,6 @@ namespace MBarlow\Megaphone\Livewire;
 
 use Illuminate\Http\Request;
 use Illuminate\Notifications\DatabaseNotification;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Megaphone extends Component
@@ -52,12 +51,12 @@ class Megaphone extends Component
 
     public function getListeners()
     {
-        if(env('BROADCAST_DRIVER') == null) {
+        if (env('BROADCAST_DRIVER') == null) {
             return [];
         }
 
         return [
-            "echo-private:broadcast,SendBroadcast" => 'mount',
+            'echo-private:broadcast,SendBroadcast' => 'mount',
         ];
 
     }

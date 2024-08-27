@@ -2,8 +2,8 @@
 
 namespace App\Http\Services\Core;
 
-use Plugins\Alert;
 use GeoSot\EnvEditor\Facades\EnvEditor as EnvEditor;
+use Plugins\Alert;
 
 class CreateSettingService
 {
@@ -21,7 +21,7 @@ class CreateSettingService
             if ($data->has('logo')) {
                 $file_logo = $data->file('logo');
                 $extension = $file_logo->extension();
-                $name = 'logo.' . $extension;
+                $name = 'logo.'.$extension;
                 // $name = time().'.'.$name;
 
                 $file_logo->storeAs('/public/', $name);
@@ -32,6 +32,7 @@ class CreateSettingService
 
         } catch (\Throwable $th) {
             Alert::error($th->getMessage());
+
             return $th->getMessage();
         }
 

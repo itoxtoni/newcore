@@ -16,7 +16,8 @@ use Plugins\Response;
 
 class PermissionController extends MasterController
 {
-    use CreateFunction, UpdateFunction;
+    use CreateFunction;
+    use UpdateFunction;
 
     public function __construct(PermisionModel $model, SingleService $service)
     {
@@ -45,6 +46,7 @@ class PermissionController extends MasterController
     public function postSort(SortRequest $request)
     {
         $data = self::$service->sort($request);
+
         return Response::redirectBack($data);
     }
 

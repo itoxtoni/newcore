@@ -13,7 +13,7 @@ class LaravelWebConsole
 
     public function requestHandler(Request $request)
     {
-        $rpc_server = new WebConsoleRPCServer();
+        $rpc_server = new WebConsoleRPCServer;
         $rpc_server->Execute();
     }
 }

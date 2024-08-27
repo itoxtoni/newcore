@@ -100,5 +100,4 @@ trait UserEntity
     {
         return $this->{RoleModel::field_name()};
     }
-
 }

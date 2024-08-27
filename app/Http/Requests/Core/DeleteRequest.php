@@ -11,7 +11,6 @@ class DeleteRequest extends FormRequest
      *
      * @return array
      */
-
     public function withValidator($validator)
     {
         // $validator->after(function ($validator) {
@@ -22,7 +21,7 @@ class DeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required'
+            'code' => 'required',
         ];
     }
 

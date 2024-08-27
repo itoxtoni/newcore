@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Core;
 
+use App\Actions\ActionSaveSetting;
 use App\Dao\Enums\Core\BooleanType;
-use App\Http\Services\Core\CreateSettingService;
-use Plugins\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\SettingRequest;
+use Plugins\Response;
 
 class SettingController extends Controller
 {
@@ -14,8 +14,9 @@ class SettingController extends Controller
     {
         $view = [
             'model' => false,
-            'active' => BooleanType::getOptions()
+            'active' => BooleanType::getOptions(),
         ];
+
         return array_merge($view, $data);
     }
 
@@ -24,9 +25,10 @@ class SettingController extends Controller
         return moduleView(modulePathForm(path: true), $this->share());
     }
 
-    public function postCreate(SettingRequest $request, CreateSettingService $service)
+    public function postCreate(SettingRequest $request, ActionSaveSetting $service)
     {
-        $data = $service->save($request);
+        $data = $service->run($request);
+
         return Response::redirectBack($data);
     }
 }

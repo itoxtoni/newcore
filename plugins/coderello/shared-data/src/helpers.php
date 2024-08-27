@@ -12,7 +12,7 @@ if (! function_exists('shared')) {
 
 if (! function_exists('share')) {
     /**
-     * @param array $args
+     * @param  array  $args
      * @return \Coderello\SharedData\SharedData
      */
     function share(...$args)

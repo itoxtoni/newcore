@@ -12,6 +12,7 @@ class Team extends SystemModel
     use TeamEntity;
 
     protected $table = 'teams';
+
     protected $primaryKey = 'team_id';
 
     protected $fillable = [
@@ -27,7 +28,7 @@ class Team extends SystemModel
     ];
 
     protected $casts = [
-        'team_user_id' => 'integer'
+        'team_user_id' => 'integer',
     ];
 
     public static function field_name()
@@ -66,5 +67,4 @@ class Team extends SystemModel
 
         return $query;
     }
-
 }

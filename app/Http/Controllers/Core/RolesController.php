@@ -6,9 +6,9 @@ use App\Dao\Enums\Core\LevelType;
 use App\Facades\Model\GroupModel;
 use App\Facades\Model\RoleModel;
 use App\Http\Requests\Core\RoleRequest;
+use App\Http\Services\Core\UpdateRoleService;
 use App\Http\Services\Master\CreateService;
 use App\Http\Services\Master\SingleService;
-use App\Http\Services\Core\UpdateRoleService;
 use Plugins\Response;
 
 class RolesController extends MasterController
@@ -20,26 +20,29 @@ class RolesController extends MasterController
         self::$is_core = true;
     }
 
-    protected function beforeForm(){
+    protected function beforeForm()
+    {
 
         $group = GroupModel::getOptions();
         $level = LevelType::getOptions();
 
         self::$share = [
             'group' => $group,
-            'level' => $level
+            'level' => $level,
         ];
     }
 
     public function postCreate(RoleRequest $request, CreateService $service)
     {
         $data = $service->save($this->model, $request);
+
         return Response::redirectBack($data);
     }
 
     public function postUpdate($code, RoleRequest $request, UpdateRoleService $service)
     {
         $data = $service->update($this->model, $request, $code);
+
         return Response::redirectBack($data);
     }
 

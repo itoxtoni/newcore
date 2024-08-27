@@ -6,16 +6,19 @@ use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\SystemMenuEntity;
 use App\Dao\Enums\Core\MenuType;
 use App\Facades\Model\LinkModel;
-use Plugins\Core;
 use Illuminate\Support\Str;
+use Plugins\Core;
 
 class SystemMenu extends SystemModel
 {
     use SystemMenuEntity;
 
     protected $table = 'system_menu';
+
     protected $primaryKey = 'system_menu_code';
+
     protected $with = ['has_link'];
+
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -41,7 +44,7 @@ class SystemMenu extends SystemModel
 
     protected $casts = [
         'system_menu_enable' => 'integer',
-        'system_menu_can_delete' => 'integer'
+        'system_menu_can_delete' => 'integer',
     ];
 
     public function fieldDatatable(): array
@@ -64,24 +67,23 @@ class SystemMenu extends SystemModel
     public static function boot()
     {
         parent::creating(function ($model) {
-            if(empty($model->{SystemMenu::field_action()}) && ($model->{SystemMenu::field_type()} == MenuType::Menu)){
+            if (empty($model->{SystemMenu::field_action()}) && ($model->{SystemMenu::field_type()} == MenuType::Menu)) {
                 $act = '.getTable';
-                if(str_contains($model->{SystemMenu::field_name()}, 'report')){
+                if (str_contains($model->{SystemMenu::field_name()}, 'report')) {
                     $act = '.getCreate';
                 }
                 $model->{SystemMenu::field_action()} = Core::getControllerName($model->{SystemMenu::field_controller()}).$act;
             }
         });
 
-        parent::saving(function($model){
-            if($model->{SystemMenu::field_type()} == MenuType::Menu){
+        parent::saving(function ($model) {
+            if ($model->{SystemMenu::field_type()} == MenuType::Menu) {
 
                 $model->{SystemMenu::field_primary()} = Core::getControllerName($model->{SystemMenu::field_controller()});
-                if(empty($model->{SystemMenu::field_url()})){
+                if (empty($model->{SystemMenu::field_url()})) {
                     $model->{SystemMenu::field_url()} = Core::getControllerName($model->{SystemMenu::field_controller()});
                 }
-            }
-            else{
+            } else {
                 $model->{SystemMenu::field_primary()} = Str::snake($model->{SystemMenu::field_name()});
             }
         });

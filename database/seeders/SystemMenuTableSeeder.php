@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class SystemMenuTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -16,10 +15,9 @@ class SystemMenuTableSeeder extends Seeder
     public function run()
     {
 
-
         DB::table('system_menu')->delete();
 
-        DB::table('system_menu')->insert(array(
+        DB::table('system_menu')->insert([
             [
                 'system_menu_code' => 'roles',
                 'system_menu_name' => 'Roles',
@@ -28,8 +26,8 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_action' => 'roles.getTable',
                 'system_menu_type' => 1,
                 'system_menu_sort' => 9,
-                'system_menu_description' => NULL,
-                'system_menu_enable' => NULL,
+                'system_menu_description' => null,
+                'system_menu_enable' => null,
                 'system_menu_can_delete' => 1,
             ],
             [
@@ -39,21 +37,21 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_controller' => 'App\\Http\\Controllers\\Core\\UserController',
                 'system_menu_action' => 'user.getTable',
                 'system_menu_type' => 1,
-                'system_menu_sort' => NULL,
+                'system_menu_sort' => null,
                 'system_menu_description' => '',
-                'system_menu_enable' => NULL,
+                'system_menu_enable' => null,
                 'system_menu_can_delete' => 1,
             ],
             [
                 'system_menu_code' => 'master',
                 'system_menu_name' => 'Master',
                 'system_menu_url' => 'master',
-                'system_menu_controller' => NULL,
-                'system_menu_action' => NULL,
+                'system_menu_controller' => null,
+                'system_menu_action' => null,
                 'system_menu_type' => 2,
-                'system_menu_sort' => NULL,
-                'system_menu_description' => NULL,
-                'system_menu_enable' => NULL,
+                'system_menu_sort' => null,
+                'system_menu_description' => null,
+                'system_menu_enable' => null,
                 'system_menu_can_delete' => 1,
             ],
             [
@@ -63,9 +61,9 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_controller' => 'App\\Http\\Controllers\\Core\\SettingController',
                 'system_menu_action' => 'setting.getCreate',
                 'system_menu_type' => 1,
-                'system_menu_sort' => NULL,
+                'system_menu_sort' => null,
                 'system_menu_description' => '',
-                'system_menu_enable' => NULL,
+                'system_menu_enable' => null,
                 'system_menu_can_delete' => 1,
             ],
             [
@@ -76,8 +74,8 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_action' => 'groups.getTable',
                 'system_menu_type' => 1,
                 'system_menu_sort' => 10,
-                'system_menu_description' => NULL,
-                'system_menu_enable' => NULL,
+                'system_menu_description' => null,
+                'system_menu_enable' => null,
                 'system_menu_can_delete' => 1,
             ],
             [
@@ -89,7 +87,7 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_type' => 1,
                 'system_menu_sort' => 8,
                 'system_menu_description' => '',
-                'system_menu_enable' => NULL,
+                'system_menu_enable' => null,
                 'system_menu_can_delete' => 1,
             ],
             [
@@ -100,8 +98,8 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_action' => 'link.getTable',
                 'system_menu_type' => 1,
                 'system_menu_sort' => 7,
-                'system_menu_description' => NULL,
-                'system_menu_enable' => NULL,
+                'system_menu_description' => null,
+                'system_menu_enable' => null,
                 'system_menu_can_delete' => 1,
             ],
             [
@@ -111,9 +109,9 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_controller' => 'App\\Http\\Controllers\\Core\\PermissionController',
                 'system_menu_action' => 'permission.getTable',
                 'system_menu_type' => 1,
-                'system_menu_sort' => NULL,
-                'system_menu_description' => NULL,
-                'system_menu_enable' => NULL,
+                'system_menu_sort' => null,
+                'system_menu_description' => null,
+                'system_menu_enable' => null,
                 'system_menu_can_delete' => 1,
             ],
             [
@@ -123,12 +121,12 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_controller' => 'App\Http\Controllers\ReportUserController',
                 'system_menu_action' => 'report_user.getCreate',
                 'system_menu_type' => 1,
-                'system_menu_sort' => NULL,
-                'system_menu_description' => NULL,
-                'system_menu_enable' => NULL,
+                'system_menu_sort' => null,
+                'system_menu_description' => null,
+                'system_menu_enable' => null,
                 'system_menu_can_delete' => 1,
-            ]
-        ));
+            ],
+        ]);
 
     }
 }

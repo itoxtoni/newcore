@@ -13,7 +13,9 @@ class SystemRole extends SystemModel
     use SystemRoleEntity;
 
     protected $table = 'system_role';
+
     protected $primaryKey = 'system_role_code';
+
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -57,7 +59,7 @@ class SystemRole extends SystemModel
     public static function boot()
     {
         parent::creating(function ($model) {
-            if(empty($model->{SystemRole::field_primary()})){
+            if (empty($model->{SystemRole::field_primary()})) {
                 $model->{SystemRole::field_primary()} = Str::camel($model->{SystemRole::field_name()});
             }
         });

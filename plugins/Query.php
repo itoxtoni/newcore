@@ -9,8 +9,8 @@ use App\Facades\Model\MenuModel;
 use App\Facades\Model\PermisionModel;
 use App\Facades\Model\RoleModel;
 use App\Facades\Model\UserModel;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class Query
 {
@@ -19,9 +19,10 @@ class Query
         if (env('CACHE_ACCESS', false)) {
             if (Cache::has('groups')) {
                 $cache = Cache::get('groups');
-                if ($role && !empty($cache)) {
+                if ($role && ! empty($cache)) {
                     $cache = $cache->where('system_role_code', auth()->user()->role);
                 }
+
                 return $cache;
             }
         }
@@ -57,9 +58,10 @@ class Query
         if (env('CACHE_ACCESS', false)) {
             if (Cache::has('menu')) {
                 $cache = Cache::get('menu');
-                if ($action && !empty($cache)) {
+                if ($action && ! empty($cache)) {
                     $cache = $cache->where('menu_code', $action)->first();
                 }
+
                 return $cache;
             }
         }
@@ -67,16 +69,16 @@ class Query
         $menu = [];
         try {
             $menu = DB::table(MenuModel::getTableName())
-            ->select([
-                DB::raw('COALESCE(system_link.system_link_code, system_menu.system_menu_code) as menu_code'),
-                DB::raw('COALESCE(system_link.system_link_controller, system_menu.system_menu_controller) as menu_controller'),
-                DB::raw('COALESCE(system_link.system_link_action, system_menu.system_menu_action) as menu_action'),
-                DB::raw('COALESCE(system_link.system_link_name, system_menu.system_menu_name) as menu_name'),
-                DB::raw('COALESCE(system_link.system_link_url, system_menu.system_menu_url) as menu_url'),
-            ])
-            ->leftJoin('system_menu_connection_link', 'system_menu.system_menu_code', '=', 'system_menu_connection_link.system_menu_code')
-            ->leftJoin(LinkModel::getTableName(), 'system_menu_connection_link.system_link_code', '=', 'system_link.system_link_code')
-            ->get();
+                ->select([
+                    DB::raw('COALESCE(system_link.system_link_code, system_menu.system_menu_code) as menu_code'),
+                    DB::raw('COALESCE(system_link.system_link_controller, system_menu.system_menu_controller) as menu_controller'),
+                    DB::raw('COALESCE(system_link.system_link_action, system_menu.system_menu_action) as menu_action'),
+                    DB::raw('COALESCE(system_link.system_link_name, system_menu.system_menu_name) as menu_name'),
+                    DB::raw('COALESCE(system_link.system_link_url, system_menu.system_menu_url) as menu_url'),
+                ])
+                ->leftJoin('system_menu_connection_link', 'system_menu.system_menu_code', '=', 'system_menu_connection_link.system_menu_code')
+                ->leftJoin(LinkModel::getTableName(), 'system_menu_connection_link.system_link_code', '=', 'system_link.system_link_code')
+                ->get();
 
             Cache::put('menu', $menu);
         } catch (\Throwable $th) {
@@ -160,8 +162,8 @@ class Query
     public static function autoNumber($tablename, $fieldid, $prefix = 'AUTO', $codelength = 15)
     {
         $db = DB::table($tablename);
-        $db->select(DB::raw('max(' . $fieldid . ') as maxcode'));
-        $db->where($fieldid, "like", "$prefix%");
+        $db->select(DB::raw('max('.$fieldid.') as maxcode'));
+        $db->where($fieldid, 'like', "$prefix%");
 
         $ambil = $db->first();
         $data = $ambil->maxcode;
@@ -172,7 +174,8 @@ class Query
         } else {
             $countcode = 1;
         }
-        $newcode = $prefix . str_pad($countcode, $codelength - strlen($prefix), "0", STR_PAD_LEFT);
+        $newcode = $prefix.str_pad($countcode, $codelength - strlen($prefix), '0', STR_PAD_LEFT);
+
         return $newcode;
     }
 
@@ -180,14 +183,13 @@ class Query
     {
         $data = [];
         $user = UserModel::select(UserModel::field_primary(), UserModel::field_name())
-        ->where(UserModel::field_type(), $role)
-        ->get();
+            ->where(UserModel::field_type(), $role)
+            ->get();
 
-        if($user){
+        if ($user) {
             $data = $user->pluck(UserModel::field_name(), UserModel::field_primary());
         }
 
         return $data;
     }
-
 }

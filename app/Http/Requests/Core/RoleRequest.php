@@ -9,7 +9,7 @@ class RoleRequest extends FormRequest
 {
     use ValidationTrait;
 
-    public function validation() : array
+    public function validation(): array
     {
         return [
             'system_role_name' => 'required|min:3',

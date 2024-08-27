@@ -12,13 +12,14 @@ class UpdateTeamService
         if ($check['status']) {
             $check['data']->has_user()->sync($data->team);
 
-            if(request()->wantsJson()){
+            if (request()->wantsJson()) {
                 return response()->json($check)->getData();
             }
             Alert::update();
         } else {
             Alert::error($check['message']);
         }
+
         return $check;
     }
 }

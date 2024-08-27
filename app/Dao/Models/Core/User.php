@@ -16,23 +16,35 @@ use Database\Factories\UserFactory;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as AuthMustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Kirschbaum\PowerJoins\PowerJoins;
 use Kyslik\ColumnSortable\Sortable;
+use Laravel\Sanctum\HasApiTokens;
+use MBarlow\Megaphone\HasMegaphone;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
-use MBarlow\Megaphone\HasMegaphone;
 
-class User extends Authenticatable
-implements AuthMustVerifyEmail
+class User extends Authenticatable implements AuthMustVerifyEmail
 {
-    use
-    MustVerifyEmail ,
-    HasFactory, HasMegaphone, Notifiable, HasApiTokens, Sortable, FilterQueryString, Sanitizable, CrudRepository, DataTableTrait, DefaultEntity, UserEntity, ActiveTrait, PowerJoins, OptionTrait;
+    use ActiveTrait;
+    use CrudRepository;
+    use DataTableTrait;
+    use DefaultEntity;
+    use FilterQueryString;
+    use HasApiTokens;
+    use HasFactory;
+    use HasMegaphone;
+    use MustVerifyEmail;
+    use Notifiable;
+    use OptionTrait;
+    use PowerJoins;
+    use Sanitizable;
+    use Sortable;
+    use UserEntity;
 
     protected $table = 'users';
+
     protected $primaryKey = 'id';
 
     protected $fillable = [
@@ -71,6 +83,7 @@ implements AuthMustVerifyEmail
     ];
 
     public $timestamps = true;
+
     public $incrementing = true;
 
     public static function field_name()
@@ -110,6 +123,7 @@ implements AuthMustVerifyEmail
     {
         $query = $this->queryFilter($query);
         $query = $query->orderBy(RoleModel::field_name(), $direction);
+
         return $query;
     }
 
@@ -127,13 +141,13 @@ implements AuthMustVerifyEmail
         return $query;
     }
 
-     /**
+    /**
      * Send the email verification notification.
      *
      * @return void
      */
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new VerifyUserQueue());
+        $this->notify(new VerifyUserQueue);
     }
 }

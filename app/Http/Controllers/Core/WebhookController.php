@@ -14,7 +14,7 @@ class WebhookController extends Controller
         $githubPayload = $request->getContent();
         $githubHash = $request->header('X-Hub-Signature');
         $localToken = env('GITHUB_WEBHOOK_SECRET');
-        $localHash = 'sha1=' . hash_hmac('sha1', $githubPayload, $localToken, false);
+        $localHash = 'sha1='.hash_hmac('sha1', $githubPayload, $localToken, false);
         if (hash_equals($githubHash, $localHash)) {
 
             chdir(base_path());
@@ -22,7 +22,7 @@ class WebhookController extends Controller
             $process->run();
 
             // executes after the command finishes
-            if (!$process->isSuccessful()) {
+            if (! $process->isSuccessful()) {
                 throw new ProcessFailedException($process);
             }
 
