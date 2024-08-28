@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/js/vite.js',
                 'resources/sass/app.scss',
                 'resources/auth/css/style.scss',
+                'resources/zunzo/stylesheets/style.css',
             ],
             refresh: true,
         }),

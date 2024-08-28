@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="{{ url('assets/media/image/favicon.png') }}"/>
 
     <!-- App styles -->
-    <link rel="stylesheet" href="{{ url('assets/css/app.min.css') }}" type="text/css">
+    @vite(['resources/sass/app.scss'])
 </head>
 <body class="error-page bg-white">
 

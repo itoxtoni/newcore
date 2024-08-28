@@ -70,7 +70,9 @@ class LoginController extends Controller
 
     protected function credentials(\Illuminate\Http\Request $request)
     {
-        return array_merge($request->only($this->username(), 'password'), ['active' => 1]);
+        // $add = ['active' => 1];
+        $add = [];
+        return array_merge($request->only($this->username(), 'password'), $add);
     }
 
     protected function validateLogin(Request $request)
