@@ -15,21 +15,22 @@ use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
 class SystemModel extends Model
 {
-    use Sortable
-    , FilterQueryString
-    , Sanitizable
-    , DataTableTrait
-    , DefaultEntity
-    , ActiveTrait
-    , OptionTrait
-    , PowerJoins
-    , CrudRepository;
+    use ActiveTrait;
+    use CrudRepository;
+    use DataTableTrait;
+    use DefaultEntity;
+    use FilterQueryString;
+    use OptionTrait;
+    use PowerJoins;
+    use Sanitizable;
+    use Sortable;
 
     protected $filters = [
         'filter',
     ];
 
     public $timestamps = false;
+
     public $incrementing = false;
 
     public function fieldSearching()

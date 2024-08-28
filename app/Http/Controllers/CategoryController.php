@@ -10,7 +10,8 @@ use App\Http\Services\Master\SingleService;
 
 class CategoryController extends MasterController
 {
-    use CreateFunction, UpdateFunction;
+    use CreateFunction;
+    use UpdateFunction;
 
     public function __construct(CategoryModel $model, SingleService $service)
     {

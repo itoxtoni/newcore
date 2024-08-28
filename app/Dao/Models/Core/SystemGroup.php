@@ -12,7 +12,9 @@ class SystemGroup extends SystemModel
     use SystemGroupEntity;
 
     protected $table = 'system_group';
+
     protected $primaryKey = 'system_group_code';
+
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -32,7 +34,7 @@ class SystemGroup extends SystemModel
     ];
 
     protected $casts = [
-        'system_group_sort' => 'integer'
+        'system_group_sort' => 'integer',
     ];
 
     public static function field_name()

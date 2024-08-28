@@ -10,9 +10,13 @@ class MenuType extends Enum implements LocalizedEnum
 {
     use StatusTrait;
 
-    const Menu = 1;
-    const Group = 2;
-    const Internal = 3;
-    const External = 4;
-    const Devider = 5;
+    public const Menu = 1;
+
+    public const Group = 2;
+
+    public const Internal = 3;
+
+    public const External = 4;
+
+    public const Devider = 5;
 }

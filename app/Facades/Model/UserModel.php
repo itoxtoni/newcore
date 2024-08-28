@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \App\Dao\Models\Core\User
  */
-
 class UserModel extends Facade
 {
     protected static function getFacadeAccessor()

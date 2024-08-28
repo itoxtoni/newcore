@@ -10,9 +10,13 @@ class NotificationType extends Enum implements LocalizedEnum
 {
     use StatusTrait;
 
-    const Success = 'success';
-    const Warning = 'warning';
-    const Info = 'info';
-    const Question = 'question';
-    const Error = 'error';
+    public const Success = 'success';
+
+    public const Warning = 'warning';
+
+    public const Info = 'info';
+
+    public const Question = 'question';
+
+    public const Error = 'error';
 }

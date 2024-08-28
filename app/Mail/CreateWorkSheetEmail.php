@@ -8,15 +8,17 @@ use Illuminate\Queue\SerializesModels;
 
 class CreateWorkSheetEmail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
+    public $data;
 
-    public $data, $type;
+    public $type;
 
     public function __construct($data, $type)
     {

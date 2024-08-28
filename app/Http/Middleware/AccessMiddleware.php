@@ -4,11 +4,11 @@ namespace App\Http\Middleware;
 
 use App\Dao\Models\Core\SystemPermision;
 use Closure;
+use Coderello\SharedData\Facades\SharedData;
 use Illuminate\Support\Facades\Blade;
 use Plugins\Alert;
 use Plugins\Core;
 use Plugins\Query;
-use Coderello\SharedData\Facades\SharedData;
 
 class AccessMiddleware
 {
@@ -19,7 +19,6 @@ class AccessMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-
     private function getController($action)
     {
         $status = false;
@@ -27,21 +26,32 @@ class AccessMiddleware
             $array_controller = explode('@', $action['controller']) ?? [];
             $action_controller = Core::getControllerName($array_controller[0]);
             $action_full_controller = $array_controller[0];
+
             return [$action_controller => $action_full_controller];
         }
 
         return $status;
     }
 
+    private function checkAllowUrl()
+    {
+        $data = [
+            'home',
+            'profile',
+        ];
+
+        return ! (in_array(request()->segment(1), $data));
+    }
+
     private function getGroup()
     {
-        if (request()->segment(1) != 'home') {
+        if ($this->checkAllowUrl()) {
             $group = Query::groups(true);
-        } else{
+        } else {
             $group = Query::groups(auth()->user()->role);
         }
 
-        if ($group->count() == 0 && request()->segment(1) != 'home') {
+        if ($group->count() == 0 && $this->checkAllowUrl()) {
             Alert::error(ERROR_PERMISION);
             abort(402, ERROR_PERMISION);
         }
@@ -49,10 +59,11 @@ class AccessMiddleware
         return $group;
     }
 
-    private function checkPermision($data_access, $access, $action_code){
+    private function checkPermision($data_access, $access, $action_code)
+    {
         if ($data_access) {
-            Blade::if ('can', function ($value) use ($access) {
-                return !(in_array(moduleAction($value), $access));
+            Blade::if('can', function ($value) use ($access) {
+                return ! (in_array(moduleAction($value), $access));
             });
 
             $check = $data_access
@@ -96,17 +107,17 @@ class AccessMiddleware
         $nav = session()->get('navigation');
         $url = url()->current();
         $data = isset($menu['menu_action']) ? $menu : [
-            'menu_code' => "home",
+            'menu_code' => 'home',
             'menu_controller' => "App\Http\Controllers\Core\HomeController",
-            'menu_action' => "home",
-            'menu_name' => "Home",
-            'menu_url' => "home",
+            'menu_action' => 'home',
+            'menu_name' => 'Home',
+            'menu_url' => 'home',
         ];
 
         $code = $data['menu_action'];
 
-        if($code){
-            if(empty($nav) ||!array_keys($nav, $code)){
+        if ($code) {
+            if (empty($nav) || ! array_keys($nav, $code)) {
                 $nav[$code] = array_merge($data, ['url' => $url]);
                 session()->put('navigation', $nav);
             }
@@ -115,7 +126,7 @@ class AccessMiddleware
 
     public function handle($request, Closure $next)
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             return redirect()->route('login');
         }
 
@@ -158,7 +169,8 @@ class AccessMiddleware
 
             SharedData::put($data);
 
-        } catch (\Throwable $th) {}
+        } catch (\Throwable $th) {
+        }
 
         return $next($request);
     }

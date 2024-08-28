@@ -2,13 +2,7 @@
 
 use App\Dao\Enums\Core\MenuType;
 use App\Dao\Enums\Core\NotificationType;
-use App\Dao\Models\Core\User;
-use App\Events\SendBell;
-use App\Events\SendBroadcast;
-use App\Facades\Model\UserModel;
 use App\Http\Controllers\Core\HomeController;
-use App\Http\Controllers\Core\ProfileController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PublicController;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +23,6 @@ Route::get('test', function () {
 
 });
 
-
 Route::get('/signout', 'App\Http\Controllers\Auth\LoginController@logout')->name('signout');
 Route::get('/home', 'App\Http\Controllers\Core\HomeController@index')->middleware(['access'])->name('home');
 Route::get('/delete/{code}', 'App\Http\Controllers\Core\HomeController@delete')->middleware(['access'])->name('delete_url');
@@ -49,9 +42,9 @@ try {
     $routes = [];
 }
 
-if($routes){
-    Route::middleware(['auth', 'access'])->group(function () use($routes) {
-        Route::prefix('admin')->group(function () use ($routes){
+if ($routes) {
+    Route::middleware(['auth', 'access'])->group(function () use ($routes) {
+        Route::prefix('admin')->group(function () use ($routes) {
             if ($routes) {
                 foreach ($routes as $group) {
                     Route::group(['prefix' => $group->field_primary, 'middleware' => [
@@ -62,7 +55,7 @@ if($routes){
                         if ($menus = $group->has_menu) {
                             foreach ($menus as $menu) {
 
-                                if($menu->field_type == MenuType::Menu){
+                                if ($menu->field_type == MenuType::Menu) {
 
                                     Route::group(['prefix' => 'default'], function () use ($menu) {
                                         try {
@@ -72,8 +65,7 @@ if($routes){
                                         }
                                     });
 
-
-                                } elseif($menu->field_type == MenuType::Group){
+                                } elseif ($menu->field_type == MenuType::Group) {
 
                                     if ($links = $menu->has_link) {
                                         Route::group(['prefix' => $menu->field_url], function () use ($links) {

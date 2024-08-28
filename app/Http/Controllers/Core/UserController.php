@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Core;
 
 use App\Facades\Model\RoleModel;
 use App\Facades\Model\UserModel;
-use App\Http\Controllers\Core\MasterController;
 use App\Http\Requests\Core\LoginRequest;
 use App\Http\Requests\Core\UserRequest;
 use App\Http\Services\Master\CreateService;
@@ -35,25 +34,29 @@ class UserController extends MasterController
     public function postCreate(UserRequest $request, CreateService $service)
     {
         $data = $service->save($this->model, $request);
+
         return Response::redirectBack($data);
     }
 
     public function postUpdate($code, UserRequest $request, UpdateService $service)
     {
         $data = $service->update($this->model, $request, $code);
+
         return Response::redirectBack($data);
     }
 
-    public function changePassword(){
+    public function changePassword()
+    {
 
-        if(request()->method() == 'POST'){
+        if (request()->method() == 'POST') {
 
             UserModel::find(auth()->user()->id)->update([
-                'password' => bcrypt(request()->get('password'))
+                'password' => bcrypt(request()->get('password')),
             ]);
 
             return redirect()->route('home');
         }
+
         return view('auth.change_password')->with($this->share());
     }
 
@@ -61,10 +64,10 @@ class UserController extends MasterController
     {
         $user = UserModel::where('username', $request->username)->first();
 
-        if (!Hash::check($request->password, $user->password)) {
+        if (! Hash::check($request->password, $user->password)) {
             return Notes::error([
                 'password' => 'Password Tidak Di temukan',
-            ],'Login Gagal');
+            ], 'Login Gagal');
         }
 
         $token = $user->createToken($user->name);
@@ -83,15 +86,16 @@ class UserController extends MasterController
     public function getProfile()
     {
         $this->beforeForm();
+
         return moduleView(modulePathForm(name: 'form', path: 'core.profile'), $this->share([
-            'model' => auth()->user()
+            'model' => auth()->user(),
         ]));
     }
 
     public function updateProfile(UserRequest $request, UpdateService $service)
     {
         $data = $service->update($this->model, $request, auth()->id());
+
         return Response::redirectBack($data);
     }
-
 }

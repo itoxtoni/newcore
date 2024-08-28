@@ -11,7 +11,7 @@ use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use JsonSerializable;
 
-class SharedData implements Renderable, Jsonable, Arrayable, JsonSerializable, ArrayAccess
+class SharedData implements Arrayable, ArrayAccess, Jsonable, JsonSerializable, Renderable
 {
     /** @var array */
     private $data = [];

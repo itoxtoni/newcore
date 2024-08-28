@@ -2,7 +2,6 @@
 
 namespace App\Http\Services\Master;
 
-use App\Dao\Interfaces\CrudInterface;
 use Plugins\Alert;
 
 class DeleteService

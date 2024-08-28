@@ -55,7 +55,7 @@ class SharedDataServiceProvider extends ServiceProvider implements DeferrablePro
     {
         return [
             SharedData::class,
-            'blade.compiler'
+            'blade.compiler',
         ];
     }
 }

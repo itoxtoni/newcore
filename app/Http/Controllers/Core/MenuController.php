@@ -8,9 +8,9 @@ use App\Facades\Model\LinkModel;
 use App\Facades\Model\MenuModel;
 use App\Http\Requests\Core\MenuRequest;
 use App\Http\Requests\Core\SortRequest;
+use App\Http\Services\Core\UpdateMenuService;
 use App\Http\Services\Master\CreateService;
 use App\Http\Services\Master\SingleService;
-use App\Http\Services\Core\UpdateMenuService;
 use Plugins\Helper;
 use Plugins\Response;
 
@@ -46,18 +46,21 @@ class MenuController extends MasterController
     public function postCreate(MenuRequest $request, CreateService $service)
     {
         $data = $service->save($this->model, $request);
+
         return Response::redirectBack($data);
     }
 
     public function postUpdate($code, MenuRequest $request, UpdateMenuService $service)
     {
         $data = $service->update($this->model, $request, $code);
+
         return Response::redirectBack($data);
     }
 
     public function postSort(SortRequest $request)
     {
         $data = self::$service->sort($request);
+
         return Response::redirectBack($data);
     }
 
@@ -70,7 +73,7 @@ class MenuController extends MasterController
         $selected = $data->has_link->pluck('system_link_code') ?? [];
 
         $action = [];
-        if($data->field_type == MenuType::Menu){
+        if ($data->field_type == MenuType::Menu) {
             $action = Helper::getFunction($data->field_controller, $data->field_primary);
         }
 

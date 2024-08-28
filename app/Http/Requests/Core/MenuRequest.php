@@ -2,10 +2,6 @@
 
 namespace App\Http\Requests\Core;
 
-use App\Dao\Enums\Core\MenuType;
-use App\Dao\Models\Menus;
-use App\Dao\Models\Routes;
-use App\Dao\Models\SystemMenu;
 use App\Dao\Traits\ValidationTrait;
 use App\Facades\Model\MenuModel;
 use Illuminate\Foundation\Http\FormRequest;
@@ -15,7 +11,7 @@ class MenuRequest extends FormRequest
 {
     use ValidationTrait;
 
-    public function validation() : array
+    public function validation(): array
     {
         return [
             'system_menu_name' => 'required|unique:system_menu|min:1',
@@ -26,13 +22,12 @@ class MenuRequest extends FormRequest
     public function prepareForValidation()
     {
         $merge = [];
-        if(empty($this->{MenuModel::field_url()})){
+        if (empty($this->{MenuModel::field_url()})) {
             $merge = [
-                MenuModel::field_url() =>  $this->{MenuModel::field_url()} ?? Str::snake($this->{MenuModel::field_name()})
+                MenuModel::field_url() => $this->{MenuModel::field_url()} ?? Str::snake($this->{MenuModel::field_name()}),
             ];
         }
 
         $this->merge($merge);
     }
-
 }

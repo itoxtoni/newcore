@@ -10,13 +10,18 @@ use Plugins\Template;
 class ReportController extends Controller
 {
     public static $service;
+
     public $model;
+
     public static $template;
+
     public static $share = [];
 
-    protected function beforeForm(){}
-    protected function beforeCreate(){}
-    protected function beforeUpdate($code){}
+    protected function beforeForm() {}
+
+    protected function beforeCreate() {}
+
+    protected function beforeUpdate($code) {}
 
     protected function share($data = [])
     {
@@ -25,12 +30,14 @@ class ReportController extends Controller
             'status' => $status,
             'model' => false,
         ];
+
         return self::$share = array_merge($view, self::$share, $data);
     }
 
     public function getData()
     {
         $query = $this->model->dataRepository();
+
         return $query;
     }
 
@@ -38,6 +45,7 @@ class ReportController extends Controller
     {
         $this->beforeForm();
         $this->beforeCreate();
+
         return view(Template::form(SharedData::get('template')))->with($this->share());
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 use App\Dao\Models\Core\User;
-use App\Facades\Model\UserModel;
 
 return [
 
@@ -78,7 +77,6 @@ return [
             'driver' => 'cacheableEloquent',
             'model' => User::class,
         ],
-
 
         // 'users' => [
         //     'driver' => 'database',

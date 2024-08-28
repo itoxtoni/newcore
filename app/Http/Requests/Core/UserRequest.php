@@ -15,7 +15,7 @@ class UserRequest extends FormRequest
         return [
             'name' => 'required|min:2',
             'username' => 'required|min:2',
-            'email' => 'required|email|unique:users,name,' . $this->id,
+            'email' => 'required|email|unique:users,name,'.$this->id,
         ];
     }
 
@@ -25,13 +25,12 @@ class UserRequest extends FormRequest
             $this->merge([
                 'password' => Hash::make($this->password),
             ]);
-        }
-        else {
+        } else {
             $this->offsetUnset('password');
         }
 
         $this->merge([
-            'active' => 1
+            'active' => 1,
         ]);
     }
 }

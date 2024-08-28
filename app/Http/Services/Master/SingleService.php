@@ -2,16 +2,17 @@
 
 namespace App\Http\Services\Master;
 
-use Plugins\Notes;
 use Plugins\Alert;
+use Plugins\Notes;
 
 class SingleService
 {
     public function get($model, $code, $relation = false)
     {
-        if(request()->wantsJson()){
+        if (request()->wantsJson()) {
             return Notes::single($model->singleRepository($code, $relation));
         }
+
         return $model->singleRepository($code, $relation);
     }
 
@@ -37,7 +38,7 @@ class SingleService
     public function sort($model, $data)
     {
         $check = false;
-        if($data && $model){
+        if ($data && $model) {
             foreach ($data as $key => $value) {
                 $check = $model::find($key)->update([$model->field_sort() => $value]);
             }

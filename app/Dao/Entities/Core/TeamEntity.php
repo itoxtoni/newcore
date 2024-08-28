@@ -2,7 +2,6 @@
 
 namespace App\Dao\Entities\Core;
 
-use App\Dao\Enums\Core\LevelType;
 use App\Facades\Model\UserModel;
 
 trait TeamEntity

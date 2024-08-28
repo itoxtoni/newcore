@@ -1,9 +1,7 @@
 <?php
 
 use App\Dao\Enums\Core\NotificationType;
-use App\Dao\Models\Core\User;
 use App\Events\SendBroadcast;
-use App\Events\SendMessage;
 use App\Facades\Model\UserModel;
 use Carbon\Carbon;
 use Coderello\SharedData\Facades\SharedData;
@@ -13,9 +11,9 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Laravie\SerializesQuery\Eloquent;
 use MBarlow\Megaphone\Types\BaseAnnouncement;
 use MBarlow\Megaphone\Types\General;
-use Laravie\SerializesQuery\Eloquent;
 
 define('ACTION_CREATE', 'getCreate');
 define('ACTION_UPDATE', 'getUpdate');
@@ -29,23 +27,24 @@ define('ERROR_PERMISION', 'Maaf anda tidak punya otorisasi untuk melakukan hal i
 define('UPLOAD', 'upload');
 define('KEY', 'key');
 
-function module($module = null){
+function module($module = null)
+{
     return SharedData::get($module);
 }
 
 function moduleCode($name = null)
 {
-    return !empty($name) ? $name : SharedData::get('module_code');
+    return ! empty($name) ? $name : SharedData::get('module_code');
 }
 
 function moduleName($name = null)
 {
-    return !empty($name) ? __($name) : __(SharedData::get('menu_name'));
+    return ! empty($name) ? __($name) : __(SharedData::get('menu_name'));
 }
 
 function moduleAction($name = null)
 {
-    return moduleCode() . '.' . $name;
+    return moduleCode().'.'.$name;
 }
 
 function moduleRoute($action, $param = false)
@@ -55,7 +54,7 @@ function moduleRoute($action, $param = false)
 
 function modulePath($name = null)
 {
-    return !empty($name) ? $name : moduleCode($name);
+    return ! empty($name) ? $name : moduleCode($name);
 }
 
 function modulePathTable($name = null, $core = false)
@@ -63,16 +62,16 @@ function modulePathTable($name = null, $core = false)
     $path = $core ? 'core.' : 'pages.';
 
     if ($name) {
-        return $path . $name . '.table';
+        return $path.$name.'.table';
     }
 
-    return $path . moduleCode() . '.table';
+    return $path.moduleCode().'.table';
 }
 
 function modulePathPrint($name = null)
 {
     if ($name) {
-        return 'report.' . moduleCode() . '.'.$name;
+        return 'report.'.moduleCode().'.'.$name;
     }
 
     return 'report.master.print';
@@ -80,140 +79,143 @@ function modulePathPrint($name = null)
 
 function modulePathForm($name = null, $template = null, $path = false)
 {
-    if (is_string($path))
-    {
+    if (is_string($path)) {
         $path = $path;
-    }
-    else
-    {
+    } else {
         $path = $path ? 'core.' : 'pages.';
     }
 
     if ($template && $name) {
-        return $path . $template . '.' . $name;
+        return $path.$template.'.'.$name;
     }
 
     if ($name) {
-        return $path . moduleCode() . '.' . $name;
+        return $path.moduleCode().'.'.$name;
     }
 
     if ($template) {
-        return $path . $template . '.form';
+        return $path.$template.'.form';
     }
 
-    return $path . moduleCode() . '.form';
+    return $path.moduleCode().'.form';
 }
 
-function moduleView($template, $data = []){
+function moduleView($template, $data = [])
+{
     $view = view($template)->with($data);
 
-    if(request()->header('hx-request') && env('APP_SPA', false)){
+    if (request()->header('hx-request') && env('APP_SPA', false)) {
         $view = $view->fragment('content');
     }
 
     return $view;
 }
 
-function formatLabel($value){
+function formatLabel($value)
+{
 
     $label = Str::of($value);
-    if($label->contains('_')){
+    if ($label->contains('_')) {
         $label = $label = $label->explode('_')->last();
-    }
-    else{
+    } else {
         $label = $label->replace('[]', '');
     }
 
     return ucfirst($label);
 }
 
-function formatAttribute($value){
+function formatAttribute($value)
+{
 
     $label = Str::of($value);
-    if($label->contains(' ')){
+    if ($label->contains(' ')) {
         $label = $label = $label->explode(' ')->last();
-    }
-    else{
+    } else {
         $label = $label->replace('[]', '');
     }
 
     return ucfirst($label);
 }
 
-function formatWorld($value){
-    if (!empty($value)) {
+function formatWorld($value)
+{
+    if (! empty($value)) {
         return Str::title(str_replace('_', ' ', Str::snake($value))) ?? 'Unknow';
     }
 }
 
-function showValue($value){
-    if($value == 0){
+function showValue($value)
+{
+    if ($value == 0) {
         return '';
     }
 
     return $value;
 }
 
-function role($role){
+function role($role)
+{
     return auth()->check() && auth()->user()->role == $role;
 }
 
-function level($value){
+function level($value)
+{
     return auth()->check() && auth()->user()->level >= $value;
 }
 
-function imageUrl($value, $folder = null){
+function imageUrl($value, $folder = null)
+{
     $path = $folder ? $folder : moduleCode();
+
     return asset('public/storage/'.$path.'/'.$value);
 }
 
-function formatDateMySql($value, $datetime = false){
+function formatDateMySql($value, $datetime = false)
+{
 
-    if($datetime === false){
+    if ($datetime === false) {
         $format = 'Y-m-d';
-    }
-    else if($datetime === true){
+    } elseif ($datetime === true) {
         $format = 'Y-m-d H:i:s';
-    }
-    else{
+    } else {
         $format = $datetime;
     }
 
-    if($value instanceof Carbon){
+    if ($value instanceof Carbon) {
         $value = $value->format($format);
-    } else if(is_string($value)){
+    } elseif (is_string($value)) {
         $value = SupportCarbon::parse($value)->format($format);
     }
 
-    return $value ?  : null;
+    return $value ?: null;
 }
 
-function formatDate($value, $datetime = false){
+function formatDate($value, $datetime = false)
+{
 
-    if($datetime === false){
+    if ($datetime === false) {
         $format = 'd/m/Y';
-    }
-    else if($datetime === true){
+    } elseif ($datetime === true) {
         $format = 'd/m/Y H:i:s';
-    }
-    else{
+    } else {
         $format = $datetime;
     }
 
-    if(empty($value)){
+    if (empty($value)) {
         return null;
     }
 
-    if($value instanceof Carbon){
+    if ($value instanceof Carbon) {
         $value = $value->format($format);
-    } else if(is_string($value)){
+    } elseif (is_string($value)) {
         $value = SupportCarbon::parse($value)->format($format);
     }
 
-    return $value ?  : null;
+    return $value ?: null;
 }
 
-function iteration($model, $key){
+function iteration($model, $key)
+{
     return $model->firstItem() + $key;
 }
 
@@ -222,7 +224,7 @@ function unic($length)
     $chars = array_merge(range('a', 'z'), range('A', 'Z'));
     $length = intval($length) > 0 ? intval($length) : 16;
     $max = count($chars) - 1;
-    $str = "";
+    $str = '';
 
     while ($length--) {
         shuffle($chars);
@@ -276,25 +278,19 @@ if (! function_exists('getMegaphoneAdminTypes')) {
 }
 
 if (! function_exists('sendNotification')) {
-    function sendNotification(BaseAnnouncement $data, $type = NotificationType::Info,  $user_id = 0)
+    function sendNotification(BaseAnnouncement $data, $type = NotificationType::Info, $user_id = 0)
     {
-        if($data instanceof General)
-        {
-            foreach(UserModel::all() as $model)
-            {
+        if ($data instanceof General) {
+            foreach (UserModel::all() as $model) {
                 $model->notify($data);
             }
 
             event(new SendBroadcast($data, $type));
-        }
-        else
-        {
-            if (!empty($user_id)) {
+        } else {
+            if (! empty($user_id)) {
 
                 $model = UserModel::find($user_id);
-            }
-            else
-            {
+            } else {
                 $model = UserModel::find(auth()->user()->id);
             }
 
@@ -305,12 +301,12 @@ if (! function_exists('sendNotification')) {
 }
 
 if (! function_exists('exportCsv')) {
-    function exportCsv($name, $query, $jobClass, $delimiter = ",", $chunkSize = 1000)
+    function exportCsv($name, $query, $jobClass, $delimiter = ',', $chunkSize = 1000)
     {
         $total = $query->count();
         $numberOfChunks = ceil($total / $chunkSize);
 
-        $name = 'public/files/export/'.Str::snake($name).'-'.now()->toDateString() . '-' . str_replace(':', '-', now()->toTimeString()).'.csv';
+        $name = 'public/files/export/'.Str::snake($name).'-'.now()->toDateString().'-'.str_replace(':', '-', now()->toTimeString()).'.csv';
         $batches = [];
 
         for ($i = 1; $i <= $numberOfChunks; $i++) {
@@ -320,8 +316,8 @@ if (! function_exists('exportCsv')) {
         $user_id = auth()->user()->id;
 
         $bus = Bus::batch($batches)
-        ->name('Export Users')
-        ->then(function (Batch $batch) use ($name, $user_id) {
+            ->name('Export Users')
+            ->then(function (Batch $batch) use ($name, $user_id) {
 
                 Storage::put($name, file_get_contents($name));
 
@@ -335,7 +331,7 @@ if (! function_exists('exportCsv')) {
                 sendNotification($notification, NotificationType::Success, $user_id);
 
             })
-            ->catch(function (Batch $batch, Throwable $e) use($user_id) {
+            ->catch(function (Batch $batch, Throwable $e) use ($user_id) {
 
                 Log::error($e->getMessage());
 

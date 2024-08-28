@@ -2,6 +2,4 @@
 
 namespace MBarlow\Megaphone\Types;
 
-class Important extends BaseAnnouncement
-{
-}
+class Important extends BaseAnnouncement {}

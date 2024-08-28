@@ -2,12 +2,8 @@
 
 namespace App\Livewire;
 
-use App\Dao\Enums\Core\NotificationType;
-use App\Events\SendBroadcast;
-use App\Facades\Model\UserModel;
-use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Attributes\On;
+use Livewire\Component;
 
 class Notification extends Component
 {
@@ -17,12 +13,12 @@ class Notification extends Component
 
     public function getListeners()
     {
-        if(env('BROADCAST_DRIVER') == null) {
+        if (env('BROADCAST_DRIVER') == null) {
             return [];
         }
 
         return [
-            "echo-private:broadcast,SendBroadcast" => 'notification',
+            'echo-private:broadcast,SendBroadcast' => 'notification',
         ];
     }
 
@@ -32,7 +28,7 @@ class Notification extends Component
         $type = $value['type'];
         $user_id = $value['user_id'];
 
-        if($user_id == 0 || $user_id == auth()->user()->id) {
+        if ($user_id == 0 || $user_id == auth()->user()->id) {
             $this->alert($type, $data['body']);
         }
     }

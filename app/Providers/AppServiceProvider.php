@@ -3,9 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\ServiceProvider;
 use Plugins\Query;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,10 +14,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
-
-    }
+    public function register() {}
 
     /**
      * Bootstrap any application services.
@@ -29,9 +25,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
         $roles = Query::role();
-        if($roles){
-            foreach($roles as $role){
-                Blade::if($role->field_primary, function () use($role) {
+        if ($roles) {
+            foreach ($roles as $role) {
+                Blade::if($role->field_primary, function () use ($role) {
                     return auth()->check() && auth()->user()->role == $role->field_primary;
                 });
             }

@@ -10,11 +10,17 @@ class LevelType extends Enum implements LocalizedEnum
 {
     use StatusTrait;
 
-    const Pengguna = 1;
-    const Operator = 10;
-    const Operation = 11;
-    const Finance = 20;
-    const Admin = 30;
-    const Owner = 40;
-    const Developer = 100;
+    public const Pengguna = 1;
+
+    public const Operator = 10;
+
+    public const Operation = 11;
+
+    public const Finance = 20;
+
+    public const Admin = 30;
+
+    public const Owner = 40;
+
+    public const Developer = 100;
 }

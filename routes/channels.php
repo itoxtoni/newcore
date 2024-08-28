@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('broadcast', function () {
 
     $check = auth()->check() ? true : false;
+
     return $check;
 
 });

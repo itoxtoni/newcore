@@ -46,12 +46,14 @@ class LinkController extends MasterController
     public function postCreate(LinkRequest $request, CreateService $service)
     {
         $data = $service->save($this->model, $request);
+
         return Response::redirectBack($data);
     }
 
     public function postUpdate($code, LinkRequest $request, UpdateService $service)
     {
         $data = $service->update($this->model, $request, $code);
+
         return Response::redirectBack($data);
     }
 
@@ -65,7 +67,7 @@ class LinkController extends MasterController
 
         return moduleView(modulePathForm(path: self::$is_core), $this->share([
             'model' => $data,
-            'action' => $action
+            'action' => $action,
         ]));
     }
 }

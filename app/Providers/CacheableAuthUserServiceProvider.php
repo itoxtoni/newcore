@@ -1,11 +1,11 @@
 <?php
+
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
 class CacheableAuthUserServiceProvider extends ServiceProvider
 {
-
     /**
      * Register any authentication / authorization services.
      *
@@ -14,11 +14,13 @@ class CacheableAuthUserServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        $this->app['auth']->provider('cacheableEloquent',
-            function($app, $config) {
+        $this->app['auth']->provider(
+            'cacheableEloquent',
+            function ($app, $config) {
                 $config['model']::updated(function ($model) {
                     CacheableEloquentUserProvider::clearCache($model);
                 });
+
                 return new CacheableEloquentUserProvider($app['hash'], $config['model']);
             }
         );
@@ -29,8 +31,5 @@ class CacheableAuthUserServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
-    }
-
+    public function register() {}
 }

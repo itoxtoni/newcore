@@ -2,6 +2,4 @@
 
 namespace MBarlow\Megaphone\Types;
 
-class General extends BaseAnnouncement
-{
-}
+class General extends BaseAnnouncement {}

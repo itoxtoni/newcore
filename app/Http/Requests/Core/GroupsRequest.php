@@ -13,11 +13,11 @@ class GroupsRequest extends GeneralRequest
     public function prepareForValidation()
     {
         $this->merge([
-            GroupModel::field_primary() => Str::snake($this->system_group_name)
+            GroupModel::field_primary() => Str::snake($this->system_group_name),
         ]);
     }
 
-    public function validation() : array
+    public function validation(): array
     {
         return [
             'system_group_name' => 'required|min:3|unique:system_group',

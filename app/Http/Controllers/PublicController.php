@@ -9,7 +9,6 @@ use Xendit\Invoice\InvoiceApi;
 
 class PublicController extends Controller
 {
-
     public function index()
     {
         return view('homepage');
@@ -19,7 +18,7 @@ class PublicController extends Controller
     {
         Configuration::setXenditKey(env('XENDIT_SECRET_KEY'));
 
-        $apiInstance = new InvoiceApi();
+        $apiInstance = new InvoiceApi;
 
         $create_invoice_request = new CreateInvoiceRequest([
             'external_id' => strtoupper(uniqid()),
@@ -36,14 +35,11 @@ class PublicController extends Controller
             'failure_redirect_url' => config('app.url'),
         ]);
 
-        try
-        {
+        try {
             $result = $apiInstance->createInvoice($create_invoice_request);
-            return redirect()->to($result->getInvoiceUrl());
-        }
 
-        catch (\Xendit\XenditSdkException $e)
-        {
+            return redirect()->to($result->getInvoiceUrl());
+        } catch (\Xendit\XenditSdkException $e) {
             echo 'Exception when calling InvoiceApi->createInvoice: ', $e->getMessage(), PHP_EOL;
             echo 'Full Error: ', json_encode($e->getFullError()), PHP_EOL;
         }

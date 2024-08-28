@@ -4,14 +4,11 @@ namespace App\Http\Controllers\Core;
 
 use Alkhachatryan\LaravelWebConsole\LaravelWebConsole;
 use App\Charts\Dashboard;
-use App\Dao\Enums\Core\UserType;
 use App\Dao\Traits\RedirectAuth;
-use App\Facades\Model\UserModel;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
-
     use RedirectAuth;
 
     /**
@@ -21,8 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        if(auth()->check())
-        {
+        if (auth()->check()) {
             return redirect()->route('login');
         }
     }
@@ -44,12 +40,14 @@ class HomeController extends Controller
         ]);
     }
 
-    public function delete($code){
+    public function delete($code)
+    {
         $navigation = session()->get('navigation');
-        if(!empty($navigation) && array_key_exists($code, $navigation)){
+        if (! empty($navigation) && array_key_exists($code, $navigation)) {
             unset($navigation[$code]);
             session()->put('navigation', $navigation);
         }
+
         return redirect()->back();
     }
 
@@ -58,11 +56,13 @@ class HomeController extends Controller
         return LaravelWebConsole::show();
     }
 
-    public function doc(){
+    public function doc()
+    {
         return view('doc');
     }
 
-    public function error402(){
+    public function error402()
+    {
         return view('errors.402');
     }
 }

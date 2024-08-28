@@ -8,14 +8,14 @@ use Illuminate\Queue\SerializesModels;
 
 class CreateScheduleEmail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-
     public $data;
 
     public function __construct($data)

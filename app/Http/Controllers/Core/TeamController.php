@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Core;
 
 use App\Facades\Model\TeamModel;
 use App\Facades\Model\UserModel;
-use App\Http\Controllers\Core\MasterController;
 use App\Http\Function\CreateFunction;
 use App\Http\Function\UpdateFunction;
 use App\Http\Requests\Core\GeneralRequest;
@@ -14,7 +13,8 @@ use Plugins\Response;
 
 class TeamController extends MasterController
 {
-    use CreateFunction, UpdateFunction;
+    use CreateFunction;
+    use UpdateFunction;
 
     public function __construct(TeamModel $model, SingleService $service)
     {
@@ -48,6 +48,7 @@ class TeamController extends MasterController
     public function postUpdate($code, GeneralRequest $request, UpdateTeamService $service)
     {
         $data = $service->update($this->model, $request, $code);
+
         return Response::redirectBack($data);
     }
 }

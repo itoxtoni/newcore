@@ -7,6 +7,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+
 use function Laravel\Prompts\select;
 
 /**
@@ -69,7 +70,7 @@ class CrudGenerator extends GeneratorCommand
     protected function promptForMissingArgumentsUsing(): array
     {
         return [
-            'stack' => fn() => select(
+            'stack' => fn () => select(
                 label: 'Which stack would you like to install?',
                 options: [
                     'bootstrap' => 'Blade with Bootstrap css',
@@ -129,6 +130,7 @@ class CrudGenerator extends GeneratorCommand
      * Build the Controller Class and save in app/Http/Controllers.
      *
      * @return $this
+     *
      * @throws FileNotFoundException
      */
     protected function buildController(): static
@@ -157,7 +159,9 @@ class CrudGenerator extends GeneratorCommand
         };
 
         $controllerTemplate = str_replace(
-            array_keys($replace), array_values($replace), $this->getStub($stubFolder.'Controller')
+            array_keys($replace),
+            array_values($replace),
+            $this->getStub($stubFolder.'Controller')
         );
 
         $this->write($controllerPath, $controllerTemplate);
@@ -166,7 +170,9 @@ class CrudGenerator extends GeneratorCommand
             $resourcePath = $this->_getResourcePath($this->name);
 
             $resourceTemplate = str_replace(
-                array_keys($replace), array_values($replace), $this->getStub($stubFolder.'Resource')
+                array_keys($replace),
+                array_values($replace),
+                $this->getStub($stubFolder.'Resource')
             );
 
             $this->write($resourcePath, $resourceTemplate);
@@ -186,7 +192,9 @@ class CrudGenerator extends GeneratorCommand
             $componentPath = $this->_getLivewirePath($folder.'/'.$component);
 
             $componentTemplate = str_replace(
-                array_keys($replace), array_values($replace), $this->getStub('livewire/'.$component)
+                array_keys($replace),
+                array_values($replace),
+                $this->getStub('livewire/'.$component)
             );
 
             $this->write($componentPath, $componentTemplate);
@@ -196,7 +204,9 @@ class CrudGenerator extends GeneratorCommand
         $formPath = $this->_getLivewirePath('Forms/'.$this->name.'Form');
 
         $componentTemplate = str_replace(
-            array_keys($replace), array_values($replace), $this->getStub('livewire/Form')
+            array_keys($replace),
+            array_values($replace),
+            $this->getStub('livewire/Form')
         );
 
         $this->write($formPath, $componentTemplate);
@@ -204,8 +214,8 @@ class CrudGenerator extends GeneratorCommand
 
     /**
      * @return $this
-     * @throws FileNotFoundException
      *
+     * @throws FileNotFoundException
      */
     protected function buildModel(): static
     {
@@ -221,7 +231,9 @@ class CrudGenerator extends GeneratorCommand
         $replace = array_merge($this->buildReplacements(), $this->modelReplacements());
 
         $modelTemplate = str_replace(
-            array_keys($replace), array_values($replace), $this->getStub('Model')
+            array_keys($replace),
+            array_values($replace),
+            $this->getStub('Model')
         );
 
         $this->write($modelPath, $modelTemplate);
@@ -232,7 +244,9 @@ class CrudGenerator extends GeneratorCommand
         $this->info('Creating Request Class ...');
 
         $requestTemplate = str_replace(
-            array_keys($replace), array_values($replace), $this->getStub('Request')
+            array_keys($replace),
+            array_values($replace),
+            $this->getStub('Request')
         );
 
         $this->write($requestPath, $requestTemplate);
@@ -242,8 +256,8 @@ class CrudGenerator extends GeneratorCommand
 
     /**
      * @return $this
-     * @throws FileNotFoundException
      *
+     * @throws FileNotFoundException
      * @throws Exception
      */
     protected function buildViews(): static
@@ -278,14 +292,16 @@ class CrudGenerator extends GeneratorCommand
         $this->buildLayout();
 
         foreach ([
-            'form'
+            'form',
             // , 'create'
             // , 'edit'
             // , 'table'
             // , 'show'
-            ] as $view) {
+        ] as $view) {
             $viewTemplate = str_replace(
-                array_keys($replace), array_values($replace), $this->getStub("views/{$this->options['stack']}/$view")
+                array_keys($replace),
+                array_values($replace),
+                $this->getStub("views/{$this->options['stack']}/$view")
             );
 
             $this->write($this->_getViewPath($view), $viewTemplate);
@@ -296,8 +312,6 @@ class CrudGenerator extends GeneratorCommand
 
     /**
      * Make the class name from table name.
-     *
-     * @return string
      */
     private function _buildClassName(): string
     {

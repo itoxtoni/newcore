@@ -13,7 +13,11 @@ use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class JobExportCsvUser implements ShouldQueue
 {
-    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Batchable;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public function __construct(
         public $fileName,
@@ -21,10 +25,10 @@ class JobExportCsvUser implements ShouldQueue
         public $chunkIndex,
         public $chunkSize,
         public $delimiter
-    ) {
-    }
+    ) {}
 
-    private function getHeader() {
+    private function getHeader()
+    {
         return [
             'id' => 'ID',
             'name' => 'Name',
@@ -37,12 +41,11 @@ class JobExportCsvUser implements ShouldQueue
         $query = Eloquent::unserialize($this->query)
             ->select(array_keys($this->getHeader()));
 
-        if ($this->chunkIndex == 1)
-        {
+        if ($this->chunkIndex == 1) {
             $data = $query->get();
 
-            if (!empty($data)) {
-                $excel = SimpleExcelWriter::create($this->fileName, delimiter:$this->delimiter);
+            if (! empty($data)) {
+                $excel = SimpleExcelWriter::create($this->fileName, delimiter: $this->delimiter);
                 $excel->addHeader(array_values($this->getHeader()));
 
                 foreach ($data as $item) {
@@ -52,9 +55,9 @@ class JobExportCsvUser implements ShouldQueue
 
         } else {
 
-            if (!file_exists($this->fileName)) {
+            if (! file_exists($this->fileName)) {
 
-                SimpleExcelWriter::create($this->fileName, delimiter:$this->delimiter)
+                SimpleExcelWriter::create($this->fileName, delimiter: $this->delimiter)
                     ->addHeader(array_values($this->getHeader()));
             }
 
@@ -74,8 +77,7 @@ class JobExportCsvUser implements ShouldQueue
             $file = $this->fileName;
             $open = fopen($file, 'a+');
 
-            foreach ($users as $user)
-            {
+            foreach ($users as $user) {
                 fputcsv($open, $user, env('CSV_DELIMITER', ','));
             }
 

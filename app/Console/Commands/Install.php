@@ -2,12 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Dao\Enums\Core\NotificationStatus;
 use App\Dao\Models\Core\User;
-use App\Dao\Models\Notification;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Plugins\WhatsApp;
 
 class Install extends Command
 {
@@ -42,7 +38,7 @@ class Install extends Command
      */
     public function handle()
     {
-        foreach(range(1, 100) as $item){
+        foreach (range(1, 100) as $item) {
             User::factory(100)->create();
         }
     }
