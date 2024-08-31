@@ -37,7 +37,7 @@
 
 :root {
 	--white: #ffffff;
-	--primary: #C3E92D;
+	--primary: #D5B25E;
 	--success: #3DAB25;
 	--black: #121212;
 	--surface: #F7F7F7;
@@ -1580,7 +1580,7 @@ p.testimonial {
 }
 
 .widget-register {
-	padding: 78px 257px 78px 80px;
+	padding: 10%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -1667,6 +1667,10 @@ ul.social-media {
 	width: 48%;
 	float: right;
 	margin-bottom: 24px;
+}
+
+.register-form .form-submit {
+	text-align: right;
 }
 
 input.tb-my-input,
@@ -3825,4 +3829,13 @@ a.mapboxgl-ctrl-logo {
 	50% {
 	  transform: translate(150%,-150%) scale(2,2);
 	}
+  }
+
+  .form-floating>.form-control:focus, .form-floating>.form-control:not(:placeholder-shown) {
+	color: var(--black);
+	font-size: 1.2rem;
+  }
+
+  .form-floating>label {
+	padding: 0.5rem .75rem;
   }

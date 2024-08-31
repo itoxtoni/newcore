@@ -4,6 +4,10 @@
 	.header.style2 .header-inner .logo {
 		padding: 0 108px 0 30px;
 	}
+
+	.box-events-slide{
+		margin-top: -5%;
+	}
 }
 
 @media only screen and (max-width: 1366px) {
@@ -639,10 +643,61 @@
 		padding-left: 15px;
 	}
 
+	.benefit-on-left{
+		padding-right: 10px !important;
+	}
+
+	.benefit-on-right{
+		padding-left: 10px !important;
+	}
+
+	.btn-menu{
+		display: block !important;
+		margin-top: -0.5rem;
+		margin-right: 0.5rem;
+	}
+
 }
 
 /* All Mobile Sizes */
 @media only screen and (max-width: 767px) {
+
+	.overlay-menu-mobie.active{
+		background: var(--black);
+	}
+
+	.btn-menu{
+		display: block !important;
+		margin-top: -0.5rem;
+		margin-right: 0.5rem;
+	}
+
+	.close-btn{
+		right: 15px;
+		top: 5px;
+	}
+
+	.header{
+		height: 5rem;
+	}
+
+	.header-inner .logo {
+		padding: 0 15px 0 15px;
+
+		img{
+			height: 7rem;
+			position: absolute;
+			top: 0rem;
+			margin-top: -0.5rem;
+			left: 0.5rem;
+			z-index: 9999;
+		}
+	}
+
+	.header-top {
+		display: none;
+	}
+
 	.tf-banner {
 		height: 1200px !important;
 	}
@@ -845,13 +900,7 @@
 		padding-left: 15px;
 	}
 
-	.header-inner .logo {
-		padding: 0 15px 0 15px;
-	}
 
-	.header-top {
-		display: none;
-	}
 
 	.tp-caption.flat-scroll-btn i {
 		font-size: 18px;
@@ -948,7 +997,11 @@
 }
 
 /* Mobile Landscape Size */
-@media only screen and (min-width: 480px) and (max-width: 767px) {}
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	.benefit-on-left{
+		padding-right: 10px;
+	}
+}
 
 @media only screen and (max-width: 650px) {
 	.dot-content .dot {
@@ -1033,8 +1086,8 @@
 	}
 
 	.flat-title-slider {
-		font-size: 45px;
-		line-height: 55px;
+		font-size: 45px !important;
+		line-height: 55px !important;
 	}
 
 	.blog-content-single .main-post .entry-title-single {

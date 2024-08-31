@@ -344,18 +344,6 @@
         });
     }; //goTop
 
-    //retinaLogos
-    var retinaLogos = function () {
-        var retina = window.devicePixelRatio > 1 ? true : false;
-
-        if (retina) {
-            $('#a2').attr({ src: 'images/logo2@.png', width: '190', height: '42' });
-            $('#a3').attr({ src: 'images/logo-v2@.png', width: '124', height: '42' });
-            $('#a1').attr({ src: 'images/logo-footer2@.png', width: '125', height: '43' });
-
-        }
-    };//retinaLogos
-
     //video
     var video = function () {
         if ($('div').hasClass('benefit-video')) {
@@ -409,7 +397,6 @@
         }
         responsiveMenu();
         goTop();
-        retinaLogos();
         topSearch();
         video();
         detectViewport();

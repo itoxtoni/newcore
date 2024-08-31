@@ -183,6 +183,34 @@
         $(this).closest('.header-v2').find('.overlay-canvas-nav').toggleClass('active');
     });//Menu Mobie Style 02
 
+
+    //timerInterval
+    var timeMinutes = 10;
+    var timeSeconds = timeMinutes * 60;
+    var timer = document.getElementById('timer-sell-out');
+
+    function startTimer() {
+        timeSeconds--;
+        var minutes = Math.floor(timeSeconds / 60);
+        var seconds = timeSeconds % 60;
+
+        if (timeSeconds < 0) {
+            timer.textContent = '00:00';
+            clearInterval(timerInterval);
+            return;
+        }
+        if (minutes < 10) {
+            minutes = '0' + minutes;
+        }
+        if (seconds < 10) {
+            seconds = '0' + seconds;
+        }
+        timer.textContent = minutes + ':' + seconds;
+    }
+
+    var timerInterval = setInterval(startTimer, 1000);
+    //timerInterval
+
     //Slide
     var swiper = new Swiper(".mySwiper", {
         effect: "fade",
@@ -285,18 +313,6 @@
         });
     }; //goTop
 
-    //retinaLogos
-    var retinaLogos = function () {
-        var retina = window.devicePixelRatio > 1 ? true : false;
-
-        if (retina) {
-            $('#a2').attr({ src: 'images/logo2@.png', width: '190', height: '42' });
-            $('#a3').attr({ src: 'images/logo-v2@.png', width: '124', height: '42' });
-            $('#a1').attr({ src: 'images/logo-footer2@.png', width: '125', height: '43' });
-
-        }
-    };//retinaLogos
-
     //video
     var video = function () {
         if ($('div').hasClass('benefit-video')) {
@@ -306,6 +322,14 @@
         }
     };//video
 
+    //preloader
+    var preloader = function () {
+        setTimeout(function () {
+            $(".preload-container").fadeOut("slow", function () {
+                $(this).remove();
+            });
+        }, 1000);
+    };//preloader
 
     //Counter Number
     var detectViewport = function () {
@@ -339,11 +363,11 @@
     $(function () {
         responsiveMenu();
         goTop();
-        retinaLogos();
         topSearch();
         video();
         detectViewport();
         counter();
+        preloader();
     });
 
 })(jQuery);

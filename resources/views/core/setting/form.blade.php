@@ -15,7 +15,7 @@
                     <x-form-upload col="4" name="logo" />
                     <div class="col-md-4">
                         <img class="img-thumbnail img-fluid"
-                            src="{{ env('APP_LOGO') ? url('public/storage/' . env('APP_LOGO')) : url('assets/media/image/logo.png') }}"
+                            src="{{ env('APP_LOGO') ? url('storage/' . env('APP_LOGO')) : url('assets/media/image/logo.png') }}"
                             alt="">
                     </div>
 

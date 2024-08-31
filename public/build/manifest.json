@@ -1,6 +1,6 @@
 {
   "resources/auth/css/style.scss": {
-    "file": "assets/style-rA1nrvGT.css",
+    "file": "assets/style-Bx2hx3bD.css",
     "src": "resources/auth/css/style.scss",
     "isEntry": true
   },
@@ -9,7 +9,7 @@
     "src": "resources/auth/images/bg-inner.png"
   },
   "resources/auth/images/bg-registration-form-9.jpg": {
-    "file": "assets/bg-registration-form-9-Cl5P6dPl.jpg",
+    "file": "assets/bg-registration-form-9-CnHwa0HU.jpg",
     "src": "resources/auth/images/bg-registration-form-9.jpg"
   },
   "resources/js/vite.js": {
@@ -52,7 +52,7 @@
     "src": "resources/zunzo/images/retinal/contact.jpg"
   },
   "resources/zunzo/stylesheets/style.css": {
-    "file": "assets/style-aRwU8pQR.css",
+    "file": "assets/style-bDzz1XO4.css",
     "src": "resources/zunzo/stylesheets/style.css",
     "isEntry": true
   }

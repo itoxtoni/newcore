@@ -11,7 +11,7 @@ class PublicController extends Controller
 {
     public function index()
     {
-        return view('homepage');
+        return view('public.homepage');
     }
 
     public function checkout(Request $request)
