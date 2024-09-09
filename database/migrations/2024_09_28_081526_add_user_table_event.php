@@ -30,6 +30,8 @@ return new class extends Migration
             $table->string('jersey')->nullable();
             $table->string('relationship')->nullable();
             $table->string('reference_id')->nullable();
+            $table->string('is_paid')->nullable();
+            $table->string('is_receive')->nullable();
             $table->integer('id_event')->nullable();
             $table->foreign('id_event')->references('event_id')->on('event')->onDelete('cascade');
         });
