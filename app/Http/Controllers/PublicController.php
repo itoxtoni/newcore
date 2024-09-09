@@ -144,25 +144,14 @@ class PublicController extends Controller
         $method = $request->get('payment_method');
 
         $response = User::where('reference_id', $external_id)->first();
-        Log::info($response);
 
-        if ($status != 'PAID')
+        if($status == 'PAID')
         {
-            if($status == 'PAID')
-            {
-                $response->update([
-                    'is_paid' => 'Yes',
-                    'payment_status' => $status,
-                    'payment_method' => $method
-                ]);
-            }
-            else
-            {
-                $response->update([
-                    'is_paid' => 'No',
-                    'payment_status' => $status,
-                ]);
-            }
+            User::where('reference_id', $external_id)->update([
+                'is_paid' => 'Yes',
+                'payment_status' => $status,
+                'payment_method' => $method
+            ]);
         }
 
         return response()->json($request->all());
