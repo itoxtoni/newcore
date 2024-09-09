@@ -23,7 +23,6 @@
         "kyslik/column-sortable": "^6.4",
         "laravel/framework": "^10.0",
         "laravel/pulse": "^1.2",
-        "laravel/reverb": "^1.1",
         "laravel/sanctum": "^3.3",
         "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.0",
