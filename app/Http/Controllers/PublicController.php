@@ -6,6 +6,7 @@ use App\Dao\Models\Core\User;
 use App\Dao\Models\Event;
 use App\Http\Requests\CheckoutRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use LukePOLO\LaraCart\Facades\LaraCart;
 use Xendit\Configuration;
 use Xendit\Invoice\CreateInvoiceRequest;
@@ -96,7 +97,7 @@ class PublicController extends Controller
         $data = $request->all();
         $id = strtoupper(uniqid());
 
-        $data['payment_status'] = $id;
+        $data['payment_status'] = 'PENDING';
         $data['reference_id'] = $id;
         $data['id_event'] = $event_id;
         $data['jersey'] = $event->field_primary;
@@ -136,15 +137,31 @@ class PublicController extends Controller
 
     public function webhook(Request $request)
     {
-        $data = request()->all();
-
+        $data = request()->data;
         $status = $data['status'];
-        $external_id = $data['external_id'];
+        $external_id = $data['reference_id'];
 
-        User::where('reference_id', $external_id)->update([
-            'is_paid' => 'Yes',
-            'status' => $status
-        ]);
+        $response = User::where('reference_id', $external_id);
+
+        if ($response->payment_status != 'SUCCEEDED')
+        {
+            if($status == 'SUCCEEDED')
+            {
+                User::where('reference_id', $external_id)->update([
+                    'is_paid' => 'Yes',
+                    'payment_status' => $status
+                ]);
+            }
+            else
+            {
+                User::where('reference_id', $external_id)->update([
+                    'is_paid' => 'No',
+                    'payment_status' => $status
+                ]);
+            }
+        }
+
+        Log::info($data);
 
         return response()->json($data);
     }

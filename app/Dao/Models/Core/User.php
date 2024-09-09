@@ -76,6 +76,7 @@ class User extends Authenticatable implements AuthMustVerifyEmail
         'jersey',
         'relationship',
         'reference_id',
+        'payment_status',
         'is_paid',
         'is_receive',
     ];

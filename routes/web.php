@@ -38,8 +38,6 @@ Route::get('/about', [PublicController::class, 'about'])->name('about');
 Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
 Route::get('/participants', [PublicController::class, 'participants'])->name('participants');
 
-Route::post('/webhook/xendit', [PublicController::class, 'webhook'])->name('webhook');
-
 Route::get('/events', [PublicController::class, 'events'])->name('events');
 Route::match(['POST', 'GET'], '/events/register', [PublicController::class, 'register'])->middleware('auth')->name('event-register');
 Route::get('/events/{code}', [PublicController::class, 'eventsDetails'])->name('event-detail');
