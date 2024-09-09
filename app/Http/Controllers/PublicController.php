@@ -138,6 +138,7 @@ class PublicController extends Controller
     public function webhook(Request $request)
     {
         $data = request()->data;
+        Log::info(json_encode($data));
         $status = $data['status'];
         $external_id = $data['reference_id'];
 
