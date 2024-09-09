@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SystemGroupConnectionMenuTableSeeder::class);
         $this->call(SystemGroupConnectionRoleTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+
+        $this->call(EventTableSeeder::class);
     }
 }

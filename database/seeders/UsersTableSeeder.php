@@ -34,6 +34,22 @@ class UsersTableSeeder extends Seeder
             'updated_at' => '2023-02-25 10:54:19',
         ]);
 
-        User::factory(50)->create();
+        DB::table('users')->insert([
+            'id' => 0,
+            'name' => 'User',
+            'username' => 'user',
+            'phone' => null,
+            'email' => 'user@gmail.com',
+            'email_verified_at' => '2022-12-13 18:51:38',
+            'password' => Hash::make('user'), // user
+            'role' => null,
+            'level' => null,
+            'active' => 1,
+            'remember_token' => null,
+            'created_at' => null,
+            'updated_at' => '2023-02-25 10:54:19',
+        ]);
+
+        User::factory(10)->create();
     }
 }

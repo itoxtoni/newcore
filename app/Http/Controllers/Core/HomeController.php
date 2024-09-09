@@ -30,8 +30,7 @@ class HomeController extends Controller
      */
     public function index(Dashboard $chart)
     {
-        if(empty(auth()->user()) || empty(auth()->user()->role))
-        {
+        if (empty(auth()->user()) || empty(auth()->user()->role)) {
             header('Location: '.route('public'));
         }
 

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Dao\Models\Core\User;
+use App\Dao\Models\Event;
+use App\Http\Requests\CheckoutRequest;
 use Illuminate\Http\Request;
+use LukePOLO\LaraCart\Facades\LaraCart;
 use Xendit\Configuration;
 use Xendit\Invoice\CreateInvoiceRequest;
 use Xendit\Invoice\InvoiceApi;
@@ -14,16 +18,100 @@ class PublicController extends Controller
         return view('public.homepage');
     }
 
-    public function checkout(Request $request)
+    public function about()
     {
+        return view('public.about');
+    }
+
+    public function contact()
+    {
+        return view('public.contact');
+    }
+
+    public function participants()
+    {
+        $user = User::whereNull('role')->where('is_paid', 'Yes')->get();
+        return view('public.participant', ['user' => $user]);
+    }
+
+    public function events()
+    {
+        $events = Event::all();
+
+        return view('public.events')->with([
+            'events' => $events,
+        ]);
+    }
+
+    public function eventsDetails($code)
+    {
+        $events = Event::findOrFail($code);
+
+        return view('public.events')->with([
+            'events' => $events,
+        ]);
+    }
+
+    public function profile()
+    {
+        return view('public.profile')->with([
+            'user' => auth()->user(),
+        ]);
+    }
+
+    public function register()
+    {
+        // dump(LaraCart::getItems());
+        $data_event = Event::all();
+
+        return view('public.register')->with([
+            'user' => auth()->user(),
+            'id' => request()->get('event_id'),
+            'data_event' => $data_event
+        ]);
+    }
+
+    public function add(CheckoutRequest $request)
+    {
+        $event = Event::findOrFail($request->id_event);
+
+        LaraCart::add(
+            $request->id_event,
+            $name = $event->field_name,
+            $qty = 1,
+            $price = $event->field_price,
+            $options = $event->toArray(),
+            $taxable = false,
+            $lineItem = false
+        );
+
+        return redirect()->back();
+    }
+
+    public function checkout(CheckoutRequest $request)
+    {
+        $event_id = $request->get('id_event');
+        $event = Event::findOrFail($event_id);
+
+        $data = $request->all();
+        $id = strtoupper(uniqid());
+
+        $data['payment_status'] = $id;
+        $data['reference_id'] = $id;
+        $data['id_event'] = $event_id;
+        $data['jersey'] = $event->field_primary;
+
+        $user = User::find(auth()->user()->id)
+        ->update($data);
+
         Configuration::setXenditKey(env('XENDIT_SECRET_KEY'));
 
         $apiInstance = new InvoiceApi;
 
         $create_invoice_request = new CreateInvoiceRequest([
-            'external_id' => strtoupper(uniqid()),
-            'description' => $request->get('plan'),
-            'amount' => $request->get('price'),
+            'external_id' => $id,
+            'description' => $event->field_name,
+            'amount' => $event->event_price,
             'invoice_duration' => 172800,
             'currency' => 'IDR',
             'reminder_time' => 1,
@@ -44,5 +132,20 @@ class PublicController extends Controller
             echo 'Full Error: ', json_encode($e->getFullError()), PHP_EOL;
         }
 
+    }
+
+    public function webhook(Request $request)
+    {
+        $data = request()->all();
+
+        $status = $data['status'];
+        $external_id = $data['external_id'];
+
+        User::where('reference_id', $external_id)->update([
+            'is_paid' => 'Yes',
+            'status' => $status
+        ]);
+
+        return response()->json($data);
     }
 }

@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function($table) {
+
+        Schema::table('users', function ($table) {
+
             $table->string('key')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
@@ -24,10 +26,12 @@ return new class extends Migration
             $table->string('blood_type')->nullable();
             $table->string('illness')->nullable();
             $table->string('emergency_contact')->nullable();
-            $table->string('comunity')->nullable();
-            $table->string('cloth_size')->nullable();
+            $table->string('community')->nullable();
+            $table->string('jersey')->nullable();
             $table->string('relationship')->nullable();
             $table->string('reference_id')->nullable();
+            $table->integer('id_event')->nullable();
+            $table->foreign('id_event')->references('event_id')->on('event')->onDelete('cascade');
         });
     }
 
@@ -37,6 +41,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
+
 
             $table->dropColumn('key');
             $table->dropColumn('first_name');

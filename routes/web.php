@@ -29,12 +29,23 @@ Route::get('/delete/{code}', 'App\Http\Controllers\Core\HomeController@delete')-
 Route::get('/doc', 'App\Http\Controllers\Core\HomeController@doc')->middleware(['access'])->name('doc');
 
 Route::match(['POST', 'GET'], 'change-password', 'App\Http\Controllers\Core\UserController@changePassword', ['name' => 'change-password'])->middleware('auth');
-Route::get('profile', 'App\Http\Controllers\Core\UserController@getProfile')->middleware('auth')->name('getProfile');
-Route::post('profile', 'App\Http\Controllers\Core\UserController@updateProfile')->middleware('auth')->name('updateProfile');
+Route::get('user/profile', 'App\Http\Controllers\Core\UserController@getProfile')->middleware('auth')->name('getProfile');
+Route::post('user/profile', 'App\Http\Controllers\Core\UserController@updateProfile')->middleware('auth')->name('updateProfile');
 Auth::routes(['verify' => true]);
 
 Route::get('/', [PublicController::class, 'index'])->name('public');
+Route::get('/about', [PublicController::class, 'about'])->name('about');
+Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
+Route::get('/participants', [PublicController::class, 'participants'])->name('participants');
+
+Route::post('/webhook/xendit', [PublicController::class, 'webhook'])->name('webhook');
+
+Route::get('/events', [PublicController::class, 'events'])->name('events');
+Route::match(['POST', 'GET'], '/events/register', [PublicController::class, 'register'])->middleware('auth')->name('event-register');
+Route::get('/events/{code}', [PublicController::class, 'eventsDetails'])->name('event-detail');
 Route::post('/checkout', [PublicController::class, 'checkout'])->middleware('auth')->name('checkout');
+Route::post('/add', [PublicController::class, 'add'])->middleware('auth')->name('add');
+Route::match(['POST', 'GET'], '/profile', [PublicController::class, 'profile'])->middleware('auth')->name('profile');
 
 try {
     $routes = Query::groups();

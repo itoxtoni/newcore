@@ -976,7 +976,7 @@ p.flat-description-slider {
 
 .widget-event .tf-info-price .price span {
 	font-family: 'Oswald';
-	font-size: 80px;
+	font-size: 4rem;
 	font-style: normal;
 	font-weight: 700;
 	line-height: 88px;
@@ -3839,3 +3839,11 @@ a.mapboxgl-ctrl-logo {
   .form-floating>label {
 	padding: 0.5rem .75rem;
   }
+
+  .form-floating .error {
+	  color: var(--critical);
+  }
+
+  .form-floating .form-control.error {
+	border-color: var(--critical);
+}

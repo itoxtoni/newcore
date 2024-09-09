@@ -204,6 +204,7 @@ return [
         FacadeServiceProviders::class,
         CrudServiceProvider::class,
         MegaphoneServiceProvider::class,
+        LukePOLO\LaraCart\LaraCartServiceProvider::class,
     ],
 
     /*
@@ -265,6 +266,7 @@ return [
         'Str' => Str::class,
         'EnvEditor' => EnvEditor::class,
         'ModelGroup' => SystemGroup::class,
+        'LaraCart' => LukePOLO\LaraCart\Facades\LaraCart::class,
     ],
 
 ];

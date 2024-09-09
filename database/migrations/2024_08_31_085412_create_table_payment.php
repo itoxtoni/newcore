@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table_payment', function (Blueprint $table) {
+        Schema::create('payment', function (Blueprint $table) {
             $table->id();
+            $table->string('checkout_link');
+            $table->string('reference_id');
+            $table->integer('amount');
+            $table->string('status');
+            $table->string('payment_method');
+            $table->string('payment_channel');
             $table->timestamps();
         });
     }

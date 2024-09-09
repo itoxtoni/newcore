@@ -26,7 +26,6 @@ class RegisterForm extends Component
     #[Validate(['required', 'string', 'min:8'])]
     public $password = '';
 
-
     public function save()
     {
         $this->validate();
@@ -35,7 +34,7 @@ class RegisterForm extends Component
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'birthday' => $this->birthday,
-            'name' => $this->first_name . ' ' . $this->last_name,
+            'name' => $this->first_name.' '.$this->last_name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);
@@ -44,8 +43,6 @@ class RegisterForm extends Component
 
         return $this->redirect('/');
     }
-
-
 
     public function render()
     {

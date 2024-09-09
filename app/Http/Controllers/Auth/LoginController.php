@@ -73,6 +73,7 @@ class LoginController extends Controller
     {
         // $add = ['active' => 1];
         $add = [];
+
         return array_merge($request->only($this->username(), 'password'), $add);
     }
 
