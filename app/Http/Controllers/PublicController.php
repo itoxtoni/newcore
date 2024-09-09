@@ -138,24 +138,23 @@ class PublicController extends Controller
     public function webhook(Request $request)
     {
         $data = request()->data;
-        Log::info(json_encode($data));
         $status = $data['status'];
         $external_id = $data['reference_id'];
 
         $response = User::where('reference_id', $external_id);
 
-        if ($response->payment_status != 'SUCCEEDED')
+        if ($status != 'SUCCEEDED')
         {
             if($status == 'SUCCEEDED')
             {
-                User::where('reference_id', $external_id)->update([
+                $response->update([
                     'is_paid' => 'Yes',
                     'payment_status' => $status
                 ]);
             }
             else
             {
-                User::where('reference_id', $external_id)->update([
+                $response->update([
                     'is_paid' => 'No',
                     'payment_status' => $status
                 ]);
