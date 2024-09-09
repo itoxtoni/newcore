@@ -101,6 +101,7 @@ class PublicController extends Controller
         $data['reference_id'] = $id;
         $data['id_event'] = $event_id;
         $data['jersey'] = $event->field_primary;
+        $data['amount'] = $event->event_price;
 
         $user = User::find(auth()->user()->id)
         ->update($data);
@@ -137,6 +138,7 @@ class PublicController extends Controller
 
     public function webhook(Request $request)
     {
+        Log::info($request->all());
         $data = request()->data;
         $status = $data['status'];
         $external_id = $data['reference_id'];
