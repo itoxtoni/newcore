@@ -139,12 +139,11 @@ class PublicController extends Controller
     public function webhook(Request $request)
     {
         Log::info($request->all());
-        $data = request()->data;
         $status = $request->status;
         $external_id = $request->external_id;
         $method = $request->payment_method;
 
-        $response = User::where('reference_id', $external_id);
+        $response = User::where('reference_id', $external_id)->first();
 
         if ($status != 'PAID')
         {
@@ -166,8 +165,6 @@ class PublicController extends Controller
             }
         }
 
-        Log::info($data);
-
-        return response()->json($data);
+        return response()->json($request->all());
     }
 }
