@@ -143,8 +143,6 @@ class PublicController extends Controller
         $external_id = $request->get('external_id');
         $method = $request->get('payment_method');
 
-        $response = User::where('reference_id', $external_id)->first();
-
         if($status == 'PAID')
         {
             User::where('reference_id', $external_id)->update([
