@@ -3,7 +3,7 @@
 		<td></td>
 		<td colspan="6">
 			<h3>
-				<b>Report Data User</b>
+				<b>Report Participant</b>
 			</h3>
 		</td>
 		<td rowspan="3">
@@ -49,7 +49,7 @@
 			@forelse($data as $table)
 			<tr>
 				<td>{{ $loop->iteration }}</td>
-				<td>{{ $table->field_primary }}</td>
+				<td>{{ $table->key }}</td>
 				<td>{{ $table->field_name }}</td>
 				<td>{{ $table->field_username }}</td>
 				<td>{{ $table->field_email }}</td>

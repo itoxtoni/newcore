@@ -116,7 +116,7 @@ class SystemMenuTableSeeder extends Seeder
             ],
             [
                 'system_menu_code' => 'report_user',
-                'system_menu_name' => 'Report User',
+                'system_menu_name' => 'Report Participant',
                 'system_menu_url' => 'report_user',
                 'system_menu_controller' => 'App\Http\Controllers\ReportUserController',
                 'system_menu_action' => 'report_user.getCreate',

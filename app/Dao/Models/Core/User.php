@@ -100,6 +100,7 @@ class User extends Authenticatable implements AuthMustVerifyEmail
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'jersey' => 'string',
     ];
 
     public $timestamps = true;
@@ -150,13 +151,10 @@ class User extends Authenticatable implements AuthMustVerifyEmail
     public function dataRepository()
     {
         $query = $this
-            ->select($this->getSelectedField())
             ->leftJoinRelationship('has_role')
             ->active()
             ->sortable()
             ->filter();
-
-        $query = env('PAGINATION_SIMPLE') ? $query->simplePaginate(env('PAGINATION_NUMBER')) : $query->paginate(env('PAGINATION_NUMBER'));
 
         return $query;
     }

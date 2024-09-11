@@ -40,8 +40,9 @@ class MasterController extends Controller
     public function getData()
     {
         $query = $this->model->dataRepository();
+        $paginate = env('PAGINATION_SIMPLE') ? $query->simplePaginate(env('PAGINATION_NUMBER')) : $query->paginate(env('PAGINATION_NUMBER'));
 
-        return $query;
+        return $paginate;
     }
 
     public function getDelete()

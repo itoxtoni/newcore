@@ -60,14 +60,40 @@ class PublicController extends Controller
         ]);
     }
 
+    private function check($id){
+
+        if($id != 6){
+            return auth()->user();
+        }
+    }
+
     public function register()
     {
-        // dump(LaraCart::getItems());
         $data_event = Event::all();
+        $event_id = request()->get('event_id');
+
+        $user = $this->check($event_id);
+        $blood = [
+            'A',
+            'B',
+            'AB',
+            'O',
+        ];
+
+        $jersey = [
+            'S',
+            'M',
+            'L',
+            'XL',
+            'XXL',
+            'XXXL',
+        ];
 
         return view('public.register')->with([
-            'user' => auth()->user(),
-            'id' => request()->get('event_id'),
+            'user' => $user,
+            'blood' => $blood,
+            'jersey' => $jersey,
+            'id' => $event_id,
             'data_event' => $data_event
         ]);
     }
@@ -93,46 +119,56 @@ class PublicController extends Controller
     {
         $event_id = $request->get('id_event');
         $event = Event::findOrFail($event_id);
-
         $data = $request->all();
         $id = strtoupper(uniqid());
 
         $data['payment_status'] = 'PENDING';
         $data['reference_id'] = $id;
         $data['id_event'] = $event_id;
-        $data['jersey'] = $event->field_primary;
         $data['amount'] = $event->event_price;
 
-        $user = User::find(auth()->user()->id)
-        ->update($data);
-
-        Configuration::setXenditKey(env('XENDIT_SECRET_KEY'));
-
-        $apiInstance = new InvoiceApi;
-
-        $create_invoice_request = new CreateInvoiceRequest([
-            'external_id' => $id,
-            'description' => $event->field_name,
-            'amount' => $event->event_price,
-            'invoice_duration' => 172800,
-            'currency' => 'IDR',
-            'reminder_time' => 1,
-            'customer' => [
-                'email' => auth()->user()->email,
-                'given_name' => auth()->user()->name,
-            ],
-            'success_redirect_url' => config('app.url'),
-            'failure_redirect_url' => config('app.url'),
-        ]);
-
-        try {
-            $result = $apiInstance->createInvoice($create_invoice_request);
-
-            return redirect()->to($result->getInvoiceUrl());
-        } catch (\Xendit\XenditSdkException $e) {
-            echo 'Exception when calling InvoiceApi->createInvoice: ', $e->getMessage(), PHP_EOL;
-            echo 'Full Error: ', json_encode($e->getFullError()), PHP_EOL;
+        if($request->has('relationship'))
+        {
+            $user = User::create($request->all());
         }
+        else
+        {
+            $user = User::find(auth()->user()->id);
+            $user->update($data);
+        }
+
+        if(empty($user->payment_status))
+        {
+            Configuration::setXenditKey(env('XENDIT_SECRET_KEY'));
+
+            $apiInstance = new InvoiceApi;
+
+            $create_invoice_request = new CreateInvoiceRequest([
+                'external_id' => $id,
+                'description' => $event->field_name,
+                'amount' => $event->event_price,
+                'invoice_duration' => 172800,
+                'currency' => 'IDR',
+                'reminder_time' => 1,
+                'customer' => [
+                    'email' => auth()->user()->email,
+                    'given_name' => auth()->user()->name,
+                ],
+                'success_redirect_url' => config('app.url'),
+                'failure_redirect_url' => config('app.url'),
+            ]);
+
+            try {
+                $result = $apiInstance->createInvoice($create_invoice_request);
+
+                return redirect()->to($result->getInvoiceUrl());
+            } catch (\Xendit\XenditSdkException $e) {
+                echo 'Exception when calling InvoiceApi->createInvoice: ', $e->getMessage(), PHP_EOL;
+                echo 'Full Error: ', json_encode($e->getFullError()), PHP_EOL;
+            }
+        }
+
+        return redirect()->back();
 
     }
 
