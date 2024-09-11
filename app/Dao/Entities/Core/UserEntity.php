@@ -100,4 +100,14 @@ trait UserEntity
     {
         return $this->{RoleModel::field_name()};
     }
+
+    public static function field_created_at()
+    {
+        return 'created_at';
+    }
+
+    public function getFieldCreatedAttribute()
+    {
+        return $this->{self::field_created_at()};
+    }
 }

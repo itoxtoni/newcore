@@ -29,6 +29,11 @@ class ReportUserController extends ReportController
 
         $this->data = $this->getData($request);
 
+        if($request->start_date)
+        {
+
+        }
+
         $batch = exportCsv('users', UserModel::query(), JobExportCsvUser::class, ',', 1);
         if ($request->queue == 'batch') {
             $url = moduleRoute('getCreate', array_merge(['batch' => $batch->id], $request->all()));
@@ -37,7 +42,7 @@ class ReportUserController extends ReportController
         }
 
         return moduleView(modulePathPrint(), $this->share([
-            'data' => $this->data,
+            'data' => $this->data->get(),
         ]));
     }
 }

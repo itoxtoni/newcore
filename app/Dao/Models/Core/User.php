@@ -90,6 +90,8 @@ class User extends Authenticatable implements AuthMustVerifyEmail
 
     protected $filters = [
         'filter',
+        'start_date',
+        'end_date',
         'name',
         'system_role_name',
     ];
