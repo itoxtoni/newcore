@@ -31,7 +31,7 @@ class PublicController extends Controller
 
     public function participants()
     {
-        $user = User::whereNull('role')->where('is_paid', 'Yes')->get();
+        $user = User::where('is_paid', 'Yes')->get();
         return view('public.participant', ['user' => $user]);
     }
 
