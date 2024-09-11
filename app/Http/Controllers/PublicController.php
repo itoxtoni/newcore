@@ -122,7 +122,6 @@ class PublicController extends Controller
         $data = $request->all();
         $id = strtoupper(uniqid());
 
-        $data['payment_status'] = 'PENDING';
         $data['reference_id'] = $id;
         $data['id_event'] = $event_id;
         $data['amount'] = $event->event_price;
@@ -134,10 +133,15 @@ class PublicController extends Controller
         else
         {
             $user = User::find(auth()->user()->id);
+            if(empty($user->payment_status))
+            {
+                $data['payment_status'] = 'PENDING';
+            }
+
             $user->update($data);
         }
 
-        if(empty($user->payment_status))
+        if(empty($user->payment_status) == 'PENDING')
         {
             Configuration::setXenditKey(env('XENDIT_SECRET_KEY'));
 
