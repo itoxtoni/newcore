@@ -141,7 +141,7 @@ class PublicController extends Controller
             $user->update($data);
         }
 
-        if(empty($user->payment_status) == 'PENDING')
+        if($user->payment_status == 'PENDING')
         {
             Configuration::setXenditKey(env('XENDIT_SECRET_KEY'));
 
