@@ -8,6 +8,8 @@ use App\Http\Requests\CheckoutRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use LukePOLO\LaraCart\Facades\LaraCart;
+use Wink\WinkPage;
+use Wink\WinkPost;
 use Xendit\Configuration;
 use Xendit\Invoice\CreateInvoiceRequest;
 use Xendit\Invoice\InvoiceApi;
@@ -50,6 +52,15 @@ class PublicController extends Controller
 
         return view('public.events')->with([
             'events' => $events,
+        ]);
+    }
+
+    public function page($slug)
+    {
+        $page = WinkPage::where('slug', $slug)->first();
+
+        return view('public.page')->with([
+            'page' => $page,
         ]);
     }
 

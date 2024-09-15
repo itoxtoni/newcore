@@ -14,11 +14,12 @@
             </div>
 
             <div class="widget-event event-white-wiget">
-                @foreach ($events as $event)
-                <div class="item wow fadeInUp animated">
-                    <div class="event-infomation">
-                        <div class="info">
-                            <h4><a href="event-details.html">{{ $event->field_name }}</a></h4>
+
+                    @foreach ($events as $event)
+                    <div class="item wow fadeInUp animated">
+                        <div class="event-infomation">
+                            <div class="info">
+                                <h4><a href="event-details.html">{{ $event->field_name }}</a></h4>
                             <p>
                                 {{ $event->event_description }}
                             </p>
