@@ -114,7 +114,7 @@ class Notes
         $log['code'] = 400;
         $log['name'] = self::error;
         $log['message'] = $message ?? $data;
-        $log['data'] = [$data];
+        $log['data'] = $data;
         if (self::checkDebug()) {
             Log::error(self::error, $log);
         }

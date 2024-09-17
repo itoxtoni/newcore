@@ -38,6 +38,7 @@ Route::get('/about', [PublicController::class, 'about'])->name('about');
 Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
 Route::get('/participants', [PublicController::class, 'participants'])->name('participants');
 Route::get('/page/{slug}', [PublicController::class, 'page'])->name('page');
+Route::get('/blog/{slug}', [PublicController::class, 'blog'])->name('blog');
 
 Route::get('/events', [PublicController::class, 'events'])->name('events');
 Route::match(['POST', 'GET'], '/events/register', [PublicController::class, 'register'])->middleware('auth')->name('event-register');

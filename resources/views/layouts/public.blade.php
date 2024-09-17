@@ -55,7 +55,11 @@
                             <li>
                                 <a href="{{ url('/') }}">Home page</a>
                             </li>
-                            <li><a href="{{ route('about') }}">About us</a></li>
+
+                            @foreach ($pages as $page)
+                            <li><a href="{{ route('page', ['slug' => $page->slug]) }}">{{ $page->title }}</a></li>
+                            @endforeach
+
                             <li><a href="{{ route('events') }}">Our Events</a></li>
                             <li><a href="{{ route('participants') }}">Participants</a></li>
 
@@ -143,16 +147,12 @@
 
                     <div class="col-xxl-5 col-lg-5 col-xl-5 col-md-5 col-sm-12 mt-1">
                         <div class="widget">
-                            <div class="textwidget">
+                            <div class="textwidget mt-4">
 
-                                <p>Welcome to our running community! Discover the joy of running, connect with fellow
-                                    enthusiasts, and unlock your full power.
+                                <p>
+                                    {{ env('APP_DESCRIPTION') }}
                                 </p>
-                                <div class="social-icon-footer mt-2">
-                                    <a href="facebook.com"><i class="icon-facebook"></i></a>
-                                    <a href="icon-twitter.com"><i class="icon-twitter"></i></a>
-                                    <a href="instagram.com"><i class="icon-instagram"></i></a>
-                                </div>
+
                             </div>
                         </div><!-- /.widget -->
                     </div><!-- /.col-md-4 -->
@@ -178,10 +178,10 @@
                                 </svg>
                                 <div class="address">
                                     <p>Need help? 24/7</p>
-                                    <span>001-1234-88888</span>
+                                    <span>{{ env('APP_PHONE') }}</span>
                                 </div>
                             </div>
-                            <p><i class="icon-MapPin"></i>710 1st St. Easton, PA 18042 | Chester County</p>
+                            <p><i class="icon-MapPin"></i>{{ env('APP_ADDRESS') }}</p>
 
                         </div><!-- /.widget -->
                     </div><!-- /.col-md-4 -->
@@ -190,16 +190,16 @@
                 <div class="row footer-bottom">
                     <div class="col-md-6 col-sm-12">
                         <div class="copyright">
-                            <p>©2024 <a href="index.html" target="_blank"> {{ config('app.name') }}.</a> All Rights
+                            <p>©2024 <a href="{{ url('/') }}" target="_blank"> {{ config('app.name') }}.</a> All Rights
                                 Reserved.
                             </p>
                         </div>
                     </div><!-- /.col-md-6 -->
                     <div class="col-md-6 col-sm-12">
                         <ul class="link-footer-bottom">
-                            <li><a href="#">Terms Of Services</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Cookie Policy</a></li>
+                            @foreach ($blogs as $blog)
+                            <li><a href="{{ route('blog', ['slug' => $blog->slug]) }}">{{ $blog->title }}</a></li>
+                            @endforeach
                         </ul><!-- /.menu -->
                     </div><!-- /.col-md-6 -->
                 </div><!-- /.row -->

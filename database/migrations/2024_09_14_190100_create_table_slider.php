@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('slider', function (Blueprint $table) {
             $table->integer('slider_id')->autoIncrement();
             $table->string('slider_name');
-            $table->string('slider_button');
-            $table->integer('slider_link');
+            $table->string('slider_title')->nullable();
+            $table->string('slider_button')->nullable();
+            $table->string('slider_link')->nullable();
             $table->string('slider_image')->nullable();
             $table->string('slider_description')->nullable();
         });

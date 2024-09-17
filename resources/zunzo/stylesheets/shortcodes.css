@@ -176,8 +176,13 @@ p.post {
 .slide-item {
 	display: -webkit-flex;
 	justify-content: space-between;
-	padding-top: 132px;
+	padding-top: 100px;
 	padding-bottom: 214px;
+}
+
+.image-logo{
+	height: 5rem;
+	border-radius: 2px;
 }
 
 .image-slider .overlay {
@@ -461,6 +466,12 @@ p.flat-description-slider {
 	font-weight: 600;
 	color: var(--white);
 	margin-bottom: 0px;
+}
+
+.event-box{
+	padding-left: 1rem;
+	padding-bottom: 2rem;
+	border-radius: 2px;
 }
 
 /* title-boxv2 */
@@ -1073,8 +1084,7 @@ p.flat-description-slider {
 	color: var(--black);
 }
 .tf-widget-partner {
-	padding: 38px 0;
-
+	padding: 2rem 0;
 }
 
 .sologan-logo {

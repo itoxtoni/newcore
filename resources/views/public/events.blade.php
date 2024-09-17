@@ -1,66 +1,37 @@
 @extends('layouts.public')
 
 @section('content')
-
     <!-- Widget event -->
     <div class="tf-widget-event main-content-medium">
         <div class="themeflat-container">
 
-            <div class="tf-title-wrap title-medium">
-                <div class="title-box-v2">
-                    <span class="sub-title wow fadeInUp animated">running events</span>
-                    <h2 class="title-section wow fadeInUp animated">Running Events Coming Up include</h2>
+            <div class="">
+                <div class="tf-title-wrap title-medium">
+                    <div class="title-box-v2">
+                        <span class="sub-title wow fadeInUp animated">running events</span>
+                        <h2 class="title-section wow fadeInUp animated">Running Events Coming Up include</h2>
+                    </div>
+                </div>
+
+                <div class="widget-event event-white-wiget">
+
+                    <div class="row">
+
+                        @foreach ($events as $event)
+                            <div class="event-box col-md-6 mt-4">
+                                <h2 class="text-white">{{ $event->field_name }} (Rp {{ number_format($event->event_price, 0, ',', '.') }})</h2>
+                                <a href="{{ route('event-register', ['event_id' => $event->field_primary]) }}">
+                                    <img decoding="async" src="{{ asset('storage/files/event/' . $event->event_image) }}"
+                                    alt="{{ $event->event_description }}">
+                                </a>
+                            </div>
+                        @endforeach
+
+                    </div>
+
                 </div>
             </div>
 
-            <div class="widget-event event-white-wiget">
-
-                    @foreach ($events as $event)
-                    <div class="item wow fadeInUp animated">
-                        <div class="event-infomation">
-                            <div class="info">
-                                <h4><a href="event-details.html">{{ $event->field_name }}</a></h4>
-                            <p>
-                                {{ $event->event_description }}
-                            </p>
-                            <p>
-                                <span>
-                                    <svg width="18" height="20" viewBox="0 0 18 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M16.5 2H14.25V1.25C14.25 1.05109 14.171 0.860322 14.0303 0.71967C13.8897 0.579018 13.6989 0.5 13.5 0.5C13.3011 0.5 13.1103 0.579018 12.9697 0.71967C12.829 0.860322 12.75 1.05109 12.75 1.25V2H5.25V1.25C5.25 1.05109 5.17098 0.860322 5.03033 0.71967C4.88968 0.579018 4.69891 0.5 4.5 0.5C4.30109 0.5 4.11032 0.579018 3.96967 0.71967C3.82902 0.860322 3.75 1.05109 3.75 1.25V2H1.5C1.10218 2 0.720644 2.15804 0.43934 2.43934C0.158035 2.72064 0 3.10218 0 3.5V18.5C0 18.8978 0.158035 19.2794 0.43934 19.5607C0.720644 19.842 1.10218 20 1.5 20H16.5C16.8978 20 17.2794 19.842 17.5607 19.5607C17.842 19.2794 18 18.8978 18 18.5V3.5C18 3.10218 17.842 2.72064 17.5607 2.43934C17.2794 2.15804 16.8978 2 16.5 2ZM16.5 6.5H1.5V3.5H3.75V4.25C3.75 4.44891 3.82902 4.63968 3.96967 4.78033C4.11032 4.92098 4.30109 5 4.5 5C4.69891 5 4.88968 4.92098 5.03033 4.78033C5.17098 4.63968 5.25 4.44891 5.25 4.25V3.5H12.75V4.25C12.75 4.44891 12.829 4.63968 12.9697 4.78033C13.1103 4.92098 13.3011 5 13.5 5C13.6989 5 13.8897 4.92098 14.0303 4.78033C14.171 4.63968 14.25 4.44891 14.25 4.25V3.5H16.5V6.5Z"
-                                            fill="#C3E92D" />
-                                    </svg>
-                                </span>
-                               {{ $event->event_date }}
-                            </p>
-                            <p>
-                                <span>
-                                    <svg width="18" height="22" viewBox="0 0 18 22" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9 3.75C7.21997 3.75 5.47991 4.27784 3.99987 5.26677C2.51983 6.25571 1.36628 7.66131 0.685088 9.30585C0.00389957 10.9504 -0.17433 12.76 0.172937 14.5058C0.520204 16.2516 1.37737 17.8553 2.63604 19.114C3.89472 20.3726 5.49836 21.2298 7.24419 21.5771C8.99002 21.9243 10.7996 21.7461 12.4442 21.0649C14.0887 20.3837 15.4943 19.2302 16.4832 17.7501C17.4722 16.2701 18 14.53 18 12.75C17.9973 10.3639 17.0482 8.07629 15.361 6.38905C13.6737 4.70182 11.3861 3.75273 9 3.75ZM13.2806 9.53063L9.53063 13.2806C9.46095 13.3503 9.37822 13.4056 9.28718 13.4433C9.19613 13.481 9.09855 13.5004 9 13.5004C8.90146 13.5004 8.80388 13.481 8.71283 13.4433C8.62179 13.4056 8.53906 13.3503 8.46938 13.2806C8.3997 13.2109 8.34442 13.1282 8.30671 13.0372C8.269 12.9461 8.24959 12.8485 8.24959 12.75C8.24959 12.6515 8.269 12.5539 8.30671 12.4628C8.34442 12.3718 8.3997 12.2891 8.46938 12.2194L12.2194 8.46938C12.2891 8.39969 12.3718 8.34442 12.4628 8.30671C12.5539 8.26899 12.6515 8.24958 12.75 8.24958C12.8486 8.24958 12.9461 8.26899 13.0372 8.30671C13.1282 8.34442 13.2109 8.39969 13.2806 8.46938C13.3503 8.53906 13.4056 8.62178 13.4433 8.71283C13.481 8.80387 13.5004 8.90145 13.5004 9C13.5004 9.09855 13.481 9.19613 13.4433 9.28717C13.4056 9.37822 13.3503 9.46094 13.2806 9.53063ZM6 1.5C6 1.30109 6.07902 1.11032 6.21967 0.96967C6.36033 0.829018 6.55109 0.75 6.75 0.75H11.25C11.4489 0.75 11.6397 0.829018 11.7803 0.96967C11.921 1.11032 12 1.30109 12 1.5C12 1.69891 11.921 1.88968 11.7803 2.03033C11.6397 2.17098 11.4489 2.25 11.25 2.25H6.75C6.55109 2.25 6.36033 2.17098 6.21967 2.03033C6.07902 1.88968 6 1.69891 6 1.5Z"
-                                            fill="#C3E92D" />
-                                    </svg>
-                                </span>
-                                {{ $event->event_info }}
-                            </p>
-                        </div>
-                        <img decoding="async" src="{{ asset('zunzo/images/evtent/event1.jpg') }}"
-                            alt="{{ $event->event_description }}">
-                    </div>
-                    <div class="tf-info-price">
-                        <h4>Ticket</h4>
-                        <p class="price"><span>{{ number_format($event->event_price) }}</span>/ticket</p>
-                        <a href="{{ route('event-register', ['event_id' => $event->field_primary]) }}" class="flat-button ">Register</a>
-                        <div class="item-event-price-bg">
-                        </div>
-                    </div>
-                    <div class="bg-item-event-2"></div>
-                </div>
-                @endforeach
-
-            </div>
         </div>
     </div><!-- Widget event -->
 @endsection

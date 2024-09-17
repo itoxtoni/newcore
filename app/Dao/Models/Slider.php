@@ -31,7 +31,7 @@ class Slider extends SystemModel
      *
      * @var array<int, string>
      */
-    protected $fillable = ['slider_id', 'slider_name', 'slider_button', 'slider_link', 'slider_image', 'slider_description'];
+    protected $fillable = ['slider_id', 'slider_name', 'slider_title', 'slider_button', 'slider_link', 'slider_image', 'slider_description'];
 
     public static function field_name()
     {
@@ -60,6 +60,32 @@ class Slider extends SystemModel
             DataBuilder::build($this->field_name())->name('Name')->show()->sort(),
             DataBuilder::build($this->field_image())->name('Image')->width('200px')->sort(),
         ];
+    }
+
+    public static function boot()
+    {
+        parent::saving(function ($model) {
+
+            if (request()->has('images')) {
+                $file_logo = request()->file('images');
+                $extension = $file_logo->extension();
+                $name = time().'.'.$extension;
+
+                $file_logo->storeAs('/public/files/slider/', $name);
+                $model->{self::field_image()} = $name;
+            }
+        });
+
+
+        parent::deleting(function ($model) {
+
+            if(!empty($model->field_image) && file_exists(public_path('/storage/files/slider/'.$model->field_image))) {
+                unlink(public_path('/storage/files/slider/'.$model->field_image));
+            }
+
+        });
+
+        parent::boot();
     }
 
 }

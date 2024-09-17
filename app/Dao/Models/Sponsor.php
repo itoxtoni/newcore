@@ -5,36 +5,35 @@ namespace App\Dao\Models;
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Models\Core\SystemModel;
 
+
 /**
- * Class Event
+ * Class Sponsor
  *
- * @property $event_id
- * @property $event_name
- * @property $event_price
- * @property $event_description
+ * @property $sponsor_id
+ * @property $sponsor_name
+ * @property $sponsor_link
+ * @property $sponsor_image
  *
+ * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class Event extends SystemModel
+
+class Sponsor extends SystemModel
 {
     protected $perPage = 20;
-
-    protected $table = 'events';
-
-    protected $primaryKey = 'event_id';
-
-    protected $keyType = 'integer';
+    protected $table = 'sponsor';
+    protected $primaryKey = 'sponsor_id';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = ['event_id', 'event_name', 'event_price', 'event_image', 'event_date', 'event_description', 'event_info'];
+    protected $fillable = ['sponsor_id', 'sponsor_name', 'sponsor_link', 'sponsor_image'];
 
     public static function field_name()
     {
-        return 'event_name';
+        return 'sponsor_name';
     }
 
     public function getFieldNameAttribute()
@@ -44,7 +43,7 @@ class Event extends SystemModel
 
     public static function field_image()
     {
-        return 'event_image';
+        return 'sponsor_image';
     }
 
     public function getFieldImageAttribute()
@@ -70,7 +69,7 @@ class Event extends SystemModel
                 $extension = $file_logo->extension();
                 $name = time().'.'.$extension;
 
-                $file_logo->storeAs('/public/files/event/', $name);
+                $file_logo->storeAs('/public/files/sponsor/', $name);
                 $model->{self::field_image()} = $name;
             }
         });
@@ -78,8 +77,8 @@ class Event extends SystemModel
 
         parent::deleting(function ($model) {
 
-            if(!empty($model->field_image) && file_exists(public_path('/storage/files/event/'.$model->field_image))) {
-                unlink(public_path('/storage/files/event/'.$model->field_image));
+            if(!empty($model->field_image) && file_exists(public_path('/storage/files/sponsor/'.$model->field_image))) {
+                unlink(public_path('/storage/files/sponsor/'.$model->field_image));
             }
 
         });

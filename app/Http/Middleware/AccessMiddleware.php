@@ -100,6 +100,11 @@ class AccessMiddleware
                 abort(402, ERROR_PERMISION);
             }
         }
+
+        if(empty(auth()->user()->level))
+        {
+            abort(402, ERROR_PERMISION);
+        }
     }
 
     private function addNavigation($menu)

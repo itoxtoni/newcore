@@ -29,10 +29,61 @@ class EventTableSeeder extends Seeder
             'system_menu_can_delete' => 1,
         ]);
 
+        SystemMenu::create([
+            'system_menu_code' => 'slider',
+            'system_menu_name' => 'Slider',
+            'system_menu_url' => 'slider',
+            'system_menu_controller' => 'App\\Http\\Controllers\\SliderController',
+            'system_menu_action' => 'slider.getTable',
+            'system_menu_type' => 1,
+            'system_menu_sort' => 9,
+            'system_menu_description' => null,
+            'system_menu_enable' => null,
+            'system_menu_can_delete' => 1,
+        ]);
+
+        SystemMenu::create([
+            'system_menu_code' => 'sponsor',
+            'system_menu_name' => 'Sponsor',
+            'system_menu_url' => 'sponsor',
+            'system_menu_controller' => 'App\\Http\\Controllers\\SponsorController',
+            'system_menu_action' => 'sponsor.getTable',
+            'system_menu_type' => 1,
+            'system_menu_sort' => 9,
+            'system_menu_description' => null,
+            'system_menu_enable' => null,
+            'system_menu_can_delete' => 1,
+        ]);
+
+        SystemMenu::create([
+            'system_menu_code' => 'benefit',
+            'system_menu_name' => 'Benefit',
+            'system_menu_url' => 'benefit',
+            'system_menu_controller' => 'App\\Http\\Controllers\\BenefitController',
+            'system_menu_action' => 'benefit.getTable',
+            'system_menu_type' => 1,
+            'system_menu_sort' => 9,
+            'system_menu_description' => null,
+            'system_menu_enable' => null,
+            'system_menu_can_delete' => 1,
+        ]);
+
         DB::table('system_group_connection_menu')->insert([
-            0 => [
+            [
                 'system_group_code' => 'aplikasi',
                 'system_menu_code' => 'event',
+            ],
+            [
+                'system_group_code' => 'aplikasi',
+                'system_menu_code' => 'slider',
+            ],
+            [
+                'system_group_code' => 'aplikasi',
+                'system_menu_code' => 'benefit',
+            ],
+            [
+                'system_group_code' => 'aplikasi',
+                'system_menu_code' => 'sponsor',
             ],
         ]);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Services\Master;
 
 use Plugins\Alert;
+use Plugins\Notes;
 
 class CreateService
 {
@@ -21,7 +22,9 @@ class CreateService
         } catch (\Throwable $th) {
             Alert::error($th->getMessage());
 
-            return $th->getMessage();
+            $check = Notes::error($th->getMessage());
+
+            return $check;
         }
 
         return $check;

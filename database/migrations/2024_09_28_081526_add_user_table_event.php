@@ -35,7 +35,6 @@ return new class extends Migration
             $table->string('amount')->nullable();
             $table->string('is_receive')->nullable();
             $table->integer('id_event')->nullable();
-            $table->foreign('id_event')->references('event_id')->on('event')->onDelete('cascade');
         });
     }
 

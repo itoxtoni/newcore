@@ -29,8 +29,7 @@
                                 </h2>
                             </div><!-- header style v1 -->
                             <p class="post wow fadeInUp animated">
-                                Welcome to our vibrant running community, where we organize exciting running events,
-                                provide helpful running tutorials, and keep you informed with the latest running news.
+
                             </p>
                             <div class="line"></div>
                             <div class="about-button-group">
@@ -42,7 +41,5 @@
             </div>
         </div>
     </div><!-- Widget-about  -->
-
-    @include('public.counter')
 
 @endsection
