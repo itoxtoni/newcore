@@ -8,18 +8,13 @@ use App\Dao\Models\Core\User;
 use App\Dao\Models\Event;
 use App\Dao\Models\Slider;
 use App\Dao\Models\Sponsor;
-use App\Facades\Model\UserModel;
 use App\Http\Requests\CheckoutRequest;
 use App\Http\Requests\RelationshipRequest;
-use Darryldecode\Cart\Facades\CartFacade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
-use LukePOLO\LaraCart\Cart;
-use LukePOLO\LaraCart\Facades\LaraCart;
 use Wink\WinkPage;
 use Wink\WinkPost;
-use Xendit\BalanceAndTransaction\ValidationError;
 use Xendit\Configuration;
 use Xendit\Invoice\CreateInvoiceRequest;
 use Xendit\Invoice\InvoiceApi;
@@ -120,19 +115,8 @@ class PublicController extends Controller
         return auth()->user();
     }
 
-    public function getCart()
-    {
-        $data = LaraCart::getItems();
-        // LaraCart::removeItem('xZ7Q4PjR2Fzpj5SUuqmv57ULoLkkhq8mJV60cRsS');
-        dump($data);
-
-        return $data;
-    }
-
     public function register()
     {
-        $carts = $this->getCart();
-
         $data_event = Event::all();
         $event_id = request()->get('event_id');
 
@@ -174,7 +158,6 @@ class PublicController extends Controller
 
         return view('public.register')->with([
             'user' => $user,
-            'carts' => $carts,
             'gender' => $gender,
             'family' => $family,
             'relationship' => $relationship,
