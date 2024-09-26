@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CheckoutRequest extends FormRequest
+class RelationshipRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,19 +22,22 @@ class CheckoutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|string',
-            'email' => 'required|string|email',
-            'gender' => 'required',
-            'id_event' => 'required',
-            'date_birth' => 'required',
-            'key' => 'string|unique:users,key,'.$this->user()->id,
+            'first_name1' => 'required|string',
+            'relationship1' => 'required|string',
+            'gender1' => 'required',
+            'date_birth1' => 'required',
         ];
     }
 
-    public function messages(): array
+    public function attributes()
     {
         return [
-            'id_event.required' => 'Category Event is required',
+            'first_name1' => 'First Name',
+            'relationship1' => 'Relationship',
+            'gender1' => 'Gender',
+            'date_birth1' => 'Gender',
         ];
     }
+
+
 }

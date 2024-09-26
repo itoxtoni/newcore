@@ -5,6 +5,7 @@ namespace App\Dao\Models\Core;
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\UserEntity;
+use App\Dao\Models\Event;
 use App\Dao\Repositories\Core\CrudRepository;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
@@ -45,6 +46,8 @@ class User extends Authenticatable implements AuthMustVerifyEmail
 
     protected $table = 'users';
 
+    // protected $with = ['has_relationship'];
+
     protected $primaryKey = 'id';
 
     protected $fillable = [
@@ -71,6 +74,7 @@ class User extends Authenticatable implements AuthMustVerifyEmail
         'blood_type',
         'id_event',
         'illness',
+        'gender',
         'emergency_contact',
         'community',
         'jersey',
@@ -141,6 +145,16 @@ class User extends Authenticatable implements AuthMustVerifyEmail
     public function has_role()
     {
         return $this->hasOne(RoleModel::getModel(), RoleModel::field_key(), UserModel::field_role());
+    }
+
+    public function has_event()
+    {
+        return $this->hasOne(Event::class, Event::field_key(), 'id_event');
+    }
+
+    public function has_relationship()
+    {
+        return $this->hasMany(User::class, 'reference_id', User::field_key());
     }
 
     public function roleNameSortable($query, $direction)

@@ -3854,6 +3854,10 @@ a.mapboxgl-ctrl-logo {
 	  color: var(--critical);
   }
 
+  .form-select.error{
+	border: 1px solid var(--critical);
+  }
+
   .form-floating .form-control.error {
 	border-color: var(--critical);
 }

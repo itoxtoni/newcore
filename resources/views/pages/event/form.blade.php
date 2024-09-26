@@ -3,23 +3,80 @@
         <x-card>
             <x-action form="form" />
 
-            <div class="row">
+            <div class="row mb-5">
                 @bind($model)
 
                 <x-form-input col="6" name="event_name" />
                 <x-form-input type="number" col="6" name="event_price" />
                 <x-form-input col="6" type="date" name="event_date" />
                 <x-form-input col="6" name="event_info" />
-                <x-form-input col="6" name="event_description" />
 
                 <x-form-upload col="3" name="images" />
+
                 @if($model)
-                <div class="col-md-3">
+                <div class="col-md-3 pb-2">
                     <img class="img-thumbnail img-fluid"
-                        src="{{ $model ? url('storage/files/event/' . $model->event_image) : url('assets/media/image/logo.png') }}"
+                        src="{{ !empty($model->event_image) ? url('storage/files/event/' . $model->event_image) : url('assets/media/image/image.png') }}"
                         alt="">
                 </div>
                 @endif
+
+                <x-form-upload col="3" name="banner" />
+
+                @if($model)
+                <div class="col-md-3 pb-2">
+                    <img class="img-thumbnail img-fluid"
+                        src="{{ !empty($model->event_banner) ? url('storage/files/event/' . $model->event_banner) : url('assets/media/image/image.png') }}"
+                        alt="">
+                </div>
+                @endif
+
+                <x-form-upload col="3" name="detail" />
+
+                @if($model)
+                <div class="col-md-3 pb-2">
+                    <img class="img-thumbnail img-fluid"
+                        src="{{ !empty($model->event_detail) ? url('storage/files/event/' . $model->event_detail) : url('assets/media/image/image.png') }}"
+                        alt="">
+                </div>
+                @endif
+
+                <x-form-upload col="3" name="map" />
+
+                @if($model)
+                <div class="col-md-3 pb-2">
+                    <img class="img-thumbnail img-fluid"
+                        src="{{ !empty($model->event_map) ? url('storage/files/event/' . $model->event_map) : url('assets/media/image/image.png') }}"
+                        alt="">
+                </div>
+                @endif
+
+                <x-form-upload col="3" name="mandatory" />
+
+                @if($model)
+                <div class="col-md-3 pb-2">
+                    <img class="img-thumbnail img-fluid"
+                        src="{{ !empty($model->event_mandatory) ? url('storage/files/event/' . $model->event_mandatory) : url('assets/media/image/image.png') }}"
+                        alt="">
+                </div>
+                @endif
+
+                <x-form-upload col="3" name="roundown" />
+
+                @if($model)
+                <div class="col-md-3 pb-2">
+                    <img class="img-thumbnail img-fluid"
+                        src="{{ !empty($model->event_roundown) ? url('storage/files/event/' . $model->event_roundown) : url('assets/media/image/image.png') }}"
+                        alt="">
+                </div>
+                @endif
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <x-form-input col="6" type="hidden" class="editor" name="event_description" />
+                        <div id="editor">{!! $model ? $model->event_description : '' !!}</div>
+                   </div>
+                </div>
 
                 @endbind
             </div>

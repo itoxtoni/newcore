@@ -60,7 +60,19 @@
                             <li><a href="{{ route('page', ['slug' => $page->slug]) }}">{{ $page->title }}</a></li>
                             @endforeach
 
-                            <li><a href="{{ route('events') }}">Our Events</a></li>
+                            <li>
+                                <a href="{{ route('events') }}">Race</a>
+                                <ul class="submenu">
+                                    @foreach ($events as $event)
+                                    <li>
+                                        <a href="{{ route('event-detail', ['code' => $event->event_slug]) }}">
+                                            {{ $event->field_name }}
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ul><!-- /.submenu -->
+                            </li>
+
                             <li><a href="{{ route('participants') }}">Participants</a></li>
 
                             @auth
@@ -72,9 +84,8 @@
 
                 <div class="header-right">
 
-                    @include('public.cart')
-
                     @if (auth()->check())
+                    @include('public.cart')
                         <a class="btn-contact" href="{{ route('signout') }}" role="button">Sign out</a>
                     @else
                         <a class="btn-contact" href="{{ route('login') }}" role="button">
@@ -323,7 +334,6 @@
 
     <script type="text/javascript" src="{{ asset('zunzo/javascript/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('zunzo/javascript/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('zunzo/javascript/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('zunzo/javascript/jquery.cookie.js') }}"></script>
     <script type="text/javascript" src="{{ asset('zunzo/javascript/swiper-bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('zunzo/javascript/owl.carousel.js') }}"></script>

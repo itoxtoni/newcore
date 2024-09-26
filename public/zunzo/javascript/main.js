@@ -189,6 +189,8 @@
     var timeSeconds = timeMinutes * 60;
     var timer = document.getElementById('timer-sell-out');
 
+
+
     function startTimer() {
         timeSeconds--;
         var minutes = Math.floor(timeSeconds / 60);
@@ -208,7 +210,11 @@
         timer.textContent = minutes + ':' + seconds;
     }
 
-    var timerInterval = setInterval(startTimer, 1000);
+    if(timer != null){
+
+        var timerInterval = setInterval(startTimer, 1000);
+    }
+
     //timerInterval
 
     //Slide

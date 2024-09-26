@@ -4,6 +4,7 @@ namespace App\Dao\Models;
 
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Models\Core\SystemModel;
+use Illuminate\Support\Str;
 
 /**
  * Class Event
@@ -30,7 +31,7 @@ class Event extends SystemModel
      *
      * @var array<int, string>
      */
-    protected $fillable = ['event_id', 'event_name', 'event_price', 'event_image', 'event_date', 'event_description', 'event_info'];
+    protected $fillable = ['event_id', 'event_name', 'event_slug', 'event_price', 'event_image', 'event_picture', 'event_date', 'event_description', 'event_info', 'event_detail', 'event_map', 'event_mandatory', 'event_roundown', 'event_banner'];
 
     public static function field_name()
     {
@@ -68,11 +69,58 @@ class Event extends SystemModel
             if (request()->has('images')) {
                 $file_logo = request()->file('images');
                 $extension = $file_logo->extension();
-                $name = time().'.'.$extension;
+                $name1 = time().'.'.$extension;
 
-                $file_logo->storeAs('/public/files/event/', $name);
-                $model->{self::field_image()} = $name;
+                $file_logo->storeAs('/public/files/event/', $name1);
+                $model->{self::field_image()} = $name1;
             }
+
+            if (request()->has('banner')) {
+                $file_logo = request()->file('banner');
+                $extension = $file_logo->extension();
+                $name2 = time().'.'.$extension;
+
+                $file_logo->storeAs('/public/files/event/', $name2);
+                $model->event_banner = $name2;
+            }
+
+            if (request()->has('detail')) {
+                $file_logo = request()->file('detail');
+                $extension = $file_logo->extension();
+                $name3 = time().'.'.$extension;
+
+                $file_logo->storeAs('/public/files/event/', $name3);
+                $model->event_detail = $name3;
+            }
+
+            if (request()->has('map')) {
+                $file_logo = request()->file('map');
+                $extension = $file_logo->extension();
+                $name4 = time().'.'.$extension;
+
+                $file_logo->storeAs('/public/files/event/', $name4);
+                $model->event_map = $name4;
+            }
+
+            if (request()->has('mandatory')) {
+                $file_logo = request()->file('mandatory');
+                $extension = $file_logo->extension();
+                $name5 = time().'.'.$extension;
+
+                $file_logo->storeAs('/public/files/event/', $name5);
+                $model->event_mandatory = $name5;
+            }
+
+            if (request()->has('roundown')) {
+                $file_logo = request()->file('roundown');
+                $extension = $file_logo->extension();
+                $name6 = time().'.'.$extension;
+
+                $file_logo->storeAs('/public/files/event/', $name6);
+                $model->event_roundown = $name6;
+            }
+
+            $model->event_slug = Str::slug(request()->get('event_name'));
         });
 
 

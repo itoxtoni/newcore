@@ -2,32 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Dao\Enums\GenderType;
 use App\Dao\Models\Benefit;
 use App\Dao\Models\Core\User;
 use App\Dao\Models\Event;
 use App\Dao\Models\Slider;
 use App\Dao\Models\Sponsor;
+use App\Facades\Model\UserModel;
 use App\Http\Requests\CheckoutRequest;
+use App\Http\Requests\RelationshipRequest;
+use Darryldecode\Cart\Facades\CartFacade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
+use LukePOLO\LaraCart\Cart;
 use LukePOLO\LaraCart\Facades\LaraCart;
 use Wink\WinkPage;
 use Wink\WinkPost;
+use Xendit\BalanceAndTransaction\ValidationError;
 use Xendit\Configuration;
 use Xendit\Invoice\CreateInvoiceRequest;
 use Xendit\Invoice\InvoiceApi;
 
 class PublicController extends Controller
 {
-
     public function __construct()
     {
         $pages = WinkPage::all();
         $blogs = WinkPost::all();
 
+        $events = Event::all();
+
         view()->share([
-            'blogs' => $blogs,
-            'pages' => $pages
+            'events' => $events,
+            'blogs' => $pages,
+            'pages' => $blogs
         ]);
     }
 
@@ -56,7 +65,10 @@ class PublicController extends Controller
 
     public function participants()
     {
-        $user = User::where('is_paid', 'Yes')->get();
+        $user = User::leftJoinRelationship('has_event')
+            ->where('is_paid', 'Yes')
+            ->get();
+
         return view('public.participant', ['user' => $user]);
     }
 
@@ -71,16 +83,16 @@ class PublicController extends Controller
 
     public function eventsDetails($code)
     {
-        $events = Event::findOrFail($code);
+        $event = Event::where('event_slug', $code)->firstOrFail();
 
-        return view('public.events')->with([
-            'events' => $events,
+        return view('public.event-detail')->with([
+            'event' => $event,
         ]);
     }
 
     public function page($slug)
     {
-        $page = WinkPage::where('slug', $slug)->first();
+        $page = WinkPost::where('slug', $slug)->first();
 
         return view('public.page')->with([
             'page' => $page,
@@ -89,7 +101,7 @@ class PublicController extends Controller
 
     public function blog($slug)
     {
-        $page = WinkPost::where('slug', $slug)->first();
+        $page = WinkPage::where('slug', $slug)->first();
 
         return view('public.page')->with([
             'page' => $page,
@@ -103,19 +115,29 @@ class PublicController extends Controller
         ]);
     }
 
-    private function check($id){
+    private function check($id)
+    {
+        return auth()->user();
+    }
 
-        if($id != 6){
-            return auth()->user();
-        }
+    public function getCart()
+    {
+        $data = LaraCart::getItems();
+        // LaraCart::removeItem('xZ7Q4PjR2Fzpj5SUuqmv57ULoLkkhq8mJV60cRsS');
+        dump($data);
+
+        return $data;
     }
 
     public function register()
     {
+        $carts = $this->getCart();
+
         $data_event = Event::all();
         $event_id = request()->get('event_id');
 
         $user = $this->check($event_id);
+
         $blood = [
             'A',
             'B',
@@ -132,8 +154,30 @@ class PublicController extends Controller
             'XXXL',
         ];
 
+        $relationship = [
+            'Suami',
+            'Istri',
+            'Anak',
+            'Nenek',
+            'Kakek',
+            'Saudara',
+        ];
+
+        $gender = GenderType::getOptions([
+            GenderType::Male,
+            GenderType::Female
+        ]);
+
+        $family = User::with('has_relationship')
+            ->where('reference_id', auth()->user()->id)
+            ->get();
+
         return view('public.register')->with([
             'user' => $user,
+            'carts' => $carts,
+            'gender' => $gender,
+            'family' => $family,
+            'relationship' => $relationship,
             'blood' => $blood,
             'jersey' => $jersey,
             'id' => $event_id,
@@ -141,48 +185,162 @@ class PublicController extends Controller
         ]);
     }
 
+    public function remove($id)
+    {
+        $reference = auth()->user()->id;
+
+        $user = User::where('reference_id', $reference)
+            ->where('id', $id)
+            ->first();
+
+
+        if(!empty($user) && $user->is_paid != 'Yes')
+        {
+            $user->delete();
+        }
+
+
+        throw ValidationException::withMessages(['field_name' => 'This value is incorrect']);
+    }
+
     public function add(CheckoutRequest $request)
     {
-        $event = Event::findOrFail($request->id_event);
+        $id = auth()->user()->id;
 
-        LaraCart::add(
-            $request->id_event,
-            $name = $event->field_name,
-            $qty = 1,
-            $price = $event->field_price,
-            $options = $event->toArray(),
-            $taxable = false,
-            $lineItem = false
-        );
+        $event_id = request()->get('id_event');
+        $event = Event::findOrFail($event_id);
+
+        $data = $request->all();
+
+        $data['id_event'] = $event_id;
+        $data['amount'] = $event->event_price;
+
+        $user = User::find($id)->update($data);
+
+
+        // $cart = LaraCart::find(['id' => $id]);
+
+        // if(!empty($cart))
+        // {
+        //     $hash = $cart->getHash();
+        //     LaraCart::updateItem($hash, 'options', $data);
+        //     LaraCart::updateItem($hash, 'name', $event->event_name);
+        //     LaraCart::updateItem($hash, 'price', $event->event_price);
+        //     LaraCart::updateItem($hash, 'qty', 1);
+        //     LaraCart::updateItem($hash, 'id', $id);
+        //     LaraCart::updateItem($hash, 'tax', null);
+        //     LaraCart::updateItem($hash, 'taxable', false);
+        // }
+        // else
+        // {
+        //     LaraCart::add(
+        //         $id,
+        //         $event->field_name,
+        //         1,
+        //         $event->event_price,
+        //         $data,
+        //         false,
+        //         true
+        //     );
+        // }
 
         return redirect()->back();
     }
 
-    public function checkout(CheckoutRequest $request)
+    public function relationship(RelationshipRequest $request)
     {
-        $event_id = $request->get('id_event');
+        $reference = auth()->user()->id;
+        $event_id = request()->get('event_id');
         $event = Event::findOrFail($event_id);
-        $data = $request->all();
-        $id = strtoupper(uniqid());
 
-        $data['reference_id'] = $id;
+        $data = $request->all();
+
+        $data['name'] = $request->first_name1.' '.$request->last_name;
+        $data['first_name'] = $request->first_name1;
+        $data['relationship'] = $request->relationship1;
+        $data['gender'] = $request->gender1;
+        $data['date_birth'] = $request->date_birth1;
+
+        $data['reference_id'] = $reference;
         $data['id_event'] = $event_id;
         $data['amount'] = $event->event_price;
 
-        if($request->has('relationship'))
+        $user = User::create($data);
+
+
+        // $cart = LaraCart::find(['id' => $user->id]);
+
+        // if(!empty($cart))
+        // {
+        //     foreach(LaraCart::getItems() as $item){
+
+        //         $hash = $item->getHash();
+        //         LaraCart::updateItem($hash, 'options', $data);
+        //         LaraCart::updateItem($hash, 'name', $event->event_name);
+        //         LaraCart::updateItem($hash, 'price', $event->event_price);
+        //         LaraCart::updateItem($hash, 'qty', 1);
+        //         LaraCart::updateItem($hash, 'id', $id);
+        //         LaraCart::updateItem($hash, 'tax', null);
+        //         LaraCart::updateItem($hash, 'taxable', false);
+        //     }
+        // }
+        // else
+        // {
+        //     LaraCart::add(
+        //         $id,
+        //         $event->field_name,
+        //         1,
+        //         $event->event_price,
+        //         $data,
+        //         false,
+        //         true
+        //     );
+        // }
+
+        return redirect()->back();
+    }
+
+    private function saveUser($data)
+    {
+        $event_id = request()->get('id_event');
+        $event = Event::findOrFail($event_id);
+
+        $reference = auth()->user()->id;
+
+        $data['reference_id'] = $reference;
+        $data['id_event'] = $event_id;
+        $data['amount'] = $event->event_price;
+
+        $user = User::where('reference_id', $reference)
+                ->where('key', $data['key'])
+                ->where('first_name', $data['first_name'])
+                ->first();
+
+        if(empty($user))
         {
-            $user = User::create($request->all());
+            $user = User::create($data);
         }
         else
         {
-            $user = User::find(auth()->user()->id);
-            if(empty($user->payment_status))
-            {
-                $data['payment_status'] = 'PENDING';
-            }
-
-            $user->update($data);
+            $user = User::where('reference', $reference)
+                ->where('first_name', $data['first_name'])
+                ->update($data);
         }
+
+        return $user;
+    }
+
+    public function checkout(Request $request)
+    {
+        $user = User::with(['has_event','has_relationship'])->find(auth()->user()->id);
+        $data = $request->all();
+
+        if(empty($user->payment_status))
+        {
+            $data['payment_status'] = 'PENDING';
+        }
+
+        $user->update($data);
 
         if($user->payment_status == 'PENDING')
         {
@@ -190,10 +348,18 @@ class PublicController extends Controller
 
             $apiInstance = new InvoiceApi;
 
+            $id = strtoupper(uniqid());
+
+            $event = $user->has_event;
+
+            $total = $event->event_price;
+
+            $total = $total + $user->has_relationship->sum('amount');
+
             $create_invoice_request = new CreateInvoiceRequest([
                 'external_id' => $id,
                 'description' => $event->field_name,
-                'amount' => $event->event_price,
+                'amount' => $total,
                 'invoice_duration' => 172800,
                 'currency' => 'IDR',
                 'reminder_time' => 1,

@@ -2,7 +2,7 @@
 
 @section('content')
 
-  <!-- Widget-about -->
+    <!-- Widget-about -->
     <div class="tf-widget-about-us main-content">
         <div class="themeflat-container">
             <div class="tf-about-us">
@@ -10,8 +10,8 @@
                     <div class="col-md-3 image-wraper">
                         <div class="media">
                             <div class="media-v1">
-                                <img class="mask-media wow fadeInLeft animated" src="{{ asset('zunzo/images/about/mask1.png') }}"
-                                    alt="image">
+                                <img class="mask-media wow fadeInLeft animated"
+                                    src="{{ asset('zunzo/images/about/mask1.png') }}" alt="image">
                             </div>
 
                         </div>
@@ -27,216 +27,635 @@
 
                             <div class="line"></div>
 
+                            @forelse ($carts as $cart)
+                                <form action="{{ route('add') }}" method="POST" id="registerform" class="register-form">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <select name="id_event"
+                                                    class="event form-select @error('id_event') error @enderror"
+                                                    id="floatingInput" placeholder="id_event">
+                                                    <option value="">- Silahkan Pilih -</option>
+                                                    @foreach ($data_event as $item)
+                                                        <option {{ $id == $item->field_primary ? 'selected' : '' }}
+                                                            value="{{ $item->field_primary }}">
+                                                            {{ $item->field_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                <label for="floatingInput">Event</label>
+                                                @error('id_event')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                            <form action="{{ route('checkout') }}" method="POST" id="registerform" class="register-form">
-                                @csrf
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="community"
+                                                    value="{{ old('community') ?? ($cart->community ?? ($user->community ?? null)) }}"
+                                                    class="form-control @error('community') error @enderror"
+                                                    id="floatingInput" placeholder="first name">
+                                                <label for="floatingInput">Komunitas</label>
+                                                @error('community')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <select name="id_event" class="event form-select @error('id_event') error @enderror" id="floatingInput" placeholder="id_event">
-                                                <option value="">- Silahkan Pilih -</option>
-                                                @foreach ($data_event as $item)
-                                                <option {{ old('id_event') == $item->field_primary || $id == $item->field_primary || ($user && $user->id_event == $item->field_primary) ? 'selected' : '' }} value="{{ $item->field_primary }}">
-                                                    {{ $item->field_name }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                            <label for="floatingInput">Event</label>
-                                            @error('id_event') <span class="error">{{ $message }}</span> @enderror
+                                    </div>
+
+                                    <div class="line"></div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="key"
+                                                    value="{{ old('key') ?? ($cart->key ?? ($user->key ?? null)) }}"
+                                                    class="form-control @error('key') error @enderror" id="floatingInput"
+                                                    placeholder="first name">
+                                                <label for="floatingInput">Nomer KTP / Kartu Pelajar</label>
+                                                @error('key')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <select name="gender"
+                                                    class="form-select @error('gender') error @enderror"
+                                                    id="floatingInput" placeholder="gender">
+                                                    <option value="">- Silahkan Pilih -</option>
+                                                    @foreach ($gender as $key => $gitem)
+                                                        <option @if (($cart && $gitem == $cart->gender) || ($user && $gitem == $user->gender)) selected @endif
+                                                            value="{{ $gitem }}">{{ $gitem }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <label for="floatingInput">Gender</label>
+                                                @error('gender')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="first_name"
+                                                    value="{{ old('first_name') ?? ($cart->first_name ?? ($user->first_name ?? null)) }}"
+                                                    class="form-control @error('first_name') error @enderror"
+                                                    id="floatingInput" placeholder="first name">
+                                                <label for="floatingInput">First Name</label>
+                                                @error('first_name')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="last_name"
+                                                    value="{{ old('last_name') ?? ($cart->last_name ?? ($user->last_name ?? null)) }}"
+                                                    class="form-control @error('last_name') error @enderror"
+                                                    id="floatingInput" placeholder="last name">
+                                                <label for="floatingInput">Last Name</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="email" name="email"
+                                                    value="{{ old('email') ?? ($cart->email ?? ($user->email ?? null)) }}"
+                                                    class="form-control @error('email') error @enderror" id="floatingInput"
+                                                    placeholder="email">
+                                                <label for="floatingInput">Email</label>
+                                                @error('email')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="phone"
+                                                    value="{{ old('phone') ?? ($cart->phone ?? ($user->phone ?? null)) }}"
+                                                    class="form-control @error('phone') error @enderror" id="floatingInput"
+                                                    placeholder="phone">
+                                                <label for="floatingInput">Phone</label>
+                                                @error('phone')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text" name="place_birth"
+                                                    value="{{ old('place_birth') ?? ($cart->place_birth ?? ($user->place_birth ?? null)) }}"
+                                                    class="form-control @error('place_birth') error @enderror"
+                                                    id="floatingInput" placeholder="place_birth">
+                                                <label for="floatingInput">Tempat Lahir</label>
+                                                @error('place_birth')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="date" name="date_birth"
+                                                    value="{{ old('date_birth') ?? ($cart->date_birth ?? ($user->date_birth ?? null)) }}"
+                                                    class="form-control @error('date_birth') error @enderror"
+                                                    id="floatingInput" placeholder="date_birth">
+                                                <label for="floatingInput">Tempat Lahir</label>
+                                                @error('date_birth')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="line"></div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="country"
+                                                    value="{{ old('country') ?? ($cart->country ?? ($user->country ?? null)) }}"
+                                                    class="form-control @error('country') error @enderror"
+                                                    id="floatingInput" placeholder="country">
+                                                <label for="floatingInput">Negara</label>
+                                                @error('country')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="province"
+                                                    value="{{ old('province') ?? ($cart->province ?? ($user->province ?? null)) }}"
+                                                    class="form-control @error('province') error @enderror"
+                                                    id="floatingInput" placeholder="province">
+                                                <label for="floatingInput">Provinsi</label>
+                                                @error('province')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="city"
+                                                    value="{{ old('city') ?? ($cart->city ?? ($user->city ?? null)) }}"
+                                                    class="form-control @error('city') error @enderror"
+                                                    id="floatingInput" placeholder="city">
+                                                <label for="floatingInput">Kota</label>
+                                                @error('city')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <textarea name="address" class="form-control @error('address') error @enderror" id="floatingInput" cols="30"
+                                                    rows="10">{{ old('address') ?? ($cart->address ?? ($user->address ?? null)) }}</textarea>
+                                                <label for="floatingInput">Alamat</label>
+                                                @error('address')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
 
-                                    @if($id == 6)
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <select name="relationship" class="form-select @error('relationship') error @enderror" id="floatingInput" placeholder="relationship">
-                                                <option value="">- Silahkan Pilih -</option>
-                                                <option value="Istri">Istri</option>
-                                                <option value="Suami">Suami</option>
-                                                <option value="Anak">Anak</option>
-                                            </select>
-                                            <label for="floatingInput">Hubungan</label>
-                                            @error('relationship') <span class="error">{{ $message }}</span> @enderror
+                                    <div class="line"></div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <select name="blood_type"
+                                                    class="form-select @error('blood_type') error @enderror"
+                                                    id="floatingInput" placeholder="blood_type">
+                                                    <option value="">- Silahkan Pilih -</option>
+                                                    @foreach ($blood as $key => $bitem)
+                                                        <option @if (($cart && $bitem == $cart->blood_type) || ($user && $bitem == $user->blood_type)) selected @endif
+                                                            value="{{ $bitem }}">{{ $bitem }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <label for="floatingInput">Golongan Darah</label>
+                                                @error('blood_type')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
+
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <textarea name="illness" class="form-control @error('illness') error @enderror" id="floatingInput" cols="30"
+                                                    rows="10">{{ old('illness') ?? ($cart->illness ?? ($user->illness ?? null)) }}</textarea>
+                                                <label for="floatingInput">Riwayat Penyakit</label>
+                                                @error('illness')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="emergency_contact"
+                                                    value="{{ old('emergency_contact') ?? ($cart->emergency_contact ?? ($user->emergency_contact ?? null)) }}"
+                                                    class="form-control @error('emergency_contact') error @enderror"
+                                                    id="floatingInput" placeholder="emergency_contact">
+                                                <label for="floatingInput">Emergency Contact</label>
+                                                @error('emergency_contact')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <select name="jersey"
+                                                    class="form-select @error('jersey') error @enderror"
+                                                    id="floatingInput" placeholder="jersey">
+                                                    <option value="">- Silahkan Pilih -</option>
+                                                    @foreach ($jersey as $key => $jitem)
+                                                        <option @if ((!empty($cart) && $jitem == $cart->jersey) || ($user && $jitem == $user->jersey)) selected @endif
+                                                            value="{{ $jitem }}">{{ $jitem }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <label for="floatingInput">Ukuran Jersey</label>
+                                                @error('jersey')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
                                     </div>
+
+                                    @if ($errors)
+                                        @foreach ($errors as $item)
+                                            <span>{{ $item }}</span>
+                                        @endforeach
                                     @endif
 
+                                    <p class="form-submit">
+                                        <input type="submit" id="comment-reply" class="submit-register"
+                                            value="Save Cart">
+                                    </p>
+
+                                </form>
+
+                            @empty
+
+                                <form action="{{ route('add') }}" method="POST" id="registerform"
+                                    class="register-form">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <select name="id_event"
+                                                    class="event form-select @error('id_event') error @enderror"
+                                                    id="floatingInput" placeholder="id_event">
+                                                    <option value="">- Silahkan Pilih -</option>
+                                                    @foreach ($data_event as $item)
+                                                        <option {{ $id == $item->field_primary ? 'selected' : '' }}
+                                                            value="{{ $item->field_primary }}">
+                                                            {{ $item->field_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                <label for="floatingInput">Event</label>
+                                                @error('id_event')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="community"
+                                                    value="{{ old('community') ?? ($user->community ?? null) }}"
+                                                    class="form-control @error('community') error @enderror"
+                                                    id="floatingInput" placeholder="first name">
+                                                <label for="floatingInput">Komunitas</label>
+                                                @error('community')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="line"></div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="key"
+                                                    value="{{ old('key') ?? ($user->key ?? null) }}"
+                                                    class="form-control @error('key') error @enderror" id="floatingInput"
+                                                    placeholder="first name">
+                                                <label for="floatingInput">Nomer KTP / Kartu Pelajar</label>
+                                                @error('key')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="email" name="email"
+                                                    value="{{ old('email') ?? ($user->email ?? null) }}"
+                                                    class="form-control @error('email') error @enderror"
+                                                    id="floatingInput" placeholder="email">
+                                                <label for="floatingInput">Email</label>
+                                                @error('email')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="first_name"
+                                                    value="{{ old('first_name') ?? ($user->first_name ?? null) }}"
+                                                    class="form-control @error('first_name') error @enderror"
+                                                    id="floatingInput" placeholder="first name">
+                                                <label for="floatingInput">First Name</label>
+                                                @error('first_name')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="last_name"
+                                                    value="{{ old('last_name') ?? ($user->last_name ?? null) }}"
+                                                    class="form-control @error('last_name') error @enderror"
+                                                    id="floatingInput" placeholder="last name">
+                                                <label for="floatingInput">Last Name</label>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="phone"
+                                                    value="{{ old('phone') ?? ($user->phone ?? null) }}"
+                                                    class="form-control @error('phone') error @enderror"
+                                                    id="floatingInput" placeholder="phone">
+                                                <label for="floatingInput">Phone</label>
+                                                @error('phone')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <select name="gender"
+                                                    class="form-select @error('gender') error @enderror"
+                                                    id="floatingInput" placeholder="gender">
+                                                    <option value="">- Silahkan Pilih -</option>
+                                                    @foreach ($gender as $key => $gitem)
+                                                        <option @if ($user && $gitem == $user->gender) selected @endif
+                                                            value="{{ $gitem }}">{{ $gitem }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <label for="floatingInput">Gender</label>
+                                                @error('gender')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text" name="place_birth"
+                                                    value="{{ old('place_birth') ?? ($user->place_birth ?? null) }}"
+                                                    class="form-control @error('place_birth') error @enderror"
+                                                    id="floatingInput" placeholder="place_birth">
+                                                <label for="floatingInput">Tempat Lahir</label>
+                                                @error('place_birth')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="date" name="date_birth"
+                                                    value="{{ old('date_birth') ?? ($user->date_birth ?? null) }}"
+                                                    class="form-control @error('date_birth') error @enderror"
+                                                    id="floatingInput" placeholder="date_birth">
+                                                <label for="floatingInput">Tanggal Lahir</label>
+                                                @error('date_birth')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="line"></div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="country"
+                                                    value="{{ old('country') ?? ($user->country ?? null) }}"
+                                                    class="form-control @error('country') error @enderror"
+                                                    id="floatingInput" placeholder="country">
+                                                <label for="floatingInput">Negara</label>
+                                                @error('country')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="province"
+                                                    value="{{ old('province') ?? ($user->province ?? null) }}"
+                                                    class="form-control @error('province') error @enderror"
+                                                    id="floatingInput" placeholder="province">
+                                                <label for="floatingInput">Provinsi</label>
+                                                @error('province')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="city"
+                                                    value="{{ old('city') ?? ($user->city ?? null) }}"
+                                                    class="form-control @error('city') error @enderror"
+                                                    id="floatingInput" placeholder="city">
+                                                <label for="floatingInput">Kota</label>
+                                                @error('city')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <textarea name="address" class="form-control @error('address') error @enderror" id="floatingInput" cols="30"
+                                                    rows="10">{{ old('address') ?? ($user->address ?? null) }}</textarea>
+                                                <label for="floatingInput">Alamat</label>
+                                                @error('address')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="line"></div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <select name="blood_type"
+                                                    class="form-select @error('blood_type') error @enderror"
+                                                    id="floatingInput" placeholder="blood_type">
+                                                    <option value="">- Silahkan Pilih -</option>
+                                                    @foreach ($blood as $key => $bitem)
+                                                        <option @if ($user && $bitem == $user->blood_type) selected @endif
+                                                            value="{{ $bitem }}">{{ $bitem }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <label for="floatingInput">Golongan Darah</label>
+                                                @error('blood_type')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <textarea name="illness" class="form-control @error('illness') error @enderror" id="floatingInput" cols="30"
+                                                    rows="10">{{ old('illness') ?? ($user->illness ?? null) }}</textarea>
+                                                <label for="floatingInput">Riwayat Penyakit</label>
+                                                @error('illness')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" name="emergency_contact"
+                                                    value="{{ old('emergency_contact') ?? ($user->emergency_contact ?? null) }}"
+                                                    class="form-control @error('emergency_contact') error @enderror"
+                                                    id="floatingInput" placeholder="emergency_contact">
+                                                <label for="floatingInput">Emergency Contact</label>
+                                                @error('emergency_contact')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <select name="jersey"
+                                                    class="form-select @error('jersey') error @enderror"
+                                                    id="floatingInput" placeholder="jersey">
+                                                    <option value="">- Silahkan Pilih -</option>
+                                                    @foreach ($jersey as $key => $jitem)
+                                                        <option @if ($user && $jitem == $user->jersey) selected @endif
+                                                            value="{{ $jitem }}">{{ $jitem }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <label for="floatingInput">Ukuran Jersey</label>
+                                                @error('jersey')
+                                                    <span class="error">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="line"></div>
+
+                                    @if ($errors)
+                                        @foreach ($errors as $item)
+                                            <span>{{ $item }}</span>
+                                        @endforeach
+                                    @endif
+
+                                    @if ($user->is_paid != 'PAID')
+                                        <p class="form-submit">
+                                            <input type="submit" id="comment-reply" class="submit-register"
+                                                value="Save Cart">
+                                        </p>
+                                    @endif
+
+                                </form>
+
+                            @endforelse
+
+
+                            @if ($id == 6)
+                            <form method="POST" class="mt-5 register-form" id="registerform" action="{{ route('relationship') }}">
+                                @csrf
+                                <div id="accordion">
+
+                                    <div class="card mb-5">
+
+                                        <div class="card-header" id="headingOne">
+                                            <h5 class="mb-0">
+                                                <a data-toggle="collapse" href="#collpase"
+                                                    role="button" aria-expanded="false"
+                                                    aria-controls="collpase">
+                                                    Tambahkan Anggota Keluarga
+                                                </a>
+                                            </h5>
+                                        </div>
+
+                                        <div id="collapse" class="collapse show"
+                                            aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div class="card-body">
+                                                @include('public.relationship', [
+                                                    'carts' => $carts,
+                                                ])
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
-                                <div class="line"></div>
-
-
-                                <div class="row">
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" name="key" value="{{ old('key') ?? $user->key ?? null }}"  class="form-control @error('key') error @enderror" id="floatingInput" placeholder="first name">
-                                            <label for="floatingInput">Nomer KTP / Kartu Pelajar</label>
-                                            @error('key') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" name="community" value="{{ old('community') ?? $user->community ?? null }}"  class="form-control @error('community') error @enderror" id="floatingInput" placeholder="first name">
-                                            <label for="floatingInput">Komunitas</label>
-                                            @error('community') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" name="first_name" value="{{ old('first_name') ?? $user->first_name ?? null }}" class="form-control @error('first_name') error @enderror" id="floatingInput" placeholder="first name">
-                                            <label for="floatingInput">First Name</label>
-                                            @error('first_name') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" name="last_name" value="{{ old('last_name') ?? $user->last_name ?? null }}" class="form-control @error('last_name') error @enderror" id="floatingInput" placeholder="last name">
-                                            <label for="floatingInput">Last Name</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="email" name="email" value="{{ old('email') ?? $user->email ?? null }}" class="form-control @error('email') error @enderror" id="floatingInput" placeholder="email">
-                                            <label for="floatingInput">Email</label>
-                                            @error('email') <span class="error">{{ $message }}</span> @enderror
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" name="phone" value="{{ old('phone') ?? $user->phone ?? null }}"  class="form-control @error('phone') error @enderror" id="floatingInput" placeholder="phone">
-                                            <label for="floatingInput">Phone</label>
-                                            @error('phone') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" name="place_birth" value="{{ old('place_birth') ?? $user->place_birth ?? null }}"  class="form-control @error('place_birth') error @enderror" id="floatingInput" placeholder="place_birth">
-                                            <label for="floatingInput">Tempat Lahir</label>
-                                            @error('place_birth') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="date" name="date_birth" value="{{ old('date_birth') ?? $user->date_birth ?? null }}"  class="form-control @error('date_birth') error @enderror" id="floatingInput" placeholder="date_birth">
-                                            <label for="floatingInput">Tempat Lahir</label>
-                                            @error('date_birth') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="line"></div>
-
-                                <div class="row">
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" name="country"  value="{{ old('country') ?? $user->country ?? null }}" class="form-control @error('country') error @enderror" id="floatingInput" placeholder="country">
-                                            <label for="floatingInput">Negara</label>
-                                            @error('country') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" name="province" value="{{ old('province') ?? $user->province ?? null }}"  class="form-control @error('province') error @enderror" id="floatingInput" placeholder="province">
-                                            <label for="floatingInput">Provinsi</label>
-                                            @error('province') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" name="city" value="{{ old('city') ?? $user->city ?? null }}"  class="form-control @error('city') error @enderror" id="floatingInput" placeholder="city">
-                                            <label for="floatingInput">Kota</label>
-                                            @error('city') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <textarea name="address" class="form-control @error('address') error @enderror" id="floatingInput" cols="30" rows="10">{{ old('address') ?? $user->address ?? null }}</textarea>
-                                            <label for="floatingInput">Alamat</label>
-                                            @error('address') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="line"></div>
-
-                                <div class="row">
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <select name="blood_type" class="form-select @error('blood_type') error @enderror" id="floatingInput" placeholder="blood_type">
-                                                <option value="">- Silahkan Pilih -</option>
-                                                @foreach ($blood as $key => $bitem)
-                                                <option @if($user && $bitem == $user->blood_type ?? null) selected @endif value="{{ $bitem }}">{{ $bitem }}</option>
-                                                @endforeach
-                                            </select>
-                                            <label for="floatingInput">Golongan Darah</label>
-                                            @error('blood_type') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <textarea name="illness" class="form-control @error('illness') error @enderror" id="floatingInput" cols="30" rows="10">{{ old('illness') ?? $user->illness ?? null }}</textarea>
-                                            <label for="floatingInput">Riwayat Penyakit</label>
-                                            @error('illness') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <input type="text" name="emergency_contact" value="{{ old('emergency_contact') ?? $user->emergency_contact ?? null }}"  class="form-control @error('emergency_contact') error @enderror" id="floatingInput" placeholder="emergency_contact">
-                                            <label for="floatingInput">Emergency Contact</label>
-                                            @error('emergency_contact') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <div class="form-floating">
-                                            <select name="jersey" class="form-select @error('jersey') error @enderror" id="floatingInput" placeholder="jersey">
-                                                <option value="">- Silahkan Pilih -</option>
-                                                @foreach ($jersey as $key => $jitem)
-                                                <option @if($user && $jitem == $user->jersey) selected @endif value="{{ $jitem }}">{{ $jitem }}</option>
-                                                @endforeach
-                                            </select>
-                                            <label for="floatingInput">Ukuran Jersey</label>
-                                            @error('jersey') <span class="error">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                @if($errors)
-                                @foreach ($errors as $item)
-                                <span>{{ $item }}</span>
-                                @endforeach
+                                @if ($user->is_paid != 'PAID')
+                                    <p class="form-submit">
+                                        <input type="submit" id="comment-reply" class="submit-register"
+                                            value="Add Cart">
+                                    </p>
                                 @endif
 
-
-                                <p class="form-submit">
-                                    <input type="submit" id="comment-reply" class="submit-register" value="Register">
-                                </p>
-
                             </form>
+                        @endif
 
                         </div>
                     </div>
@@ -246,15 +665,14 @@
     </div><!-- Widget-about  -->
 
     @push('js')
-    <script>
+        <script>
             $('.event').on('change', function() {
                 var id = $(this).val();
-                var route = "{{ route('event-register') }}"+"?event_id="+id;
+                var route = "{{ route('event-register') }}" + "?event_id=" + id;
 
                 window.location.href = route;
             });
-
-    </script>
+        </script>
     @endpush
 
 @endsection

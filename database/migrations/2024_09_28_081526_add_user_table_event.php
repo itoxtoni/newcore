@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('date_birth')->nullable();
             $table->string('address')->nullable();
             $table->string('country')->nullable();
+            $table->string('gender')->nullable();
             $table->string('province')->nullable();
             $table->string('city')->nullable();
             $table->string('blood_type')->nullable();

@@ -5,6 +5,7 @@ use App\Dao\Enums\Core\BooleanType;
 use App\Dao\Enums\Core\LevelType;
 use App\Dao\Enums\Core\MenuType;
 use App\Dao\Models\Core\SystemGroup;
+use App\Facades\Model\UserModel;
 use App\Providers\CacheableAuthUserServiceProvider;
 use App\Providers\FacadeServiceProviders;
 use Coderello\SharedData\Facades\SharedData;
@@ -204,6 +205,7 @@ return [
         FacadeServiceProviders::class,
         CrudServiceProvider::class,
         MegaphoneServiceProvider::class,
+        Darryldecode\Cart\CartServiceProvider::class,
         LukePOLO\LaraCart\LaraCartServiceProvider::class,
     ],
 
@@ -266,7 +268,9 @@ return [
         'Str' => Str::class,
         'EnvEditor' => EnvEditor::class,
         'ModelGroup' => SystemGroup::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'LaraCart' => LukePOLO\LaraCart\Facades\LaraCart::class,
+        'UserModel' => UserModel::class,
     ],
 
 ];

@@ -45,6 +45,8 @@ Route::match(['POST', 'GET'], '/events/register', [PublicController::class, 'reg
 Route::get('/events/{code}', [PublicController::class, 'eventsDetails'])->name('event-detail');
 Route::post('/checkout', [PublicController::class, 'checkout'])->middleware('auth')->name('checkout');
 Route::post('/add', [PublicController::class, 'add'])->middleware('auth')->name('add');
+Route::get('/remove/{id}', [PublicController::class, 'remove'])->middleware('auth')->name('remove');
+Route::post('/relationship', [PublicController::class, 'relationship'])->middleware('auth')->name('relationship');
 Route::match(['POST', 'GET'], '/profile', [PublicController::class, 'profile'])->middleware('auth')->name('profile');
 
 try {

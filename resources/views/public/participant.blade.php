@@ -20,15 +20,25 @@
 
                         <table class="table table-responsive" id="myTable">
                             <thead>
-                                <th>Nama</th>
-                                <th>Negara</th>
-                                <th>Provinsi</th>
+                                <th style="width: 50px">No.</th>
+                                <th>Category</th>
+                                <th>BIB</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Country</th>
+                                <th>Gender</th>
+                                <th>City</th>
                             </thead>
                             @foreach ($user as $item)
                             <tr>
-                                <td>{{ $item->field_name }}</td>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>Category</td>
+                                <td>BIB</td>
+                                <td>{{ $item->first_name }}</td>
+                                <td>{{ $item->last_name }}</td>
                                 <td>{{ $item->country }}</td>
-                                <td>{{ $item->province }}</td>
+                                <td>{{ $item->gender }}</td>
+                                <td>{{ $item->city }}</td>
                             </tr>
                             @endforeach
                         </table>

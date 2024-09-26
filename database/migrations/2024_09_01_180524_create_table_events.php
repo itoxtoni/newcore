@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->integer('event_id')->autoIncrement();
+            $table->string('event_slug');
             $table->string('event_name');
             $table->string('event_date')->nullable();
             $table->string('event_info')->nullable();
             $table->integer('event_price')->nullable();
             $table->string('event_image')->nullable();
-            $table->string('event_description')->nullable();
+            $table->text('event_description')->nullable();
         });
     }
 

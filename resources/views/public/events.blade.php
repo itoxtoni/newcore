@@ -8,8 +8,8 @@
             <div class="">
                 <div class="tf-title-wrap title-medium">
                     <div class="title-box-v2">
+                        <h2 class="title-section wow fadeInUp animated">Running Events</h2>
                         <span class="sub-title wow fadeInUp animated">running events</span>
-                        <h2 class="title-section wow fadeInUp animated">Running Events Coming Up include</h2>
                     </div>
                 </div>
 
@@ -20,7 +20,7 @@
                         @foreach ($events as $event)
                             <div class="event-box col-md-6 mt-4">
                                 <h2 class="text-white">{{ $event->field_name }} (Rp {{ number_format($event->event_price, 0, ',', '.') }})</h2>
-                                <a href="{{ route('event-register', ['event_id' => $event->field_primary]) }}">
+                                <a href="{{ route('event-detail', ['code' => $event->event_slug]) }}">
                                     <img decoding="async" src="{{ asset('storage/files/event/' . $event->event_image) }}"
                                     alt="{{ $event->event_description }}">
                                 </a>
