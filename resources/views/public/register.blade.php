@@ -27,7 +27,8 @@
 
                             <div class="line"></div>
 
-                            @forelse ($carts as $cart)
+                            @if (auth()->check())
+
                                 <form action="{{ route('add') }}" method="POST" id="registerform" class="register-form">
                                     @csrf
                                     <div class="row">
@@ -54,7 +55,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <input type="text" name="community"
-                                                    value="{{ old('community') ?? ($cart->community ?? ($user->community ?? null)) }}"
+                                                    value="{{ old('community') ?? (($user->community ?? null)) }}"
                                                     class="form-control @error('community') error @enderror"
                                                     id="floatingInput" placeholder="first name">
                                                 <label for="floatingInput">Komunitas</label>
@@ -72,7 +73,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <input type="text" name="key"
-                                                    value="{{ old('key') ?? ($cart->key ?? ($user->key ?? null)) }}"
+                                                    value="{{ old('key') ?? (($user->key ?? null)) }}"
                                                     class="form-control @error('key') error @enderror" id="floatingInput"
                                                     placeholder="first name">
                                                 <label for="floatingInput">Nomer KTP / Kartu Pelajar</label>
@@ -89,7 +90,7 @@
                                                     id="floatingInput" placeholder="gender">
                                                     <option value="">- Silahkan Pilih -</option>
                                                     @foreach ($gender as $key => $gitem)
-                                                        <option @if (($cart && $gitem == $cart->gender) || ($user && $gitem == $user->gender)) selected @endif
+                                                        <option @if (($user && $gitem == $user->gender)) selected @endif
                                                             value="{{ $gitem }}">{{ $gitem }}</option>
                                                     @endforeach
                                                 </select>
@@ -104,7 +105,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <input type="text" name="first_name"
-                                                    value="{{ old('first_name') ?? ($cart->first_name ?? ($user->first_name ?? null)) }}"
+                                                    value="{{ old('first_name') ?? (($user->first_name ?? null)) }}"
                                                     class="form-control @error('first_name') error @enderror"
                                                     id="floatingInput" placeholder="first name">
                                                 <label for="floatingInput">First Name</label>
@@ -117,7 +118,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <input type="text" name="last_name"
-                                                    value="{{ old('last_name') ?? ($cart->last_name ?? ($user->last_name ?? null)) }}"
+                                                    value="{{ old('last_name') ?? (($user->last_name ?? null)) }}"
                                                     class="form-control @error('last_name') error @enderror"
                                                     id="floatingInput" placeholder="last name">
                                                 <label for="floatingInput">Last Name</label>
@@ -127,7 +128,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <input type="email" name="email"
-                                                    value="{{ old('email') ?? ($cart->email ?? ($user->email ?? null)) }}"
+                                                    value="{{ old('email') ?? (($user->email ?? null)) }}"
                                                     class="form-control @error('email') error @enderror" id="floatingInput"
                                                     placeholder="email">
                                                 <label for="floatingInput">Email</label>
@@ -141,7 +142,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <input type="text" name="phone"
-                                                    value="{{ old('phone') ?? ($cart->phone ?? ($user->phone ?? null)) }}"
+                                                    value="{{ old('phone') ?? (($user->phone ?? null)) }}"
                                                     class="form-control @error('phone') error @enderror" id="floatingInput"
                                                     placeholder="phone">
                                                 <label for="floatingInput">Phone</label>
@@ -155,7 +156,7 @@
                                         <div class="col-md-6">
                                             <div class="form-floating">
                                                 <input type="text" name="place_birth"
-                                                    value="{{ old('place_birth') ?? ($cart->place_birth ?? ($user->place_birth ?? null)) }}"
+                                                    value="{{ old('place_birth') ?? (($user->place_birth ?? null)) }}"
                                                     class="form-control @error('place_birth') error @enderror"
                                                     id="floatingInput" placeholder="place_birth">
                                                 <label for="floatingInput">Tempat Lahir</label>
@@ -168,7 +169,7 @@
                                         <div class="col-md-6">
                                             <div class="form-floating">
                                                 <input type="date" name="date_birth"
-                                                    value="{{ old('date_birth') ?? ($cart->date_birth ?? ($user->date_birth ?? null)) }}"
+                                                    value="{{ old('date_birth') ?? (($user->date_birth ?? null)) }}"
                                                     class="form-control @error('date_birth') error @enderror"
                                                     id="floatingInput" placeholder="date_birth">
                                                 <label for="floatingInput">Tempat Lahir</label>
@@ -187,7 +188,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <input type="text" name="country"
-                                                    value="{{ old('country') ?? ($cart->country ?? ($user->country ?? null)) }}"
+                                                    value="{{ old('country') ?? (($user->country ?? null)) }}"
                                                     class="form-control @error('country') error @enderror"
                                                     id="floatingInput" placeholder="country">
                                                 <label for="floatingInput">Negara</label>
@@ -201,7 +202,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <input type="text" name="province"
-                                                    value="{{ old('province') ?? ($cart->province ?? ($user->province ?? null)) }}"
+                                                    value="{{ old('province') ?? (($user->province ?? null)) }}"
                                                     class="form-control @error('province') error @enderror"
                                                     id="floatingInput" placeholder="province">
                                                 <label for="floatingInput">Provinsi</label>
@@ -215,7 +216,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <input type="text" name="city"
-                                                    value="{{ old('city') ?? ($cart->city ?? ($user->city ?? null)) }}"
+                                                    value="{{ old('city') ?? (($user->city ?? null)) }}"
                                                     class="form-control @error('city') error @enderror"
                                                     id="floatingInput" placeholder="city">
                                                 <label for="floatingInput">Kota</label>
@@ -229,7 +230,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <textarea name="address" class="form-control @error('address') error @enderror" id="floatingInput" cols="30"
-                                                    rows="10">{{ old('address') ?? ($cart->address ?? ($user->address ?? null)) }}</textarea>
+                                                    rows="10">{{ old('address') ?? (($user->address ?? null)) }}</textarea>
                                                 <label for="floatingInput">Alamat</label>
                                                 @error('address')
                                                     <span class="error">{{ $message }}</span>
@@ -249,7 +250,7 @@
                                                     id="floatingInput" placeholder="blood_type">
                                                     <option value="">- Silahkan Pilih -</option>
                                                     @foreach ($blood as $key => $bitem)
-                                                        <option @if (($cart && $bitem == $cart->blood_type) || ($user && $bitem == $user->blood_type)) selected @endif
+                                                        <option @if (($user && $bitem == $user->blood_type)) selected @endif
                                                             value="{{ $bitem }}">{{ $bitem }}</option>
                                                     @endforeach
                                                 </select>
@@ -264,7 +265,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <textarea name="illness" class="form-control @error('illness') error @enderror" id="floatingInput" cols="30"
-                                                    rows="10">{{ old('illness') ?? ($cart->illness ?? ($user->illness ?? null)) }}</textarea>
+                                                    rows="10">{{ old('illness') ?? (($user->illness ?? null)) }}</textarea>
                                                 <label for="floatingInput">Riwayat Penyakit</label>
                                                 @error('illness')
                                                     <span class="error">{{ $message }}</span>
@@ -275,7 +276,7 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-floating">
                                                 <input type="text" name="emergency_contact"
-                                                    value="{{ old('emergency_contact') ?? ($cart->emergency_contact ?? ($user->emergency_contact ?? null)) }}"
+                                                    value="{{ old('emergency_contact') ?? (($user->emergency_contact ?? null)) }}"
                                                     class="form-control @error('emergency_contact') error @enderror"
                                                     id="floatingInput" placeholder="emergency_contact">
                                                 <label for="floatingInput">Emergency Contact</label>
@@ -292,7 +293,7 @@
                                                     id="floatingInput" placeholder="jersey">
                                                     <option value="">- Silahkan Pilih -</option>
                                                     @foreach ($jersey as $key => $jitem)
-                                                        <option @if ((!empty($cart) && $jitem == $cart->jersey) || ($user && $jitem == $user->jersey)) selected @endif
+                                                        <option @if (($user && $jitem == $user->jersey)) selected @endif
                                                             value="{{ $jitem }}">{{ $jitem }}</option>
                                                     @endforeach
                                                 </select>
@@ -318,7 +319,7 @@
 
                                 </form>
 
-                            @empty
+                            @else
 
                                 <form action="{{ route('add') }}" method="POST" id="registerform"
                                     class="register-form">
@@ -614,8 +615,7 @@
 
                                 </form>
 
-                            @endforelse
-
+                            @endif
 
                             @if ($id == 6)
                             <form method="POST" class="mt-5 register-form" id="registerform" action="{{ route('relationship') }}">
@@ -637,9 +637,7 @@
                                         <div id="collapse" class="collapse show"
                                             aria-labelledby="headingOne" data-parent="#accordion">
                                             <div class="card-body">
-                                                @include('public.relationship', [
-                                                    'carts' => $carts,
-                                                ])
+                                                @include('public.relationship')
                                             </div>
                                         </div>
 

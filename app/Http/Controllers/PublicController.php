@@ -8,13 +8,12 @@ use App\Dao\Models\Core\User;
 use App\Dao\Models\Event;
 use App\Dao\Models\Slider;
 use App\Dao\Models\Sponsor;
+use App\Facades\Model\PageModel;
 use App\Http\Requests\CheckoutRequest;
 use App\Http\Requests\RelationshipRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
-use Wink\WinkPage;
-use Wink\WinkPost;
 use Xendit\Configuration;
 use Xendit\Invoice\CreateInvoiceRequest;
 use Xendit\Invoice\InvoiceApi;
@@ -23,15 +22,13 @@ class PublicController extends Controller
 {
     public function __construct()
     {
-        $pages = WinkPage::all();
-        $blogs = WinkPost::all();
+        $pages = PageModel::all();
 
         $events = Event::all();
 
         view()->share([
             'events' => $events,
-            'blogs' => $pages,
-            'pages' => $blogs
+            'pages' => $pages
         ]);
     }
 
@@ -87,16 +84,7 @@ class PublicController extends Controller
 
     public function page($slug)
     {
-        $page = WinkPost::where('slug', $slug)->first();
-
-        return view('public.page')->with([
-            'page' => $page,
-        ]);
-    }
-
-    public function blog($slug)
-    {
-        $page = WinkPage::where('slug', $slug)->first();
+        $page = PageModel::where('page_slug', $slug)->first();
 
         return view('public.page')->with([
             'page' => $page,

@@ -13,25 +13,25 @@
                     <div class="slide-item">
                         <div class="silde-content">
 
+                            <h1 class="flat-title-slider">{{ $event->event_description }}</h1>
+
+                            <p class="flat-description-slider">
+                                {!! $event->event_page !!}
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="swiper-pagination"></div>
+        <div class="image-event">
+            <img src="{{ asset('storage/files/event/' . $event->event_background) }}" alt="Image Events"
+                class="wow fadeInLeft animated">
+        </div>
     </div><!-- Widget-slide -->
 
     <!-- Event Detail Content -->
     <div class="tf-widget-events">
         <div class="themeflat-container">
-
-            <div class="col-md-auto mb-5">
-                <h2 class="title-event-detail title-small wow fadeInUp animated ">
-                    {{ $event->field_name }}
-                </h2>
-
-                {!! $event->event_description !!}
-            </div>
 
             <div id="accordion">
                 <div class="card">

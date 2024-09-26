@@ -31,7 +31,7 @@ class Event extends SystemModel
      *
      * @var array<int, string>
      */
-    protected $fillable = ['event_id', 'event_name', 'event_slug', 'event_price', 'event_image', 'event_picture', 'event_date', 'event_description', 'event_info', 'event_detail', 'event_map', 'event_mandatory', 'event_roundown', 'event_banner'];
+    protected $fillable = ['event_id', 'event_name', 'event_slug', 'event_price', 'event_image', 'event_picture', 'event_date', 'event_description', 'event_info', 'event_detail', 'event_map', 'event_mandatory', 'event_roundown', 'event_banner', 'event_page', 'event_background'];
 
     public static function field_name()
     {
@@ -118,6 +118,15 @@ class Event extends SystemModel
 
                 $file_logo->storeAs('/public/files/event/', $name6);
                 $model->event_roundown = $name6;
+            }
+
+            if (request()->has('background')) {
+                $file_logo = request()->file('background');
+                $extension = $file_logo->extension();
+                $name6 = time().'.'.$extension;
+
+                $file_logo->storeAs('/public/files/event/', $name6);
+                $model->event_background = $name6;
             }
 
             $model->event_slug = Str::slug(request()->get('event_name'));

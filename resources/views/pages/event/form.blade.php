@@ -71,10 +71,22 @@
                 </div>
                 @endif
 
+                <x-form-upload col="3" name="background" />
+
+                @if($model)
+                <div class="col-md-3 pb-2">
+                    <img class="img-thumbnail img-fluid"
+                        src="{{ !empty($model->event_background) ? url('storage/files/event/' . $model->event_background) : url('assets/media/image/image.png') }}"
+                        alt="">
+                </div>
+                @endif
+
+                <x-form-textarea col="6" name="event_description" />
+
                 <div class="row mt-3">
                     <div class="col-md-12">
-                        <x-form-input col="6" type="hidden" class="editor" name="event_description" />
-                        <div id="editor">{!! $model ? $model->event_description : '' !!}</div>
+                        <x-form-input col="6" type="hidden" class="editor" name="event_page" />
+                        <div id="editor">{!! $model ? $model->event_page : '' !!}</div>
                    </div>
                 </div>
 

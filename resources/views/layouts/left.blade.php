@@ -13,7 +13,7 @@
 			@foreach($groups as $group_data)
 			<li>
 				<a class="icon {{ request()->segment(2) == $group_data->field_primary ? 'active' : '' }}" href="{{ $group_data->field_url ?? '#' }}"
-					data-nav-target="#{{ $group_data->field_primary }}">
+					@if(empty($group_data->field_url)) data-nav-target="#{{ $group_data->field_primary }}" @endif >
 					<i class="bi bi-{{ $group_data->field_icon }}"></i>
 					<h5 class="text-center text-white">
 						{{ __($group_data->field_name) }}

@@ -57,7 +57,7 @@
                             </li>
 
                             @foreach ($pages as $page)
-                            <li><a href="{{ route('page', ['slug' => $page->slug]) }}">{{ $page->title }}</a></li>
+                            <li><a href="{{ route('page', ['slug' => $page->page_slug]) }}">{{ $page->page_title }}</a></li>
                             @endforeach
 
                             <li>
@@ -169,7 +169,7 @@
                     </div><!-- /.col-md-4 -->
 
 
-                    <div class="col-xxl-4 col-lg-4 col-xl-4 col-md-5 col-sm-12 new-letter mt-2">
+                    <div class="col-xxl-5 col-lg-5 col-xl-5 col-md-5 col-sm-12 new-letter mt-2">
                         <div class="widget widget_text">
                             <div class="text-phone">
                                 <svg width="36" height="37" viewBox="0 0 36 37" fill="none"
@@ -205,13 +205,6 @@
                                 Reserved.
                             </p>
                         </div>
-                    </div><!-- /.col-md-6 -->
-                    <div class="col-md-6 col-sm-12">
-                        <ul class="link-footer-bottom">
-                            @foreach ($blogs as $blog)
-                            <li><a href="{{ route('blog', ['slug' => $blog->slug]) }}">{{ $blog->title }}</a></li>
-                            @endforeach
-                        </ul><!-- /.menu -->
                     </div><!-- /.col-md-6 -->
                 </div><!-- /.row -->
             </div><!-- /.container -->

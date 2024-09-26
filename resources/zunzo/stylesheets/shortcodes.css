@@ -214,6 +214,15 @@ p.post {
 	width: 100%;
 }
 
+.silde-content p{
+	font-family: "Jost", sans-serif;
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 30px;
+	color: var(--white);
+	margin-bottom: 32px;
+}
+
 span.new-event {
 	display: inline-block;
 	padding: 4px 20px;
@@ -675,7 +684,7 @@ p.flat-description-slider {
 
 /* event */
 .tf-widget-events {
-	padding: 80px 0 120px 0;
+	padding: 20px 0 120px 0;
 }
 
 .event-detail-box {
