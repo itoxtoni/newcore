@@ -15,7 +15,7 @@ trait DataTableTrait
     public function fieldDatatable(): array
     {
         return [
-            DataBuilder::build($this->field_key())->name('ID'),
+            DataBuilder::build($this->field_key())->name('Code'),
             DataBuilder::build($this->field_name())->name('Name')->sort(),
         ];
     }

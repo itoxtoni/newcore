@@ -42,6 +42,7 @@ Route::get('/page/{slug}', [PublicController::class, 'page'])->name('page');
 Route::get('/events', [PublicController::class, 'events'])->name('events');
 Route::match(['POST', 'GET'], '/events/register', [PublicController::class, 'register'])->middleware('auth')->name('event-register');
 Route::get('/events/{code}', [PublicController::class, 'eventsDetails'])->name('event-detail');
+Route::post('/discount', [PublicController::class, 'discount'])->middleware('auth')->name('discount');
 Route::post('/checkout', [PublicController::class, 'checkout'])->middleware('auth')->name('checkout');
 Route::post('/add', [PublicController::class, 'add'])->middleware('auth')->name('add');
 Route::get('/remove/{id}', [PublicController::class, 'remove'])->middleware('auth')->name('remove');

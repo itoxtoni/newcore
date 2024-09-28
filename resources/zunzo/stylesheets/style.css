@@ -3386,4 +3386,11 @@ ul.link-footer-bottom {
     position: relative;
 }
 
+.input-cart{
+	height: 50px !important;
+}
 
+.btn-cart{
+	width: 100%;
+	margin-right: 7px;
+}

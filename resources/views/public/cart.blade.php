@@ -4,12 +4,14 @@
 
     $data_user = UserModel::with('has_event')
         ->where('id', auth()->user()->id)
+        ->whereNotNull('id_event')
         ->whereNot('is_paid', 'PAID')
         ->orWhereNull('is_paid')
         ->where('id', auth()->user()->id)
+        ->whereNotNull('id_event')
         ->first();
 
-    $total = $data_user->amount;
+    $total = $data_user->amount ?? 0;
 
     $relationship = false;
 
@@ -83,36 +85,55 @@
 
             </div>
             <div class="minicar-footer">
-                <ul class="tab-menu">
-                    <li>
-                        <input type="text" placeholder="COUPON" name="" id="">
-                    </li>
+                <ul class="tab-menu container p-3">
+                        <form class="row" method="POST" action="{{ route('discount') }}">
+                            @csrf
+                            <div class="col-md-8">
+                                <input type="text" class="input-cart ml-3" value="{{ $data_user->discount_code ?? null }}" placeholder="COUPON" name="coupon" id="">
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-secondary btn-lg btn-cart" type="submit">Apply</button>
+                            </div>
+
+                            <div class="col-md-12 mt-3">
+                                @error('coupon')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </form>
+
+
                 </ul>
                 <form id="registerform" class="register-form" method="POST" action="{{ route('checkout') }}">
+                    @csrf
                     <div class="view-cart">
                         <p class="total">
                             <strong>Subtotal</strong> <span
-                                class="currency-symbol">{{ number_format($total, 0, ',', '.') ?? '' }}</span>
+                                class="currency-symbol">{{ number_format($total ?? 0, 0, ',', '.') ?? '' }}</span>
                         </p>
                     </div>
 
                     <div class="view-cart">
                         <p class="total">
                             <strong>Discount</strong> <span
-                                class="currency-symbol">{{ number_format($total, 0, ',', '.') ?? '' }}</span>
+                                class="currency-symbol">{{ number_format($data_user->discount_value ?? 0, 0, ',', '.') ?? '' }}</span>
                         </p>
                     </div>
 
                     <div class="view-cart">
                         <p class="total">
                             <strong>Grand Total</strong> <span
-                                class="currency-symbol">{{ number_format($total, 0, ',', '.') ?? '' }}</span>
+                                class="currency-symbol">{{ number_format($data_user->total ?? 0, 0, ',', '.') ?? '' }}</span>
                         </p>
                     </div>
 
                     <div class="view-cart">
                         <div class="row">
-                                <button class="btn btn-secondary btn-lg btn-block" type="submit">Checkout</button>
+                            @if (!empty($data_user->payment_url))
+                            <a href="{{ $data_user->payment_url }}" class="btn btn-secondary btn-lg btn-block" type="submit">Payment</a>
+                            @else
+                            <button class="btn btn-secondary btn-lg btn-block" type="submit">Checkout</button>
+                            @endif
                         </div>
                     </div>
 

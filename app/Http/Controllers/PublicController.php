@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Dao\Enums\GenderType;
 use App\Dao\Models\Benefit;
 use App\Dao\Models\Core\User;
+use App\Dao\Models\Discount;
 use App\Dao\Models\Event;
 use App\Dao\Models\Slider;
 use App\Dao\Models\Sponsor;
 use App\Facades\Model\PageModel;
 use App\Http\Requests\CheckoutRequest;
 use App\Http\Requests\RelationshipRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Plugins\Helper;
 use Xendit\Configuration;
 use Xendit\Invoice\CreateInvoiceRequest;
 use Xendit\Invoice\InvoiceApi;
@@ -168,8 +171,8 @@ class PublicController extends Controller
         if(!empty($user) && $user->is_paid != 'Yes')
         {
             $user->delete();
+            $this->calculateDiscount();
         }
-
 
         throw ValidationException::withMessages(['field_name' => 'This value is incorrect']);
     }
@@ -182,11 +185,22 @@ class PublicController extends Controller
         $event = Event::findOrFail($event_id);
 
         $data = $request->all();
+        $year = Carbon::parse($request->date_birth)->age;
 
+        $data['year'] = $year;
         $data['id_event'] = $event_id;
         $data['amount'] = $event->event_price;
 
-        $user = User::find($id)->update($data);
+        $user = User::with('has_relationship')->find($id);
+
+        if($event_id != 6 && $user->has_relationship)
+        {
+            $user->has_relationship()->delete();
+        }
+
+        $user->update($data);
+
+        $this->calculateDiscount();
 
 
         // $cart = LaraCart::find(['id' => $id]);
@@ -226,6 +240,9 @@ class PublicController extends Controller
 
         $data = $request->all();
 
+        $year = Carbon::parse($request->date_birth)->age;
+
+        $data['year'] = $year;
         $data['name'] = $request->first_name1.' '.$request->last_name;
         $data['first_name'] = $request->first_name1;
         $data['relationship'] = $request->relationship1;
@@ -301,6 +318,70 @@ class PublicController extends Controller
         return $user;
     }
 
+    private function calculateDiscount()
+    {
+        $user = User::with(['has_event','has_relationship'])->find(auth()->user()->id);
+
+        $code = $user->discount_code;
+
+        $event = $user->has_event;
+
+        $sub = $event->event_price;
+
+        $sub = $sub + $user->has_relationship->sum('amount');
+
+        $discount = Discount::find($code);
+        $disc = 0;
+
+        if(!empty($discount)){
+            $formula = $discount->discount_formula;
+
+            $string = str_replace('@value', $sub, $formula);
+            $disc = Helper::calculate($string) ?? 0;
+
+            $discount->discount_max = $discount->discount_max - 1;
+            $discount->save();
+        }
+
+        $user->discount_value = $disc;
+        $user->total = $sub - $disc;
+        $user->save();
+    }
+
+    public function discount(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        if(!empty($request->coupon) && !empty($user->id_event))
+        {
+            $user = User::with(['has_event','has_relationship'])->find(auth()->user()->id);
+
+            $event = $user->has_event;
+
+            if(!empty($event)){
+
+                $coupon = $request->coupon;
+
+                $discount = Discount::find($coupon);
+
+                if(empty($discount))
+                {
+                    return throw ValidationException::withMessages(['coupon' => 'No discount available!']);
+                }
+
+                $user->discount_code = $discount->discount_code;
+                $user->save();
+
+                $this->calculateDiscount();
+
+                return redirect()->back();
+            }
+        }
+        else
+        {
+            return throw ValidationException::withMessages(['coupon' => 'No discount available!']);
+        }
+    }
+
     public function checkout(Request $request)
     {
         $user = User::with(['has_event','has_relationship'])->find(auth()->user()->id);
@@ -310,8 +391,6 @@ class PublicController extends Controller
         {
             $data['payment_status'] = 'PENDING';
         }
-
-        $user->update($data);
 
         if($user->payment_status == 'PENDING')
         {
@@ -323,9 +402,7 @@ class PublicController extends Controller
 
             $event = $user->has_event;
 
-            $total = $event->event_price;
-
-            $total = $total + $user->has_relationship->sum('amount');
+            $total = $user->total;
 
             $create_invoice_request = new CreateInvoiceRequest([
                 'external_id' => $id,
@@ -344,6 +421,9 @@ class PublicController extends Controller
 
             try {
                 $result = $apiInstance->createInvoice($create_invoice_request);
+                $user->payment_url = $result->getInvoiceUrl();
+                $user->payment_status = $result->getStatus();
+                $user->save();
 
                 return redirect()->to($result->getInvoiceUrl());
             } catch (\Xendit\XenditSdkException $e) {
@@ -351,6 +431,8 @@ class PublicController extends Controller
                 echo 'Full Error: ', json_encode($e->getFullError()), PHP_EOL;
             }
         }
+
+        $user->update($data);
 
         return redirect()->back();
 
