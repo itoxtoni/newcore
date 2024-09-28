@@ -421,6 +421,7 @@ class PublicController extends Controller
 
             try {
                 $result = $apiInstance->createInvoice($create_invoice_request);
+                $user->payment_expired = $result->getExpiryDate()->format('Y-m-d H:i:s');
                 $user->payment_url = $result->getInvoiceUrl();
                 $user->payment_status = $result->getStatus();
                 $user->save();

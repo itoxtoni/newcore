@@ -42,15 +42,18 @@
         </div>
         <div class="widget_shopping_cart_content">
             <div class="minicar-body">
+
+
+                @if (!empty($data_user))
+
                 <div class="time">
                     <img src="{{ asset('zunzo/images/retinal/fire.png') }}" alt="">
-                    <p>Your cart will expire in <span id="timer-sell-out">04:48</span> minutes!
+                    <p>Your cart will expire on <span id="timer-sell-out1">{{ $data_user->payment_expired->diffForHumans() }}</span>
                         Please checkout now
                         before your items sell
                         out!</p>
                 </div>
 
-                @if (!empty($data_user))
                     <ul class="cart_list">
 
                         <li class="mini_cart_item">

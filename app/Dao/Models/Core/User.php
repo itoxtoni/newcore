@@ -92,6 +92,7 @@ class User extends Authenticatable implements AuthMustVerifyEmail
         'year',
         'total',
         'payment_url',
+        'payment_expired',
     ];
 
     public $sortable = [
@@ -114,6 +115,7 @@ class User extends Authenticatable implements AuthMustVerifyEmail
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'payment_expired' => 'datetime',
         'jersey' => 'string',
     ];
 
