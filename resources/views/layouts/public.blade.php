@@ -85,7 +85,9 @@
                 <div class="header-right">
 
                     @if (auth()->check())
-                    @include('public.cart')
+                        @if (auth()->user()->payment_status != 'PAID')
+                        @include('public.cart')
+                        @endif
                         <a class="btn-contact" href="{{ route('signout') }}" role="button">Sign out</a>
                     @else
                         <a class="btn-contact" href="{{ route('login') }}" role="button">

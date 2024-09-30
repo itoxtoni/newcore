@@ -5,7 +5,8 @@
     $data_user = UserModel::with('has_event')
         ->where('id', auth()->user()->id)
         ->whereNotNull('id_event')
-        ->whereNot('is_paid', 'PAID')
+        ->whereNot('payment_status', 'PAID')
+        ->where('is_paid', 'Yes')
         ->orWhereNull('is_paid')
         ->where('id', auth()->user()->id)
         ->whereNotNull('id_event')
@@ -17,7 +18,8 @@
 
     if ($data_user) {
         $relationship = UserModel::where('reference_id', auth()->user()->id)
-            ->whereNot('is_paid', 'PAID')
+            ->whereNot('payment_status', 'PAID')
+            ->where('is_paid', 'Yes')
             ->orWhereNull('is_paid')
             ->where('reference_id', auth()->user()->id)
             ->get();
@@ -48,7 +50,7 @@
 
                 <div class="time">
                     <img src="{{ asset('zunzo/images/retinal/fire.png') }}" alt="">
-                    <p>Your cart will expire on <span id="timer-sell-out1">{{ $data_user->payment_expired->diffForHumans() }}</span>
+                    <p>Your cart will expire on <span id="timer-sell-out1">{{ !empty($data_user->payment_expired) ? $data_user->payment_expired->diffForHumans() : '' }}</span>
                         Please checkout now
                         before your items sell
                         out!</p>
@@ -132,7 +134,7 @@
 
                     <div class="view-cart">
                         <div class="row">
-                            @if (!empty($data_user->payment_url))
+                            @if (!empty($data_user->payment_url) && $data_user->payment_expired > \Carbon\Carbon::now())
                             <a href="{{ $data_user->payment_url }}" class="btn btn-secondary btn-lg btn-block" type="submit">Payment</a>
                             @else
                             <button class="btn btn-secondary btn-lg btn-block" type="submit">Checkout</button>

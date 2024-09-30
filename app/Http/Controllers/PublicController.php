@@ -60,7 +60,7 @@ class PublicController extends Controller
 
     public function participants()
     {
-        $user = User::leftJoinRelationship('has_event')
+        $user = User::with('has_event')
             ->where('is_paid', 'Yes')
             ->get();
 
@@ -448,11 +448,30 @@ class PublicController extends Controller
 
         if($status == 'PAID')
         {
-            User::where('reference_id', $external_id)->update([
-                'is_paid' => 'Yes',
-                'payment_status' => $status,
-                'payment_method' => $method
-            ]);
+
+            $user = User::with(['has_event', 'has_relationship'])
+                ->where('reference_id', $external_id)
+                ->first();
+
+                $code = null;
+
+            if(!empty($user))
+            {
+                $event = $user->has_event;
+
+                $gender = $user->gender == 'Male' ? 'M' : 'F';
+
+                $prefix = $event->event_code.$gender;
+
+                $code = Helper::autoNumber('users', 'bib', $prefix, 10);
+
+                $user->update([
+                    'bib' => $code,
+                    'is_paid' => 'Yes',
+                    'payment_status' => $status,
+                    'payment_method' => $method
+                ]);
+            }
         }
 
         return response()->json($request->all());

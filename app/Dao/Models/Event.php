@@ -31,7 +31,7 @@ class Event extends SystemModel
      *
      * @var array<int, string>
      */
-    protected $fillable = ['event_id', 'event_name', 'event_slug', 'event_price', 'event_image', 'event_picture', 'event_date', 'event_description', 'event_info', 'event_detail', 'event_map', 'event_mandatory', 'event_roundown', 'event_banner', 'event_page', 'event_background'];
+    protected $fillable = ['event_id', 'event_name', 'event_slug', 'event_price', 'event_image', 'event_picture', 'event_date', 'event_description', 'event_info', 'event_detail', 'event_map', 'event_mandatory', 'event_roundown', 'event_banner', 'event_page', 'event_background', 'event_code'];
 
     public static function field_name()
     {

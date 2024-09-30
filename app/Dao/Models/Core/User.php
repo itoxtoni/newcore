@@ -93,6 +93,7 @@ class User extends Authenticatable implements AuthMustVerifyEmail
         'total',
         'payment_url',
         'payment_expired',
+        'bib',
     ];
 
     public $sortable = [

@@ -28,13 +28,24 @@
                                     Welcome, {{ auth()->user()->name }}
                                 </h2>
                             </div><!-- header style v1 -->
+
+                            <div class="line"></div>
+
                             <p class="post wow fadeInUp animated">
 
+                                <ul>
+                                    <li>First Name : {{ auth()->user()->first_name }}</li>
+                                    <li>Last Name : {{ auth()->user()->last_name }}</li>
+                                    <li>Age : {{ auth()->user()->year }}</li>
+                                </ul>
+
                             </p>
+                            @if (auth()->user()->payment_status != 'PAID')
                             <div class="line"></div>
                             <div class="about-button-group">
                                 <a class="flat-button wow fadeInUp animated" href="{{ route('event-register') }}">Register Event</a>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
