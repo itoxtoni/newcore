@@ -94,6 +94,7 @@ class User extends Authenticatable implements AuthMustVerifyEmail
         'payment_url',
         'payment_expired',
         'bib',
+        'external_id',
     ];
 
     public $sortable = [
