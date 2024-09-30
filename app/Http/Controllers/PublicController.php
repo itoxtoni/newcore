@@ -333,7 +333,8 @@ class PublicController extends Controller
         $discount = Discount::find($code);
         $disc = 0;
 
-        if(!empty($discount)){
+        if(!empty($discount) && $discount->discount_max > 0)
+        {
             $formula = $discount->discount_formula;
 
             $string = str_replace('@value', $sub, $formula);
@@ -422,6 +423,7 @@ class PublicController extends Controller
             try {
                 $result = $apiInstance->createInvoice($create_invoice_request);
                 $user->payment_expired = $result->getExpiryDate()->format('Y-m-d H:i:s');
+                $user->external_id = $id;
                 $user->payment_url = $result->getInvoiceUrl();
                 $user->payment_status = $result->getStatus();
                 $user->save();
@@ -448,9 +450,8 @@ class PublicController extends Controller
 
         if($status == 'PAID')
         {
-
             $user = User::with(['has_event', 'has_relationship'])
-                ->where('reference_id', $external_id)
+                ->where('external_id', $external_id)
                 ->first();
 
                 $code = null;
@@ -471,6 +472,17 @@ class PublicController extends Controller
                     'payment_status' => $status,
                     'payment_method' => $method
                 ]);
+
+
+                $relation = $user->has_relationship;
+                if(!empty($relation))
+                {
+                    $relation->update([
+                        'is_paid' => 'Yes',
+                        'payment_status' => $status,
+                        'payment_method' => $method
+                    ]);
+                }
             }
         }
 
