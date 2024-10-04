@@ -153,14 +153,26 @@
                             <div class="textwidget">
                                 <a href="{{ url('/') }}" rel="home">
                                     <img id="a2"
-                                        src="{{ env('APP_LOGO') ? url('storage/' . env('APP_LOGO')) : url('assets/media/image/logo.png') }}">
+                                        src="{{ asset('zunzo/images/organized.png') }}">
                                 </a>
 
                             </div>
                         </div><!-- /.widget -->
                     </div><!-- /.col-md-4 -->
 
-                    <div class="col-xxl-5 col-lg-5 col-xl-5 col-md-5 col-sm-12 mt-1">
+                    <div class="col-xxl-2 col-lg-2 col-xl-2 col-md-2 col-sm-12 logo-footer">
+                        <div class="widget">
+                            <div class="textwidget">
+                                <a href="{{ url('/') }}" rel="home">
+                                    <img id="a2"
+                                        src="{{ asset('zunzo/images/system.png') }}">
+                                </a>
+
+                            </div>
+                        </div><!-- /.widget -->
+                    </div><!-- /.col-md-4 -->
+
+                    <div class="col-xxl-3 col-lg-3 col-xl-3 col-md-3 col-sm-12 mt-1">
                         <div class="widget">
                             <div class="textwidget mt-4">
 
@@ -173,7 +185,7 @@
                     </div><!-- /.col-md-4 -->
 
 
-                    <div class="col-xxl-5 col-lg-5 col-xl-5 col-md-5 col-sm-12 new-letter mt-2">
+                    <div class="col-xxl-3 col-lg-3 col-xl-3 col-md-3 col-sm-12 new-letter mt-2">
                         <div class="widget widget_text">
                             <div class="text-phone">
                                 <svg width="36" height="37" viewBox="0 0 36 37" fill="none"
