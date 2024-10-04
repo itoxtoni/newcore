@@ -105,10 +105,9 @@
                         @php
                         $index = 1;
                         @endphp
-                        @foreach ($benefits->chunk(2) as $item)
+                        @foreach ($benefits as $benefit)
 
                         <div class="col-md-4 benefit-on-right">
-                            @foreach ($item as $benefit)
 
                             <div class="benefit-item">
                                 <div class="benefit-number">
@@ -130,8 +129,6 @@
                                     </a>
                                 </div>
                             </div>
-
-                            @endforeach
 
                         </div>
 
