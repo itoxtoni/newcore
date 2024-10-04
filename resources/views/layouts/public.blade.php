@@ -172,7 +172,7 @@
                         </div><!-- /.widget -->
                     </div><!-- /.col-md-4 -->
 
-                    <div class="col-xxl-3 col-lg-3 col-xl-3 col-md-3 col-sm-12 mt-1">
+                    <div class="col-xxl-4 col-lg-4 col-xl-4 col-md-4 col-sm-12 mt-1">
                         <div class="widget">
                             <div class="textwidget mt-4">
 
@@ -185,7 +185,7 @@
                     </div><!-- /.col-md-4 -->
 
 
-                    <div class="col-xxl-3 col-lg-3 col-xl-3 col-md-3 col-sm-12 new-letter mt-2">
+                    <div class="col-xxl-4 col-lg-4 col-xl-4 col-md-4 col-sm-12 new-letter mt-2">
                         <div class="widget widget_text">
                             <div class="text-phone">
                                 <svg width="36" height="37" viewBox="0 0 36 37" fill="none"
