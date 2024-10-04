@@ -9,7 +9,10 @@
                 <x-form-input col="6" name="sponsor_name" />
                 <x-form-input col="6" name="sponsor_link" />
 
+                <x-form-select col="6" name="sponsor_type" label="Type" :options="$type" />
+
                 <x-form-upload col="6" name="images" />
+
                 @if($model)
                 <div class="col-md-6">
                     <img class="img-thumbnail img-fluid"

@@ -29,7 +29,7 @@ class Sponsor extends SystemModel
      *
      * @var array<int, string>
      */
-    protected $fillable = ['sponsor_id', 'sponsor_name', 'sponsor_link', 'sponsor_image'];
+    protected $fillable = ['sponsor_id', 'sponsor_name', 'sponsor_link', 'sponsor_image', 'sponsor_type'];
 
     public static function field_name()
     {
@@ -56,6 +56,7 @@ class Sponsor extends SystemModel
         return [
             DataBuilder::build($this->field_primary())->name('Code')->sort(),
             DataBuilder::build($this->field_name())->name('Name')->show()->sort(),
+            DataBuilder::build('sponsor_type')->name('Type')->width('200px')->sort(),
             DataBuilder::build($this->field_image())->name('Image')->width('200px')->sort(),
         ];
     }

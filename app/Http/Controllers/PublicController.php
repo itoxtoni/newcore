@@ -38,12 +38,14 @@ class PublicController extends Controller
     public function index()
     {
         $sliders = Slider::get();
-        $sponsors = Sponsor::get();
+        $sponsors = Sponsor::where('sponsor_type', 'sponsor')->get();
+        $supports = Sponsor::where('sponsor_type', 'support')->get();
         $benefits = Benefit::get();
 
         return view('public.homepage', [
             'sliders' => $sliders,
             'benefits' => $benefits,
+            'supports' => $supports,
             'sponsors' => $sponsors
         ]);
     }

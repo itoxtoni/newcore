@@ -155,5 +155,26 @@
         </div>
     </div>
     <!-- widge Form register -->
+      <!-- Logo partner -->
+      <div class="tf-widget-partner" style="background-color: white">
+
+        <div class="themeflat-container">
+            <div class="title">
+                <h3 class="text-center">
+                    Supported By
+                </h3>
+            </div>
+
+            <div class="tf-partner mt-5">
+                <div class="display-flex" style="text-align: center">
+                    @foreach ($supports as $support)
+                    <a class="col-md-3" href="#">
+                        <img class="image-logo" src="{{ asset('storage/files/sponsor/'.$support->field_image) }}" alt="image logo">
+                    </a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div><!-- Logo partner -->
 
 @endsection

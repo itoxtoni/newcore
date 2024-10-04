@@ -23,11 +23,12 @@
                 </div>
             </div>
         </div>
-        <div class="image-event">
-            <img src="{{ asset('storage/files/event/' . $event->event_background) }}" alt="Image Events"
-                class="wow fadeInLeft animated">
-        </div>
     </div><!-- Widget-slide -->
+
+    <div class="image-event">
+        <img src="{{ asset('storage/files/event/' . $event->event_background) }}" alt="Image Events"
+            class="wow fadeInLeft animated">
+    </div>
 
     <!-- Event Detail Content -->
     <div class="tf-widget-events">

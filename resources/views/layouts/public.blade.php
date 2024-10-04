@@ -78,25 +78,27 @@
                             @auth
                             <li><a href="{{ route('profile') }}">[ Profile ]</a></li>
                             @endauth
+
+                            @if (auth()->check())
+                                @if (auth()->user()->payment_status != 'PAID')
+                                <li style="margin-left: 5rem">
+                                @include('public.cart')
+                                </li>
+                                @endif
+                            <li>
+                                <a class="btn-contact button-signout" href="{{ route('signout') }}" role="button">Sign out</a>
+                            </li>
+                            </li>
+                            @else
+                                <a class="btn-contact button-login" href="{{ route('login') }}" role="button">
+                                    Login/Register
+                                </a>
+                            @endif
+
                         </ul><!-- /.menu -->
                     </nav><!-- /.mainnav -->
                 </div><!-- /.nav-wrap -->
 
-                <div class="header-right">
-
-                    @if (auth()->check())
-                        @if (auth()->user()->payment_status != 'PAID')
-                        @include('public.cart')
-                        @endif
-                        <a class="btn-contact" href="{{ route('signout') }}" role="button">Sign out</a>
-                    @else
-                        <a class="btn-contact" href="{{ route('login') }}" role="button">
-                            Login/Register
-                        </a>
-                    @endif
-
-                    <!-- /.login/register -->
-                </div><!-- /.login-wrap -->
 
 
             </div><!-- /.header-inner -->

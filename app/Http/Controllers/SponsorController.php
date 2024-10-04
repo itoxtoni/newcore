@@ -12,6 +12,18 @@ class SponsorController extends MasterController
 {
     use CreateFunction, UpdateFunction;
 
+    protected function beforeForm()
+    {
+        $type = [
+            'sponsor' => 'Sponsor',
+            'support' => 'Support',
+        ];
+
+        self::$share = [
+            'type' => $type,
+        ];
+    }
+
     public function __construct(SponsorModel $model, SingleService $service)
     {
         self::$service = self::$service ?? $service;

@@ -648,7 +648,20 @@ input[type="color"],
 	color: var(--primary);
 }
 
-.header-right .cart .shopping-cart-items-count {
+.button-signout{
+	margin-top: -10px;
+	background-color: var(--primary);
+}
+
+.button-login, .button-signout:hover{
+	background-color: var(--primary);
+}
+
+.button-login{
+	margin-top: 25px;
+}
+
+.head-right .cart .shopping-cart-items-count {
 	background: var(--white);
 	position: absolute;
 	top: -4px;
@@ -662,8 +675,16 @@ input[type="color"],
 	border-radius: 50px;
 }
 
-.header-right .cart {
+.head-right{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.cart {
 	position: relative;
+
 }
 
 .cart .nav-cart-trigger  i {
