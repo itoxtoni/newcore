@@ -204,7 +204,7 @@
                                         fill="white" />
                                 </svg>
                                 <div class="address">
-                                    <p>Need help? 24/7</p>
+                                    <p>Contact Us</p>
                                     <span>{{ env('APP_PHONE') }}</span>
                                 </div>
                             </div>
