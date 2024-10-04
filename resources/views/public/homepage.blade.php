@@ -24,9 +24,12 @@
                             @if(!empty($slider->slider_description))
                             <p class="flat-description-slider">{{ $slider->slider_description }}</p>
                             @endif
+
+                            @if (!empty($slider->slider_button))
                             <div class="button">
                                 <a href="{{ $slider->slider_link }}" class="flat-button">{{ $slider->slider_button }}</a>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
