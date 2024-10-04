@@ -8,6 +8,10 @@
 	.box-events-slide{
 		margin-top: -5%;
 	}
+
+	.swiper{
+		height: 1000px;
+	}
 }
 
 @media only screen and (max-width: 1366px) {

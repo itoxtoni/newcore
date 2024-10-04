@@ -5,7 +5,7 @@
     <div class="tf-slider-widget swiper mySwiper">
         <div class="tf-slider swiper-wrapper">
             @foreach ($sliders as $slider)
-            <div class="tf-banner swiper-slide">
+            <div class="tf-banner swiper-slide image-container">
                 <div class="image-slider">
                     <img src="{{ asset('storage/files/slider/'.$slider->field_image) }}" alt="image" />
                     <div class="overlay"></div>

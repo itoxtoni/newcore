@@ -3421,3 +3421,18 @@ ul.link-footer-bottom {
 	width: 100%;
 	margin-right: 7px;
 }
+
+.swiper{
+	height: 1000px;
+}
+
+.image-container{
+	width: 100%;
+}
+
+.image-container img{
+	width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+}

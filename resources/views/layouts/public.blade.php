@@ -341,12 +341,6 @@
     </div>
     <!-- Modal-login -->
 
-    <style>
-        .swiper {
-            height: 1000px;
-        }
-    </style>
-
     <script type="text/javascript" src="{{ asset('zunzo/javascript/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('zunzo/javascript/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('zunzo/javascript/jquery.cookie.js') }}"></script>
