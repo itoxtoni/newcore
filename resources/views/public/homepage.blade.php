@@ -125,7 +125,7 @@
                                     </p>
 
                                     <a target="_blank" href="{{ $benefit->benefit_instagram }}">
-                                        <img style="width: 40px" src="{{ asset('zunzo/images/ig.png') }}" alt="">
+                                        <img style="width: 40px;margin-left:-5px" src="{{ asset('zunzo/images/instagram.png') }}" alt="">
                                     </a>
                                 </div>
                             </div>
