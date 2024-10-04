@@ -2,6 +2,7 @@
 
 namespace App\Dao\Models;
 
+use App\Dao\Builder\DataBuilder;
 use App\Dao\Models\Core\SystemModel;
 
 
@@ -47,6 +48,16 @@ class Benefit extends SystemModel
     public function getFieldImageAttribute()
     {
         return $this->{self::field_image()};
+    }
+
+    public function fieldDatatable(): array
+    {
+        return [
+            DataBuilder::build($this->field_primary())->name('Code')->sort(),
+            DataBuilder::build($this->field_name())->name('Name')->show()->sort(),
+            DataBuilder::build('benefit_instagram')->name('Instagram')->sort(),
+            DataBuilder::build($this->field_image())->name('Image')->width('200px')->sort(),
+        ];
     }
 
     public static function boot()
