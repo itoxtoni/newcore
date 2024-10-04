@@ -97,8 +97,8 @@
             <div class="tf-benefit">
                 <!-- header style v2 -->
                 <div class="title-box-v2 center-title-box title-large">
-                    <span class="sub-title wow fadeInUp animated">running's benefits</span>
-                    <h2 class="title-section wow fadeInUp animated">Benefits of running reference</h2>
+                    <span class="sub-title wow fadeInUp animated">OUR TEAM</span>
+                    <h2 class="title-section wow fadeInUp animated">TAHURA TRAIL RUNNING RACE 2025</h2>
                 </div><!-- header style v2 -->
                 <div class="benefit-wrap-content">
                     <div class="row">
@@ -112,15 +112,22 @@
 
                             <div class="benefit-item">
                                 <div class="benefit-number">
-                                    <span class="number wow zoomIn animated">{{ $index++ }}</span>
+                                    <span class="number wow zoomIn animated">
+                                        <img class="img-fluid img-thumbnail image-benefit" src="{{ asset('storage/files/benefit/'.$benefit->field_image) }}" alt="">
+                                    </span>
                                 </div>
+
                                 <div class="benefit-content">
                                     <h6 class="title-benefit wow fadeInRight animated">
                                         {{ $benefit->benefit_name }}
                                     </h6>
-                                    <p class="description-benefit wow fadeInRight animated">
+                                    <p class="description-benefit wow fadeInRight animated mb-2">
                                         {{ $benefit->benefit_description }}
                                     </p>
+
+                                    <a target="_blank" href="{{ $benefit->benefit_instagram }}">
+                                        <img style="width: 40px" src="{{ asset('zunzo/images/ig.png') }}" alt="">
+                                    </a>
                                 </div>
                             </div>
 

@@ -27,7 +27,7 @@ class Benefit extends SystemModel
      *
      * @var array<int, string>
      */
-    protected $fillable = ['benefit_id', 'benefit_name', 'benefit_description'];
+    protected $fillable = ['benefit_id', 'benefit_name', 'benefit_description', 'benefit_image', 'benefit_instagram'];
 
     public function getFieldNameAttribute()
     {
@@ -37,6 +37,43 @@ class Benefit extends SystemModel
     public static function field_name()
     {
         return 'benefit_name';
+    }
+
+    public static function field_image()
+    {
+        return 'benefit_image';
+    }
+
+    public function getFieldImageAttribute()
+    {
+        return $this->{self::field_image()};
+    }
+
+    public static function boot()
+    {
+        parent::saving(function ($model) {
+
+            if (request()->has('images')) {
+                $file_logo = request()->file('images');
+                $extension = $file_logo->extension();
+                $name = time().'.'.$extension;
+
+                $file_logo->storeAs('/public/files/benefit/', $name);
+                $model->{self::field_image()} = $name;
+            }
+
+        });
+
+
+        parent::deleting(function ($model) {
+
+            if(!empty($model->field_image) && file_exists(public_path('/storage/files/benefit/'.$model->field_image))) {
+                unlink(public_path('/storage/files/benefit/'.$model->field_image));
+            }
+
+        });
+
+        parent::boot();
     }
 
 }

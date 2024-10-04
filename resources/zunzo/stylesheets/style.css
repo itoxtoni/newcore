@@ -653,6 +653,12 @@ input[type="color"],
 	background-color: var(--primary);
 }
 
+.image-benefit{
+	border-radius: 50%;
+	height: 180px;
+	width: 180px;
+}
+
 .button-login, .button-signout:hover{
 	background-color: var(--primary);
 }
