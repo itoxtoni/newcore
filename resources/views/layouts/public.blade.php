@@ -149,7 +149,7 @@
             <div class="themeflat-container">
                 <div class="row footer-top">
                     <div class="col-xxl-2 col-lg-2 col-xl-2 col-md-2 col-sm-12 logo-footer">
-                        <div class="widget">
+                        <div class="widget text-center">
                             <div class="textwidget">
                                 <a href="{{ url('/') }}" rel="home">
                                     <img id="a2"
