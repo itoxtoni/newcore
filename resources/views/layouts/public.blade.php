@@ -343,7 +343,7 @@
 
     <style>
         .swiper {
-            height: 600px;
+            height: 850px;
         }
     </style>
 
