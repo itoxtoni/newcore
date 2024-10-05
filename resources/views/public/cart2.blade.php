@@ -43,12 +43,11 @@
                 <span class="title">Registration Data</span>
                 <span class="minicart-close"></span>
             </div>
-
-            @if(!empty($data_user))
             <div class="widget_shopping_cart_content">
                 <div class="minicar-body">
 
-                    @if (!empty($data_user->payment_expired))
+
+                    @if (!empty($data_user))
 
                     <div class="time">
                         <img src="{{ asset('zunzo/images/retinal/fire.png') }}" alt="">
@@ -58,92 +57,65 @@
                             out!</p>
                     </div>
 
+                        <ul class="cart_list">
+
+                            <li class="mini_cart_item">
+                                <div class="title">
+                                    <a href="#">{{ $data_user->field_name }}</a>
+                                    <span class="size">{{ $data_user->has_event->field_name ?? '' }}</span>
+                                </div>
+                                <div class="wrap-remove">
+                                    <span class="quantity">{{ number_format($data_user->amount, 0, ',', '.') ?? '' }}
+                                    </span>
+                                </div>
+                            </li>
+
+                            @if ($relationship)
+                                @foreach ($relationship as $item)
+                                    <li class="mini_cart_item">
+                                        <div class="title">
+                                            <a href="#">{{ $item->field_name }}</a>
+                                            <span class="size">{{ $item->has_event->field_name ?? '' }}</span>
+                                        </div>
+                                        <div class="wrap-remove">
+                                            <a href="{{ route('remove', ['id' => $item->id]) }}">Remove</a>
+                                            <span class="quantity">{{ number_format($item->amount, 0, ',', '.') ?? '' }}
+                                            </span>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            @endif
+
+                        </ul>
                     @endif
 
                 </div>
-                <div class="minicar-footer" style="top: 80px">
-
-                    <div class="view-cart">
-                        <p class="total">
-
-                            <div class="row">
-
-                                <strong class="col-md-8">
-                                    {{ $data_user->field_name }} ({{ $data_user->has_event->field_name ?? '' }})
-                                </strong>
-
-                                <span class="col-md-4 text-right currency-symbol">
-                                    {{ number_format($data_user->amount ?? 0, 0, ',', '.') ?? '' }}
-                                </span>
-
-                            </div>
-
-                        </p>
-
-                    </div>
-
-                    {{-- //disini relationship --}}
-
-                    @if ($relationship)
-                        @foreach ($relationship as $item)
-                        <div class="view-cart">
-                            <p class="total">
-
-                                <div class="row">
-
-                                    <strong class="col-md-8">
-                                        <div class="row">
-
-                                            <div class="col-md-2">
-                                                <a class="btn btn-danger btn-sm" href="{{ route('remove', ['id' => $item->id]) }}">x</a>
-                                            </div>
-
-                                            <div class="col-md-10">
-                                                {{ $item->field_name }} ({{ $item->has_event->field_name ?? '' }})
-                                            </div>
-
-                                        </div>
-
-                                    </strong>
-
-                                    <span class="col-md-4 text-right currency-symbol">
-                                        {{ number_format($item->amount ?? 0, 0, ',', '.') ?? '' }}
-                                    </span>
-
+                <div class="minicar-footer">
+                    <ul class="tab-menu container p-3">
+                            <form class="row" method="POST" action="{{ route('discount') }}">
+                                @csrf
+                                <div class="col-md-8">
+                                    <input type="text" class="input-cart ml-3" value="{{ $data_user->discount_code ?? null }}" placeholder="COUPON" name="coupon" id="">
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-secondary btn-lg btn-cart" type="submit">Apply</button>
                                 </div>
 
-                            </p>
+                                <div class="col-md-12 mt-3">
+                                    @error('coupon')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </form>
 
-                        </div>
-                        @endforeach
-                    @endif
 
-                    <div class="view-cart">
-                        <form class="row" method="POST" action="{{ route('discount') }}">
-                            @csrf
-                            <div class="col-md-8">
-                                <input type="text" class="input-cart ml-3" value="{{ $data_user->discount_code ?? null }}" placeholder="COUPON" name="coupon" id="">
-                            </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-secondary btn-lg btn-cart" type="submit">Apply</button>
-                            </div>
-
-                            <div class="col-md-12 mt-3">
-                                @error('coupon')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </form>
-                    </div>
-
+                    </ul>
                     <form id="registerform" class="register-form" method="POST" action="{{ route('checkout') }}">
                         @csrf
                         <div class="view-cart">
                             <p class="total">
-                                <strong>Subtotal</strong>
-                                <span class="currency-symbol">
-                                    {{ number_format($total ?? 0, 0, ',', '.') ?? '' }}
-                                </span>
+                                <strong>Subtotal</strong> <span
+                                    class="currency-symbol">{{ number_format($total ?? 0, 0, ',', '.') ?? '' }}</span>
                             </p>
                         </div>
 
@@ -174,7 +146,6 @@
                     </form>
                 </div>
             </div>
-            @endif
         </div>
 
         <!--car-box-->
