@@ -571,6 +571,7 @@ input[type="color"],
 	justify-content: center;
 	align-items: center;
 	background-color: var(--black);
+	height: 50px;
 }
 
 .header-top {
@@ -3423,7 +3424,7 @@ ul.link-footer-bottom {
 }
 
 .swiper{
-	height: 50%;
+	height: 900px;
 }
 
 .image-container{
@@ -3439,4 +3440,8 @@ ul.link-footer-bottom {
 
 .text-right{
 	text-align: right !important;
+}
+
+.header-event h5{
+	margin-bottom: 0px !important;
 }
