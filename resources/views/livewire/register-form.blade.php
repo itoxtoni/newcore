@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit="save" id="registerform" class="register-form">
+    <form wire:submit.prevent="save" id="registerform" class="register-form">
         @csrf
 
         <div class="row">
@@ -55,6 +55,12 @@
             @foreach ($errors as $item)
             <span>{{ $item }}</span>
             @endforeach
+            @endif
+
+            @if (session()->has('message'))
+                <div class="alert alert-light">
+                    {{ session('message') }}
+                </div>
             @endif
 
         </div>

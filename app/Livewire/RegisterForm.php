@@ -6,6 +6,8 @@ use App\Facades\Model\UserModel;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterForm extends Component
 {
@@ -30,18 +32,37 @@ class RegisterForm extends Component
     {
         $this->validate();
 
-        return UserModel::create([
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'birthday' => $this->birthday,
-            'name' => $this->first_name.' '.$this->last_name,
-            'email' => $this->email,
-            'password' => Hash::make($this->password),
-        ]);
+        try
+        {
+            $user = UserModel::create([
+                'first_name' => $this->first_name,
+                'last_name' => $this->last_name,
+                'birthday' => $this->birthday,
+                'name' => $this->first_name.' '.$this->last_name,
+                'email' => $this->email,
+                'password' => Hash::make($this->password),
+            ]);
 
-        session()->flash('status', 'Post successfully updated.');
+            session()->flash('message', 'User Success!');
 
-        return $this->redirect('/');
+            event(new Registered($user));
+
+            $credentials = [
+                'email' => $this->email,
+                'password' => $this->password,
+            ];
+
+            Auth::attempt($credentials);
+
+            return $this->redirect('/', navigate: true);
+
+        } catch (\Throwable $th)
+        {
+            session()->flash('message', 'User Failed!.');
+        }
+
+
+
     }
 
     public function render()
