@@ -144,7 +144,7 @@
     <div class="widget-form-register">
         <div class="row">
             <div class="col-md-6 pd-form image-register">
-                <img src="{{ asset('zunzo/images/retinal/img-form.jpg') }}" alt="image">
+                <img src="{{ asset('zunzo/images/retinal/img-form.png') }}" alt="image">
             </div>
             <div class="col-md-6 pd-form">
                 <div class="widget-register background-green">
