@@ -571,7 +571,6 @@ input[type="color"],
 	justify-content: center;
 	align-items: center;
 	background-color: var(--black);
-	height: 50px;
 }
 
 .header-top {
@@ -3424,7 +3423,7 @@ ul.link-footer-bottom {
 }
 
 .swiper{
-	height: 900px;
+	height: 800px;
 }
 
 .image-container{
