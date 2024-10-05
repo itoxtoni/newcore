@@ -121,23 +121,15 @@
 
                     </div>
 
-                </div>
-              </div>
-
-
-
-            <div class="row">
-                <div class="col-md-12">
                     <div class="event-detail-content">
 
                         <a href="{{ route('event-register', ['event_id' => $event->field_primary]) }}"
                             class="flat-button wow fadeInUp animated">Register now</a>
 
                     </div>
+
                 </div>
             </div>
-
-
         </div>
     </div><!--Event Detail Content -->
 @endsection
