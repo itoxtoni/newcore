@@ -3,16 +3,18 @@
 namespace App\Console\Commands;
 
 use App\Dao\Models\Core\User;
+use App\Mail\CreateScheduleReceiveRunningTools;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
-class Install extends Command
+class ReceivePayment extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'notification:whatsapp';
+    protected $signature = 'send:receive';
 
     /**
      * The console command description.
@@ -38,8 +40,19 @@ class Install extends Command
      */
     public function handle()
     {
-        foreach (range(1, 100) as $item) {
-            User::factory(100)->create();
-        }
+        $data = User::with()->whereNull('check')
+            ->whereNotNull('bib')
+            ->whereNotNull('email')
+            ->where('is_paid', 'Yes')
+            ->limit(2)->get();
+
+            if(!empty($data))
+            {
+                foreach($data as $user){
+                    Mail::to($user->email)->send(new CreateScheduleReceiveRunningTools($user));
+                }
+            }
+
+            $this->info('Success');
     }
 }
