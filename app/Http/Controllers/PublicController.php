@@ -491,11 +491,23 @@ class PublicController extends Controller
                 $relation = $user->has_relationship;
                 if(!empty($relation))
                 {
-                    $relation->update([
-                        'is_paid' => 'Yes',
-                        'payment_status' => $status,
-                        'payment_method' => $method
-                    ]);
+                    foreach($relation as $kel){
+                        $gender = $kel->gender == 'Male' ? 'M' : 'F';
+
+                        $category = $kel->category == 'Open' ? 'O' : 'M';
+
+                        $prefix = $event->event_code.$gender.$category;
+
+                        $code = Helper::autoNumber('users', 'bib', $prefix, 10);
+
+                        $kel->update([
+                            'is_paid' => 'Yes',
+                            'bib' => $code,
+                            'payment_status' => $status,
+                            'payment_method' => $method
+                        ]);
+                    }
+
                 }
             }
         }

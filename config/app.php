@@ -180,6 +180,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\WebDavServiceProvider::class,
+        Milon\Barcode\BarcodeServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -267,6 +268,7 @@ return [
         'EnvEditor' => EnvEditor::class,
         'ModelGroup' => SystemGroup::class,
         'UserModel' => UserModel::class,
+        'QrCode' => Milon\Barcode\Facades\DNS2DFacade::class,
     ],
 
 ];

@@ -33,6 +33,7 @@
         "livewire/livewire": "^3.5",
         "lorisleiva/laravel-actions": "^2.8",
         "mehradsadeghi/laravel-filter-querystring": "^1.1",
+        "milon/barcode": "^11.0",
         "milwad/laravel-attributes": "^1.1",
         "opcodesio/log-viewer": "^3.1",
         "phpoffice/phpspreadsheet": "^2.2",

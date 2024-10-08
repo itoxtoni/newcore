@@ -6,7 +6,8 @@
             <div class="row mb-5">
                 @bind($model)
 
-                <x-form-input col="6" name="event_name" />
+                <x-form-input col="2" name="event_code" />
+                <x-form-input col="4" name="event_name" />
                 <div class="col-md-6">
                     <div class="row">
                         <x-form-input type="number" col="6" name="event_price" />

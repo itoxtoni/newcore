@@ -2,10 +2,15 @@
 
 use App\Dao\Enums\Core\MenuType;
 use App\Dao\Enums\Core\NotificationType;
+use App\Dao\Models\Core\User;
+use App\Dao\Models\Event;
 use App\Http\Controllers\Core\HomeController;
 use App\Http\Controllers\PublicController;
+use App\Mail\CreateScheduleEmail;
+use App\Mail\CreateScheduleReceiveRunningTools;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Plugins\Query;
 
@@ -104,3 +109,13 @@ if ($routes) {
         });
     });
 }
+
+Route::get('email', function(){
+
+    $user = User::with('has_event', 'has_relationship')->find(20);
+
+     Mail::to('testreceiver@gmail.com')->send(new CreateScheduleReceiveRunningTools($user));
+
+    return 'oke';
+
+});
