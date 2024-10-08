@@ -17,4 +17,17 @@ class EventController extends MasterController
         self::$service = self::$service ?? $service;
         $this->model = $model::getModel();
     }
+
+    protected function beforeForm()
+    {
+        $active = [
+            'Yes' => 'Yes',
+            'No' => 'No',
+        ];
+
+        self::$share = [
+            'active' => $active,
+        ];
+    }
+
 }

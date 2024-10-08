@@ -43,6 +43,7 @@
                                     </td>
                                     <td>{{ $table->field_primary }}</td>
 									<td>{{ $table->field_name }}</td>
+									<td>{{ $table->event_active }}</td>
 									<td><img class="img-thumbnail img-fluid" src="{{ url('storage/files/event/' . $table->field_image) }}" alt=""></td>
 
                                 </tr>

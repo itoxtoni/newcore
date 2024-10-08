@@ -27,7 +27,7 @@ class PublicController extends Controller
     {
         $pages = PageModel::all();
 
-        $events = Event::all();
+        $events = Event::where('event_active', 'Yes')->get();
 
         view()->share([
             'events' => $events,
@@ -71,7 +71,7 @@ class PublicController extends Controller
 
     public function events()
     {
-        $events = Event::all();
+        $events = Event::where('event_active', 'Yes')->get();
 
         return view('public.events')->with([
             'events' => $events,
@@ -80,7 +80,7 @@ class PublicController extends Controller
 
     public function eventsDetails($code)
     {
-        $event = Event::where('event_slug', $code)->firstOrFail();
+        $event = Event::where('event_slug', $code)->where('event_active', 'Yes')->firstOrFail();
 
         return view('public.event-detail')->with([
             'event' => $event,
@@ -110,7 +110,7 @@ class PublicController extends Controller
 
     public function register()
     {
-        $data_event = Event::all();
+        $data_event = Event::where('event_active', 'Yes')->get();
         $event_id = request()->get('event_id');
 
         $user = $this->check($event_id);
@@ -189,6 +189,16 @@ class PublicController extends Controller
         $data = $request->all();
         $year = Carbon::parse($request->date_birth)->age;
 
+        if($year >= 40)
+        {
+            $category = 'MASTER';
+        }
+        else
+        {
+            $category = 'OPEN';
+        }
+
+        $data['category'] = $category;
         $data['year'] = $year;
         $data['id_event'] = $event_id;
         $data['amount'] = $event->event_price;
@@ -464,7 +474,9 @@ class PublicController extends Controller
 
                 $gender = $user->gender == 'Male' ? 'M' : 'F';
 
-                $prefix = $event->event_code.$gender;
+                $category = $user->category == 'Open' ? 'O' : 'M';
+
+                $prefix = $event->event_code.$gender.$category;
 
                 $code = Helper::autoNumber('users', 'bib', $prefix, 10);
 

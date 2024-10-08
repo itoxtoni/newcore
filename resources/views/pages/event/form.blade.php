@@ -7,7 +7,12 @@
                 @bind($model)
 
                 <x-form-input col="6" name="event_name" />
-                <x-form-input type="number" col="6" name="event_price" />
+                <div class="col-md-6">
+                    <div class="row">
+                        <x-form-input type="number" col="6" name="event_price" />
+                        <x-form-select col="6" name="event_active" :options="$active" />
+                    </div>
+                </div>
                 <x-form-input col="6" type="date" name="event_date" />
                 <x-form-input col="6" name="event_info" />
 

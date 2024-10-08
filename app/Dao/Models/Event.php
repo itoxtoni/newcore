@@ -31,7 +31,7 @@ class Event extends SystemModel
      *
      * @var array<int, string>
      */
-    protected $fillable = ['event_id', 'event_name', 'event_slug', 'event_price', 'event_image', 'event_picture', 'event_date', 'event_description', 'event_info', 'event_detail', 'event_map', 'event_mandatory', 'event_roundown', 'event_banner', 'event_page', 'event_background', 'event_code'];
+    protected $fillable = ['event_id', 'event_name', 'event_slug', 'event_price', 'event_image', 'event_picture', 'event_date', 'event_description', 'event_info', 'event_detail', 'event_map', 'event_mandatory', 'event_roundown', 'event_banner', 'event_page', 'event_background', 'event_code', 'event_active'];
 
     public static function field_name()
     {
@@ -53,11 +53,22 @@ class Event extends SystemModel
         return $this->{self::field_image()};
     }
 
+    public static function field_active()
+    {
+        return 'event_active';
+    }
+
+    public function getFieldActiveAttribute()
+    {
+        return $this->{self::field_active()};
+    }
+
     public function fieldDatatable(): array
     {
         return [
             DataBuilder::build($this->field_primary())->name('Code')->sort(),
             DataBuilder::build($this->field_name())->name('Name')->show()->sort(),
+            DataBuilder::build('event_active')->name('Active')->show()->sort(),
             DataBuilder::build($this->field_image())->name('Image')->width('200px')->sort(),
         ];
     }
