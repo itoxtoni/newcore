@@ -40,7 +40,7 @@ class ReceivePayment extends Command
      */
     public function handle()
     {
-        $data = User::with()->whereNull('check')
+        $data = User::whereNull('check')
             ->whereNotNull('bib')
             ->whereNotNull('email')
             ->where('is_paid', 'Yes')
@@ -48,8 +48,12 @@ class ReceivePayment extends Command
 
             if(!empty($data))
             {
-                foreach($data as $user){
+                foreach($data as $user)
+                {
                     Mail::to($user->email)->send(new CreateScheduleReceiveRunningTools($user));
+                    $user->update([
+                        'check' => date('Y-m-d')
+                    ]);
                 }
             }
 

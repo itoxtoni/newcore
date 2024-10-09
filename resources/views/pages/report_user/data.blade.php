@@ -33,6 +33,9 @@
 		<thead>
 			<tr>
 				<th width="1">No. </th>
+				<th>BIB</th>
+				<th>NO. INVOICE</th>
+				<th>CATEGORY</th>
 				<th>ID USER</th>
 				<th>FIRST NAME</th>
 				<th>LAST NAME</th>
@@ -53,8 +56,6 @@
 				<th>COMMUNITY</th>
 				<th>JERSEY</th>
 				<th>PAYMENT STATUS</th>
-
-
 			</tr>
 		</thead>
 		<tbody>
@@ -65,6 +66,9 @@
 			@forelse($data as $table)
 			<tr>
 				<td>{{ $loop->iteration }}</td>
+				<td>{{ $table->bib }}</td>
+				<td>{{ $table->external_id }}</td>
+				<td>{{ $table->category }}</td>
 				<td>{{ $table->key }}</td>
 				<td>{{ $table->first_name }}</td>
 				<td>{{ $table->last_name }}</td>
