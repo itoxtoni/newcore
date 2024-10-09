@@ -56,6 +56,7 @@
 				<th>COMMUNITY</th>
 				<th>JERSEY</th>
 				<th>PAYMENT STATUS</th>
+				<th>QRCODE</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -89,7 +90,9 @@
 				<td>{{ $table->community }}</td>
 				<td>{{ $table->jersey }}</td>
 				<td>{{ $table->payment_status }}</td>
-
+				<td>
+					{!! !empty($table->bib) ? QrCode::getBarcodeHTML($table->bib, 'QRCODE', 4, 4) : '' !!}
+				</td>
 
 			</tr>
 			@empty
