@@ -11,11 +11,27 @@
                         :options="$active" />
                     <x-form-select col="2" name="debugbar_enable" :default="env('BREADCRUMB_ENABLED')" label="Debugbar"
                         :options="$active" />
-                    <x-form-input col="4" value="{{ env('APP_URL') }}" label="Website URL" name="url" />
-                    <x-form-upload col="4" name="logo" />
-                    <div class="col-md-4">
+
+                    <x-form-input col="6" value="{{ env('APP_URL') }}" label="Website URL" name="url" />
+
+
+                    <x-form-select col="2" name="app_auth" :default="env('APP_AUTH')" label="Login Auth"
+                    :options="$active" />
+                    <x-form-input col="2" value="{{ env('CSV_DELIMITER') }}" label="csv delimiter" name="csv_delimiter" />
+                    <x-form-input col="2" value="{{ env('CSV_CHUNK') }}" label="csv chunk" name="csv_chunk" />
+
+                    <x-form-upload col="3" name="logo" />
+                    <div class="col-md-3">
                         <img class="img-thumbnail img-fluid"
-                            src="{{ env('APP_LOGO') ? url('public/storage/' . env('APP_LOGO')) : url('assets/media/image/logo.png') }}"
+                            src="{{ env('APP_LOGO') ? url('storage/' . env('APP_LOGO')) : url('assets/media/image/logo.png') }}"
+                            alt="">
+                    </div>
+
+
+                    <x-form-upload col="3" name="background" />
+                    <div class="col-md-3">
+                        <img class="img-thumbnail img-fluid"
+                            src="{{ env('APP_BACKGROUND') ? url('storage/' . env('APP_BACKGROUND')) : url('assets/media/image/logo.png') }}"
                             alt="">
                     </div>
 

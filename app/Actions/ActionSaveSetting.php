@@ -22,6 +22,9 @@ class ActionSaveSetting
             EnvEditor::editKey('TELESCOPE_ENABLED', $request->telescope_enable);
             EnvEditor::editKey('DEBUGBAR_ENABLED', $request->debugbar_enable);
             EnvEditor::editKey('APP_URL', $request->url);
+            EnvEditor::editKey('APP_AUTH', $request->app_auth);
+            EnvEditor::editKey('CSV_DELIMITER', $request->csv_delimiter);
+            EnvEditor::editKey('CSV_CHUNK', $request->csv_chunk);
 
             if ($request->has('logo')) {
                 $file_logo = $request->file('logo');
@@ -31,6 +34,16 @@ class ActionSaveSetting
 
                 $file_logo->storeAs('/public/', $name);
                 EnvEditor::editKey('APP_LOGO', $name);
+            }
+
+            if ($request->has('background')) {
+                $file_background = $request->file('background');
+                $extension = $file_background->extension();
+                $name = 'background.'.$extension;
+                // $name = time().'.'.$name;
+
+                $file_background->storeAs('/public/', $name);
+                EnvEditor::editKey('APP_BACKGROUND', $name);
             }
 
             Alert::update();
