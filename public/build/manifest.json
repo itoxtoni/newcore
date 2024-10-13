@@ -13,16 +13,13 @@
     "src": "resources/auth/images/bg-registration-form-9.jpg"
   },
   "resources/js/vite.js": {
-    "file": "assets/vite-Cb0UpenM.js",
+    "file": "assets/vite-CfN-ojGQ.js",
     "name": "vite",
     "src": "resources/js/vite.js",
-    "isEntry": true,
-    "css": [
-      "assets/vite-zuaUkBV_.css"
-    ]
+    "isEntry": true
   },
   "resources/sass/app.scss": {
-    "file": "assets/vite-zuaUkBV_.css",
+    "file": "assets/app-ZDy-geMy.css",
     "src": "resources/sass/app.scss",
     "isEntry": true
   }

@@ -278,7 +278,7 @@ if (! function_exists('getMegaphoneAdminTypes')) {
 }
 
 if (! function_exists('sendNotification')) {
-    function sendNotification(BaseAnnouncement $data, $type = NotificationType::Info, $user_id = 0)
+    function sendNotification($data, $type = NotificationType::Info, $user_id = 0)
     {
         if ($data instanceof General) {
             foreach (UserModel::all() as $model) {
