@@ -30,14 +30,11 @@
     @include('layouts.alert')
 
     <script src="{{ url('assets/js/app.min.js') }}"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @stack('footer')
 
     @vite(['resources/js/vite.js'])
     @livewireScriptConfig
-    @livewire('notification')
-    <x-livewire-alert::scripts />
 </body>
 
 </html>

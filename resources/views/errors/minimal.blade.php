@@ -1,27 +1,64 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title') - {{ env('APP_NAME') }}</title>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ url('assets/media/image/favicon.png') }}"/>
+        <title>@yield('title')</title>
 
-    <!-- App styles -->
-    <link rel="stylesheet" href="{{ url('assets/css/app.min.css') }}" type="text/css">
-</head>
-<body class="error-page bg-white">
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                font-weight: 100;
+                height: 100vh;
+                margin: 0;
+            }
 
-<div>
-    <div>
-        <span class="error-page-item font-weight-bold">@yield('code')</span>
+            .full-height {
+                height: 100vh;
+            }
 
-    </div>
-    <h4 class="mb-0 text-muted font-weight-normal">@yield('message')</h4>
-    <a href="{{ url('/') }}" class="btn btn-primary">Go Home</a>
-</div>
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
 
-</body>
+            .position-ref {
+                position: relative;
+            }
+
+            .content {
+                text-align: center;
+            }
+
+            .title {
+                font-size: 7rem;
+                padding: 20px;
+            }
+
+            .message {
+                font-size: 36px;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    @yield('code')
+                </div>
+
+                <div class="message">
+                    @yield('message')
+                </div>
+
+                <a href="{{ url('/') }}" class="btn btn-primary">Go Home</a>
+            </div>
+        </div>
+    </body>
 </html>

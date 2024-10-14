@@ -27,7 +27,7 @@
             <p class="text-right focus:outline-none text-xs leading-3 pt-1">
                 <a href="{{ $announcement['link'] }}"
                    {{ ! empty($announcement['linkNewWindow']) ? ' target="_blank"' : '' }}
-                   class="cursor-pointer no-underline bg-gray-100 text-gray-800 rounded-md border border-gray-300 p-2 hover:bg-gray-300">
+                   class="megaphone-link cursor-pointer no-underline bg-gray-100 text-gray-800 rounded-md border border-gray-300 p-2 hover:bg-gray-300">
                     {{ ! empty($announcement['linkText']) ? $announcement['linkText'] : 'View' }}
                 </a>
             </p>

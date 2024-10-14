@@ -1,6 +1,6 @@
 @mixin btn($color) {
-	background: $color;
-	border-color: $color;
+	background: $color !important;
+	border-color: $color !important;
 
 	&:not(:disabled):not(.disabled):hover,
 	&:not(:disabled):not(.disabled):focus,

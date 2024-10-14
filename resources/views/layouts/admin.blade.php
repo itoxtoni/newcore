@@ -38,7 +38,6 @@
     </div>
 
     <script src="{{ url('assets/js/app.min.js') }}"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @vite(['resources/js/vite.js'])
 
@@ -46,7 +45,6 @@
 
     @livewireScriptConfig
 
-    <x-livewire-alert::scripts />
 </body>
 
 </html>

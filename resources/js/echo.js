@@ -2,6 +2,7 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
 if(import.meta.env.VITE_BROADCAST_DRIVER != null){
+
     window.Pusher = Pusher;
 
     window.Echo = new Echo({
