@@ -321,14 +321,23 @@ if (! function_exists('exportCsv')) {
 
                 Storage::put($name, file_get_contents($name));
 
-                $notification = new \MBarlow\Megaphone\Types\NewFeature(
-                    'Download File Success',
-                    'File Ready to download',
-                    asset(str_replace('public/', '', $name)),
-                    'Download'
+                // $notification = new \MBarlow\Megaphone\Types\NewFeature(
+                //     'Download File Success',
+                //     'File Ready to download',
+                //     asset(str_replace('public/', '', $name)),
+                //     'Download'
+                // );
+
+                // sendNotification($notification, NotificationType::Success, $user_id);
+
+                $notification = new \MBarlow\Megaphone\Types\Important(
+                    'Expected Downtime!', // Notification Title
+                    'We are expecting some downtime today at around 15:00 UTC for some planned maintenance.', // Notification Body
+                    'https://example.com/link', // Optional: URL. Megaphone will add a link to this URL within the Notification display.
+                    'Read More...' // Optional: Link Text. The text that will be shown on the link button.
                 );
 
-                sendNotification($notification, NotificationType::Success, $user_id);
+                sendNotification($notification, NotificationType::Error);
 
             })
             ->catch(function (Batch $batch, Throwable $e) use ($user_id) {
