@@ -30,8 +30,10 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "@ably/laravel-echo": "^1.0.6",
         "@imacrayon/alpine-ajax": "^0.8.0",
         "@popperjs/core": "^2.11.8",
+        "ably": "^1.2.50",
         "alpinejs": "^3.14.1",
         "bootstrap-icons": "^1.11.3",
         "dotenv": "^16.4.5",

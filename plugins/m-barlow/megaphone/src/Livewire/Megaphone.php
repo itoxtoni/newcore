@@ -51,18 +51,7 @@ class Megaphone extends Component
 
     public function getListeners()
     {
-        $array = ['bell' => 'mount'];
-
-        if(env('BROADCAST_DRIVER') == null)
-        {
-            return $array;
-        }
-        else
-        {
-            return array_merge($array, [
-                'echo-private:broadcast,SendBroadcast' => 'mount',
-            ]);
-        }
+        return ['bell' => 'mount'];
     }
 
     public function render()

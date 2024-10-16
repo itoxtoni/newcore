@@ -13,12 +13,15 @@ class Progress extends Component
 
     public $percent = 0;
 
+    public $pending = 0;
+
     public function render()
     {
         $bus = Bus::findBatch($this->batch);
 
         if ($bus) {
             $job = ($bus->totalJobs - $bus->pendingJobs);
+            $this->pending = intval($bus->pendingJobs);
             $this->percent = intval(($job / $bus->totalJobs) * 100);
         }
 

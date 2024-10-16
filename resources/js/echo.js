@@ -1,18 +1,29 @@
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
-
 if(import.meta.env.VITE_BROADCAST_DRIVER != null){
 
-    window.Pusher = Pusher;
+    if (import.meta.env.VITE_BROADCAST_DRIVER == 'pusher') {
+        var pusher = new Pusher(import.meta.env.VITE_PUSHER_APP_KEY, {
+            cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+            authEndpoint: '/broadcasting/auth'
+        });
 
-    window.Echo = new Echo({
-        broadcaster: import.meta.env.VITE_BROADCAST_DRIVER,
-        key: import.meta.env.VITE_REVERB_APP_KEY,
-        wsHost: import.meta.env.VITE_REVERB_HOST,
-        wsPort: import.meta.env.VITE_REVERB_PORT ?? 80,
-        wssPort: import.meta.env.VITE_REVERB_PORT ?? 443,
-        forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
-        enabledTransports: ['ws', 'wss'],
-    });
+        var channel = pusher.subscribe('private-broadcast');
+        channel.bind('bell', function(data) {
+            window.Livewire.dispatch('bell');
+        });
+    }
+    else if (import.meta.env.VITE_BROADCAST_DRIVER == 'ably') {
+
+        async function subscribe() {
+
+            const realtime = new Ably.Realtime.Promise(import.meta.env.VITE_ABLY_KEY);
+            const channel = realtime.channels.get("private-broadcast");
+            await channel.subscribe("bell", (message) => {
+                window.Livewire.dispatch('bell');
+            });
+
+          };
+
+        subscribe();
+    }
 }
 

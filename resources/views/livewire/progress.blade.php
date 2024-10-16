@@ -1,5 +1,5 @@
 <div>
-    @if (!empty($batch))
+    @if (!empty($batch) && $pending > 0)
 
     <div wire:poll class="progress">
 

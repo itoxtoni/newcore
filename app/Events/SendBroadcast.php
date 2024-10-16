@@ -43,4 +43,9 @@ class SendBroadcast implements ShouldBroadcastNow
             new PrivateChannel('broadcast'),
         ];
     }
+
+    public function broadcastAs()
+    {
+        return 'bell';
+    }
 }

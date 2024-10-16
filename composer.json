@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ably/ably-php": "^1.1",
+        "ably/laravel-broadcaster": "^1.0",
         "arielmejiadev/larapex-charts": "*",
         "bensampo/laravel-enum": "^6.2",
         "hammerstone/fast-paginate": "^0.1.10",
@@ -18,11 +20,12 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.3",
         "laravel/telescope": "^5.0",
+        "laravel/ui": "^4.5",
         "laravie/serialize-queries": "^3.0",
         "livewire/livewire": "^3.5",
         "mehradsadeghi/laravel-filter-querystring": "^1.1",
-        "laravel/ui": "^4.5",
         "opcodesio/log-viewer": "^3.1",
+        "pusher/pusher-php-server": "^7.2",
         "spatie/simple-excel": "^3.6",
         "symfony/process": "^6.4",
         "wildside/userstamps": "^2.2"

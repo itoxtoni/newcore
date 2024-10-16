@@ -20,9 +20,12 @@ Route::get('test', function () {
         'Read More...' // Optional: Link Text. The text that will be shown on the link button.
     );
 
-    event(new SendBroadcast($notification, NotificationType::Error));
+    sendNotification($notification, NotificationType::Error);
 
-    // sendNotification($notification, NotificationType::Error);
+//     $ably   = new \Ably\AblyRest(env('ABLY_KEY'));
+
+//     $channel = $ably->channels->get('private-broadcast');
+//   $channel->publish('bell', 'test');
 
 });
 
