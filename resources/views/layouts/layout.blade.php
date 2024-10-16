@@ -41,7 +41,7 @@
 
     var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
         cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
-        authEndpoint: '{{ url('/broadcasting/auth') }}'
+        authEndpoint: '{{ url('/broadcasting/auth', [], true) }}'
     });
 
     var channel = pusher.subscribe('private-broadcast');
