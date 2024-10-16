@@ -318,26 +318,17 @@ if (! function_exists('exportCsv')) {
         $bus = Bus::batch($batches)
             ->name('Export Users')
             ->then(function (Batch $batch) use ($name, $user_id) {
-
+                Log::info($name);
                 Storage::put($name, file_get_contents($name));
 
-                // $notification = new \MBarlow\Megaphone\Types\NewFeature(
-                //     'Download File Success',
-                //     'File Ready to download',
-                //     asset(str_replace('public/', '', $name)),
-                //     'Download'
-                // );
-
-                // sendNotification($notification, NotificationType::Success, $user_id);
-
-                $notification = new \MBarlow\Megaphone\Types\Important(
-                    'Expected Downtime!', // Notification Title
-                    'We are expecting some downtime today at around 15:00 UTC for some planned maintenance.', // Notification Body
-                    'https://example.com/link', // Optional: URL. Megaphone will add a link to this URL within the Notification display.
-                    'Read More...' // Optional: Link Text. The text that will be shown on the link button.
+                $notification = new \MBarlow\Megaphone\Types\NewFeature(
+                    'Download File Success',
+                    'File Ready to download',
+                    asset(str_replace('public/', '', $name)),
+                    'Download'
                 );
 
-                sendNotification($notification, NotificationType::Error);
+                sendNotification($notification, NotificationType::Success, $user_id);
 
             })
             ->catch(function (Batch $batch, Throwable $e) use ($user_id) {
