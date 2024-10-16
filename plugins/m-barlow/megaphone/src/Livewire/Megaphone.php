@@ -23,6 +23,8 @@ class Megaphone extends Component
 
     public function mount(Request $request)
     {
+        dump('masuk');
+
         if (empty($this->notifiableId) && $request->user() !== null) {
             $this->notifiableId = $request->user()->id;
         }

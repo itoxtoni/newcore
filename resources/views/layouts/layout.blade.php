@@ -46,6 +46,7 @@
 
     var channel = pusher.subscribe('private-broadcast');
     channel.bind('bell', function(data) {
+        console.log(data);
         window.Livewire.dispatch('bell');
     });
     </script>
