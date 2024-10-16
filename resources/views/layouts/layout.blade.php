@@ -41,12 +41,11 @@
 
     var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
         cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
-        authEndpoint: '{{ url('/broadcasting/auth', [], true) }}'
+        authEndpoint: '{{ url('/broadcasting/auth') }}'
     });
 
     var channel = pusher.subscribe('private-broadcast');
     channel.bind('bell', function(data) {
-        console.log(data);
         window.Livewire.dispatch('bell');
     });
     </script>
