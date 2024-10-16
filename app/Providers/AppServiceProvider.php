@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 use Plugins\Query;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,6 +37,10 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::if('level', function ($value) {
             return auth()->check() && auth()->user()->level >= $value;
+        });
+
+        Livewire::setScriptRoute(function ($handle) {
+            return Route::get('/vendor/livewire/livewire.js', $handle);
         });
     }
 }
