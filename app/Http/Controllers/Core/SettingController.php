@@ -6,6 +6,7 @@ use App\Actions\ActionSaveSetting;
 use App\Dao\Enums\Core\BooleanType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\SettingRequest;
+use App\Http\Services\Core\CreateSettingService;
 use Plugins\Response;
 
 class SettingController extends Controller
@@ -25,9 +26,9 @@ class SettingController extends Controller
         return moduleView(modulePathForm(path: true), $this->share());
     }
 
-    public function postCreate(SettingRequest $request, ActionSaveSetting $service)
+    public function postCreate(SettingRequest $request, CreateSettingService $service)
     {
-        $data = $service->run($request);
+        $data = $service->save($request);
 
         return Response::redirectBack($data);
     }

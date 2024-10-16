@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Kirschbaum\PowerJoins\PowerJoins;
 use Kyslik\ColumnSortable\Sortable;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
-use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
 class SystemModel extends Model
 {
@@ -22,7 +21,6 @@ class SystemModel extends Model
     use FilterQueryString;
     use OptionTrait;
     use PowerJoins;
-    use Sanitizable;
     use Sortable;
 
     protected $filters = [

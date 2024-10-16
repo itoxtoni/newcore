@@ -28,6 +28,16 @@ class CreateSettingService
                 EnvEditor::editKey('APP_LOGO', $name);
             }
 
+            if ($data->has('background')) {
+                $file_background = $data->file('background');
+                $extension = $file_background->extension();
+                $name = 'background.'.$extension;
+                // $name = time().'.'.$name;
+
+                $file_background->storeAs('/public/', $name);
+                EnvEditor::editKey('APP_BACKGROUND', $name);
+            }
+
             Alert::update();
 
         } catch (\Throwable $th) {
