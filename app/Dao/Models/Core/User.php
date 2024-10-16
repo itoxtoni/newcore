@@ -23,7 +23,6 @@ use Kyslik\ColumnSortable\Sortable;
 use Laravel\Sanctum\HasApiTokens;
 use MBarlow\Megaphone\HasMegaphone;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
-use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
 class User extends Authenticatable implements AuthMustVerifyEmail
 {
@@ -39,7 +38,6 @@ class User extends Authenticatable implements AuthMustVerifyEmail
     use Notifiable;
     use OptionTrait;
     use PowerJoins;
-    use Sanitizable;
     use Sortable;
     use UserEntity;
 
