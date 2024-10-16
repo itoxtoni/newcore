@@ -9,8 +9,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "ably/ably-php": "^1.1",
-        "ably/laravel-broadcaster": "^1.0",
         "arielmejiadev/larapex-charts": "*",
         "bensampo/laravel-enum": "^6.2",
         "hammerstone/fast-paginate": "^0.1.10",
