@@ -34,7 +34,13 @@
     @stack('footer')
 
     @vite(['resources/js/vite.js'])
-    @livewireScriptConfig
+    @livewireScripts
+
+    <script>
+        $('.card-title').click(function() {
+            window.Livewire.dispatch('trigger');
+        });
+    </script>
 </body>
 
 </html>

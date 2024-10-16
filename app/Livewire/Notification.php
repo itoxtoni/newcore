@@ -2,13 +2,10 @@
 
 namespace App\Livewire;
 
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Notification extends Component
 {
-    use LivewireAlert;
-
     public $user_id;
 
     public function getListeners()

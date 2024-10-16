@@ -2,6 +2,7 @@
 
 use App\Dao\Enums\Core\MenuType;
 use App\Dao\Enums\Core\NotificationType;
+use App\Events\SendBroadcast;
 use App\Http\Controllers\Core\HomeController;
 use App\Http\Controllers\PublicController;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
@@ -19,7 +20,9 @@ Route::get('test', function () {
         'Read More...' // Optional: Link Text. The text that will be shown on the link button.
     );
 
-    sendNotification($notification, NotificationType::Error);
+    event(new SendBroadcast($notification, NotificationType::Error));
+
+    // sendNotification($notification, NotificationType::Error);
 
 });
 
