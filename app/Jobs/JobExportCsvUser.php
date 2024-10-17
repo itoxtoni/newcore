@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Laravie\SerializesQuery\Eloquent;
@@ -62,11 +63,6 @@ class JobExportCsvUser implements ShouldQueue
                     ->addHeader(array_values($this->getHeader()));
             }
 
-            Log::info($query
-            ->orderBy('id', 'asc')
-            ->skip(($this->chunkIndex - 1) * $this->chunkSize)
-            ->take($this->chunkSize)->toSql());
-
             $users = $query
                 ->orderBy('id', 'asc')
                 ->skip(($this->chunkIndex - 1) * $this->chunkSize)
@@ -97,5 +93,10 @@ class JobExportCsvUser implements ShouldQueue
         foreach ($users as $user) {
             yield $user;
         }
+    }
+
+    public function middleware()
+    {
+        return [new WithoutOverlapping($this->chunkIndex)];
     }
 }
