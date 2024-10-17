@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Laravie\SerializesQuery\Eloquent;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
@@ -60,6 +61,11 @@ class JobExportCsvUser implements ShouldQueue
                 SimpleExcelWriter::create($this->fileName, delimiter: $this->delimiter)
                     ->addHeader(array_values($this->getHeader()));
             }
+
+            Log::info($query
+            ->orderBy('id', 'asc')
+            ->skip(($this->chunkIndex - 1) * $this->chunkSize)
+            ->take($this->chunkSize)->toSql());
 
             $users = $query
                 ->orderBy('id', 'asc')

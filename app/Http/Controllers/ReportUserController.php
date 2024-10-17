@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Dao\Enums\Core\NotificationType;
+use App\Dao\Enums\Core\UserType;
 use App\Facades\Model\UserModel;
 use App\Http\Controllers\Core\ReportController;
 use App\Jobs\JobExportCsvUser;

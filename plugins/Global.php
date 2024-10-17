@@ -318,8 +318,9 @@ if (! function_exists('exportCsv')) {
         $bus = Bus::batch($batches)
             ->name('Export Users')
             ->then(function (Batch $batch) use ($name, $user_id) {
-                Log::info($name);
                 Storage::put($name, file_get_contents($name));
+
+                Log::info($name);
 
                 $notification = new \MBarlow\Megaphone\Types\NewFeature(
                     'Download File Success',
@@ -327,6 +328,8 @@ if (! function_exists('exportCsv')) {
                     asset(str_replace('public/', '', $name)),
                     'Download'
                 );
+
+                Log::info('notif');
 
                 sendNotification($notification, NotificationType::Success, $user_id);
 
