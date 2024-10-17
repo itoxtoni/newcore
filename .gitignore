@@ -18,3 +18,5 @@ package-lock.json
 composer.lock
 sftp.json
 laradumps.yaml
+rr
+.rr.yaml
