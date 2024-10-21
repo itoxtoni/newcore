@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\Dao\Models\Jenis;
+use App\Dao\Models\Rs;
+use App\Dao\Models\Ruangan;
+use App\Facades\Model\RsModel;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -47,5 +52,10 @@ class AppServiceProvider extends ServiceProvider
         if(env('APP_ENV') !== 'local') {
             URL::forceScheme('https');
         }
+
+        // Cache::forget('cache_rs');
+        Cache::add('cache_rs', Rs::with(['has_ruangan', 'has_jenis'])->get());
+        Cache::add('cache_ruangan', Ruangan::get());
+        Cache::add('cache_jenis', Jenis::get());
     }
 }

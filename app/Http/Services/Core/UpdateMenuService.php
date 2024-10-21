@@ -13,8 +13,7 @@ class UpdateMenuService
         $check = $repository->updateRepository($data->all(), $code);
         if ($check['status']) {
             $check['data']->has_link()->sync($data->link);
-            Session::forget('groups');
-            Cache::forget('facades');
+
             if (request()->wantsJson()) {
                 return response()->json($check)->getData();
             }

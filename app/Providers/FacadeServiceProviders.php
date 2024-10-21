@@ -58,7 +58,6 @@ class FacadeServiceProviders extends ServiceProvider
      */
     public function boot()
     {
-        //Cache::forget('facades');
         if (Cache::has('facades')) {
             $facades = Cache::get('facades');
         } else {
