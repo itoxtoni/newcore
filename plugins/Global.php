@@ -301,7 +301,7 @@ if (! function_exists('sendNotification')) {
 }
 
 if (! function_exists('exportCsv')) {
-    function exportCsv($name, $query, $jobClass, $delimiter = ',', $chunkSize = 1000)
+    function exportCsv($name, $query, $request, $jobClass, $delimiter = ',', $chunkSize = 1000)
     {
         $total = $query->count();
         $numberOfChunks = ceil($total / $chunkSize);

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Coderello\SharedData\Facades\SharedData;
 use Plugins\Template;
 
-class ReportController extends Controller
+abstract class ReportController extends Controller
 {
     public static $service;
 
