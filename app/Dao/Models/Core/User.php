@@ -37,7 +37,6 @@ class User extends Authenticatable implements AuthMustVerifyEmail
     use MustVerifyEmail;
     use Notifiable;
     use OptionTrait;
-    use PowerJoins;
     use Sortable;
     use UserEntity;
 
