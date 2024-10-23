@@ -18,7 +18,6 @@ class Progress extends Component
     public function render()
     {
         $bus = Bus::findBatch($this->batch);
-
         if ($bus) {
             $job = ($bus->totalJobs - $bus->pendingJobs);
             $this->pending = intval($bus->pendingJobs);

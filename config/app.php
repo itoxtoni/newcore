@@ -179,6 +179,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\WebDavServiceProvider::class,
+        Illuminate\Concurrency\ConcurrencyServiceProvider::class,
 
         /*
          * Package Service Providers...
