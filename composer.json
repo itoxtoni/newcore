@@ -16,7 +16,6 @@
         "kirschbaum-development/eloquent-power-joins": "*",
         "kyslik/column-sortable": "^6.4",
         "laravel/framework": "^11.0",
-        "laravel/octane": "^2.5",
         "laravel/sanctum": "*",
         "laravel/telescope": "^5.0",
         "laravel/ui": "^4.5",
