@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Services\Core;
+namespace App\Services\Master;
 
 use Plugins\Alert;
 
-class UpdateTeamService
+class UpdateService
 {
-    public function update($repository, $data, $code)
+    public function update($model, $data, $code)
     {
-        $check = $repository->updateRepository($data->all(), $code);
+        $check = $model->updateRepository($data->all(), $code);
         if ($check['status']) {
-            $check['data']->has_user()->sync($data->team);
-
             if (request()->wantsJson()) {
                 return response()->json($check)->getData();
             }

@@ -8,9 +8,9 @@ use App\Facades\Model\LinkModel;
 use App\Facades\Model\MenuModel;
 use App\Http\Requests\Core\MenuRequest;
 use App\Http\Requests\Core\SortRequest;
-use App\Http\Services\Core\UpdateMenuService;
-use App\Http\Services\Master\CreateService;
-use App\Http\Services\Master\SingleService;
+use App\Services\Core\UpdateMenuService;
+use App\Services\Master\CreateService;
+use App\Services\Master\SingleService;
 use Plugins\Helper;
 use Plugins\Response;
 

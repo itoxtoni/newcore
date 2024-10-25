@@ -6,7 +6,7 @@ use App\Actions\ActionSaveSetting;
 use App\Dao\Enums\Core\BooleanType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\SettingRequest;
-use App\Http\Services\Core\CreateSettingService;
+use App\Services\Core\CreateSettingService;
 use Plugins\Response;
 
 class SettingController extends Controller

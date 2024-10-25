@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Core;
 use App\Dao\Enums\Core\BooleanType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\DeleteRequest;
-use App\Http\Services\Master\DeleteService;
+use App\Services\Master\DeleteService;
 use Plugins\Response;
 
 class MasterController extends Controller

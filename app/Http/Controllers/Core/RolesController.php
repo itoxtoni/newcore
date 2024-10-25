@@ -6,9 +6,9 @@ use App\Dao\Enums\Core\LevelType;
 use App\Facades\Model\GroupModel;
 use App\Facades\Model\RoleModel;
 use App\Http\Requests\Core\RoleRequest;
-use App\Http\Services\Core\UpdateRoleService;
-use App\Http\Services\Master\CreateService;
-use App\Http\Services\Master\SingleService;
+use App\Services\Core\UpdateRoleService;
+use App\Services\Master\CreateService;
+use App\Services\Master\SingleService;
 use Plugins\Response;
 
 class RolesController extends MasterController

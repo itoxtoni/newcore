@@ -6,7 +6,7 @@ use App\Facades\Model\CategoryModel;
 use App\Http\Controllers\Core\MasterController;
 use App\Http\Function\CreateFunction;
 use App\Http\Function\UpdateFunction;
-use App\Http\Services\Master\SingleService;
+use App\Services\Master\SingleService;
 
 class CategoryController extends MasterController
 {

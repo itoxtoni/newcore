@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Core;
+namespace App\Services\Core;
 
 use GeoSot\EnvEditor\Facades\EnvEditor as EnvEditor;
 use Plugins\Alert;

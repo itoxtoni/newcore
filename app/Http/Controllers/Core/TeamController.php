@@ -7,8 +7,8 @@ use App\Facades\Model\UserModel;
 use App\Http\Function\CreateFunction;
 use App\Http\Function\UpdateFunction;
 use App\Http\Requests\Core\GeneralRequest;
-use App\Http\Services\Core\UpdateTeamService;
-use App\Http\Services\Master\SingleService;
+use App\Services\Core\UpdateTeamService;
+use App\Services\Master\SingleService;
 use Plugins\Response;
 
 class TeamController extends MasterController

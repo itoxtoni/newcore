@@ -9,7 +9,7 @@ use App\Facades\Model\UserModel;
 use App\Http\Function\CreateFunction;
 use App\Http\Function\UpdateFunction;
 use App\Http\Requests\Core\SortRequest;
-use App\Http\Services\Master\SingleService;
+use App\Services\Master\SingleService;
 use Plugins\Core;
 use Plugins\Helper;
 use Plugins\Response;

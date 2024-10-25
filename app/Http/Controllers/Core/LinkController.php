@@ -6,9 +6,9 @@ use App\Dao\Enums\Core\BooleanType;
 use App\Dao\Enums\Core\MenuType;
 use App\Facades\Model\LinkModel;
 use App\Http\Requests\Core\LinkRequest;
-use App\Http\Services\Master\CreateService;
-use App\Http\Services\Master\SingleService;
-use App\Http\Services\Master\UpdateService;
+use App\Services\Master\CreateService;
+use App\Services\Master\SingleService;
+use App\Services\Master\UpdateService;
 use Plugins\Helper;
 use Plugins\Response;
 

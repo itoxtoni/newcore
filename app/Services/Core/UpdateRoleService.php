@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Core;
+namespace App\Services\Core;
 
 use Illuminate\Support\Facades\Session;
 use Plugins\Alert;

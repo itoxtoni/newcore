@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Core;
 use App\Dao\Models\Core\SystemMenu;
 use App\Facades\Model\GroupModel;
 use App\Http\Requests\Core\GroupsRequest;
-use App\Http\Services\Core\UpdateGroupService;
-use App\Http\Services\Master\CreateService;
-use App\Http\Services\Master\SingleService;
+use App\Services\Core\UpdateGroupService;
+use App\Services\Master\CreateService;
+use App\Services\Master\SingleService;
 use Plugins\Response;
 
 class GroupsController extends MasterController

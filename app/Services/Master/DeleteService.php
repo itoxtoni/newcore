@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Master;
+namespace App\Services\Master;
 
 use Plugins\Alert;
 
