@@ -4,6 +4,7 @@ namespace App\Dao\Models;
 
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Models\Core\SystemModel;
+use App\Dao\Models\Core\User;
 use Illuminate\Support\Str;
 
 /**
@@ -31,7 +32,7 @@ class Event extends SystemModel
      *
      * @var array<int, string>
      */
-    protected $fillable = ['event_id', 'event_name', 'event_slug', 'event_price', 'event_image', 'event_picture', 'event_date', 'event_description', 'event_info', 'event_detail', 'event_map', 'event_mandatory', 'event_roundown', 'event_banner', 'event_page', 'event_background', 'event_code', 'event_active'];
+    protected $fillable = ['event_id', 'event_name', 'event_slug', 'event_price', 'event_image', 'event_picture', 'event_date', 'event_description', 'event_info', 'event_detail', 'event_map', 'event_mandatory', 'event_roundown', 'event_banner', 'event_page', 'event_background', 'event_code', 'event_active', 'event_max', 'event_code', 'event_confirm_page'];
 
     public static function field_name()
     {
@@ -51,6 +52,11 @@ class Event extends SystemModel
     public function getFieldImageAttribute()
     {
         return $this->{self::field_image()};
+    }
+
+    public function fieldSearching()
+    {
+        return 'event_name';
     }
 
     public static function field_active()
@@ -153,5 +159,10 @@ class Event extends SystemModel
         });
 
         parent::boot();
+    }
+
+    public function has_users()
+    {
+        return $this->hasMany(User::class, 'id_event', 'event_id');
     }
 }

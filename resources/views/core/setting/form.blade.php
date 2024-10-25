@@ -11,12 +11,23 @@
                     <x-form-textarea col="6" value="{{ env('APP_DESCRIPTION') }}" label="Description" name="description" />
                     <x-form-textarea col="6" value="{{ env('APP_ABOUT') }}" label="About" name="about" />
 
-                    <x-form-upload col="6" name="logo" />
-                    <div class="col-md-6">
+                    <x-form-upload col="3" name="logo" />
+
+                    <div class="col-md-3">
                         <img class="img-thumbnail img-fluid"
                             src="{{ env('APP_LOGO') ? url('storage/' . env('APP_LOGO')) : url('assets/media/image/logo.png') }}"
                             alt="">
                     </div>
+
+                    <div class="col-md-6">
+                            <div class="row">
+                                <x-form-upload col="6" name="document" />
+                                <div class="col-md-6">
+                                    <label for="auto_id_document"></label>
+                                    <a target="_blank" class="btn btn-danger btn-block mt-2" href="{{ url('storage/' . env('APP_DOCUMENT')) }}">Download</a>
+                                </div>
+                            </div>
+                        </div>
 
                     <div class="row mt-3">
                         @if(auth()->user()->level == LevelType::Developer)

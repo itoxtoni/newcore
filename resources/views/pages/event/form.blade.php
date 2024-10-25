@@ -14,7 +14,12 @@
                         <x-form-select col="6" name="event_active" :options="$active" />
                     </div>
                 </div>
-                <x-form-input col="6" type="date" name="event_date" />
+                <div class="col-md-6">
+                    <div class="row">
+                        <x-form-input col="6" type="date" name="event_date" />
+                        <x-form-input col="6" type="number" name="event_max" />
+                    </div>
+                </div>
                 <x-form-input col="6" name="event_info" />
 
                 <x-form-upload col="3" name="images" />
@@ -89,11 +94,19 @@
 
                 <x-form-textarea col="6" name="event_description" />
 
-                <div class="row mt-3">
-                    <div class="col-md-12">
+                <div class="row mt-3 mb-5">
+                    <div class="col-md-6 form-group">
+                        <label for="">Content Page</label>
                         <x-form-input col="6" type="hidden" class="editor" name="event_page" />
                         <div id="editor">{!! $model ? $model->event_page : '' !!}</div>
                    </div>
+
+                   <div class="col-md-6 form-group">
+                        <label for="">Confirmation Page</label>
+                        <x-form-input col="6" type="hidden" class="editor1" name="event_confirm_page" />
+                        <div id="editor1">{!! $model ? $model->event_confirm_page : '' !!}</div>
+                </div>
+
                 </div>
 
                 @endbind

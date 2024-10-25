@@ -5,7 +5,7 @@
     <!-- Widget-about -->
     <div class="tf-widget-about-us main-content">
         <div class="themeflat-container">
-            <div class="tf-about-us">
+            <div class="container tf-about-us">
                 <div class="row">
                     <div class="col-md-3 image-wraper">
                         <div class="media">
@@ -26,6 +26,12 @@
                             </div><!-- header style v1 -->
 
                             <div class="line"></div>
+
+                            @if (session('status'))
+                                <div class="alert alert-danger">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
 
                             @if (auth()->check())
 
@@ -306,13 +312,32 @@
 
                                     </div>
 
+                                    <div class="line"></div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" name="confirmation" type="checkbox" id="inlineCheckbox1">
+                                                <label class="form-check-label" for="inlineCheckbox1">
+                                                    {!! $event->event_confirm_page ?? 'Confirmation of Agreement' !!}
+
+                                                    @error('confirmation')
+                                                        ( <span class="error text-danger">{{ $message }}</span> )
+                                                    @enderror
+
+                                                </label>
+
+                                              </div>
+                                        </div>
+                                    </div>
+
                                     @if ($errors)
                                         @foreach ($errors as $item)
                                             <span>{{ $item }}</span>
                                         @endforeach
                                     @endif
 
-                                    <p class="form-submit">
+                                    <p class="form-submit mt-3">
                                         <input type="submit" id="comment-reply" class="submit-register"
                                             value="Save Cart">
                                     </p>

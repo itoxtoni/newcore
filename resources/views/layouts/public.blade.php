@@ -91,7 +91,7 @@
                             </li>
                             @else
                                 <a class="btn-contact button-login" href="{{ route('login') }}" role="button">
-                                    Login/Register
+                                    Login
                                 </a>
                             @endif
 

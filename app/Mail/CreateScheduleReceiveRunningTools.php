@@ -6,9 +6,11 @@ use App\Dao\Models\Core\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class CreateScheduleReceiveRunningTools extends Mailable
 {
@@ -55,6 +57,9 @@ class CreateScheduleReceiveRunningTools extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        Log::info(url('storage/' . env('APP_DOCUMENT')));
+        return [
+        Attachment::fromPath(url('storage/' . env('APP_DOCUMENT'))),
+        ];
     }
 }

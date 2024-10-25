@@ -37,17 +37,17 @@
 
             <div class="col-md-6 mb-3">
                 <div class="form-floating">
-                    <input type="date" name="birthday" class="form-control" wire:model="birthday" id="floatingInput" placeholder="birthday">
-                    <label for="floatingInput">Birthday</label>
-                    @error('birthday') <span class="error">{{ $message }}</span> @enderror
+                    <input type="password" name="password" class="form-control" wire:model="password" id="floatingInput" placeholder="password">
+                    <label for="floatingInput">Password</label>
+                    @error('password') <span class="error">{{ $message }}</span> @enderror
                 </div>
             </div>
 
             <div class="col-md-6 mb-3">
                 <div class="form-floating">
-                    <input type="password" name="password" class="form-control" wire:model="password" id="floatingInput" placeholder="password">
-                    <label for="floatingInput">Password</label>
-                    @error('password') <span class="error">{{ $message }}</span> @enderror
+                    <input type="password" name="password_confirmation" class="form-control" wire:model="password_confirmation" id="floatingInput" placeholder="password_confirm">
+                    <label for="floatingInput">Confirm Password</label>
+                    @error('password_confirmation') <span class="error">{{ $message }}</span> @enderror
                 </div>
             </div>
 

@@ -33,6 +33,15 @@ class ActionSaveSetting
                 EnvEditor::editKey('APP_LOGO', $name);
             }
 
+            if ($request->has('document')) {
+                $file_logo = $request->file('document');
+                $extension = $file_logo->extension();
+                $name = 'document.'.$extension;
+
+                $file_logo->storeAs('/public/', $name);
+                EnvEditor::editKey('APP_DOCUMENT', $name);
+            }
+
             Alert::update();
 
         } catch (\Throwable $th) {

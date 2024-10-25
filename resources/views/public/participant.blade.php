@@ -23,7 +23,6 @@
                                 <th style="width: 50px !important">No.</th>
                                 <th>Event</th>
                                 <th>Category</th>
-                                <th>BIB</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Country</th>
@@ -35,7 +34,6 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->has_event->event_name ?? '' }}</td>
                                 <td>{{ $item->category }}</td>
-                                <td>{{ $item->bib }}</td>
                                 <td>{{ $item->first_name }}</td>
                                 <td>{{ $item->last_name }}</td>
                                 <td>{{ $item->country }}</td>

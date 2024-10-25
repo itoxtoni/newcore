@@ -50,7 +50,6 @@
 
     <div class="form-row form-button">
         <div class="form-wrapper">
-            <a class="button black" href="{{ route('login') }}">Login</a>
         </div>
 
         <div class="form-wrapper">

@@ -150,7 +150,14 @@
                         <div class="view-cart">
                             <p class="total">
                                 <strong>Discount</strong> <span
-                                    class="currency-symbol">{{ number_format($data_user->discount_value ?? 0, 0, ',', '.') ?? '' }}</span>
+                                    class="currency-symbol">-{{ number_format($data_user->discount_value ?? 0, 0, ',', '.') ?? '' }}</span>
+                            </p>
+                        </div>
+
+                        <div class="view-cart">
+                            <p class="total">
+                                <strong>Admin Fee</strong> <span
+                                    class="currency-symbol">{{ number_format(env('ADMIN_FEE', 0) ?? 0, 0, ',', '.') ?? '' }}</span>
                             </p>
                         </div>
 

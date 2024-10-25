@@ -9,7 +9,9 @@ use App\Dao\Models\Discount;
 use App\Dao\Models\Event;
 use App\Dao\Models\Slider;
 use App\Dao\Models\Sponsor;
+use App\Facades\Model\EventModel;
 use App\Facades\Model\PageModel;
+use App\Facades\Model\UserModel;
 use App\Http\Requests\CheckoutRequest;
 use App\Http\Requests\RelationshipRequest;
 use Carbon\Carbon;
@@ -113,6 +115,8 @@ class PublicController extends Controller
         $data_event = Event::where('event_active', 'Yes')->get();
         $event_id = request()->get('event_id');
 
+        $event = Event::find($event_id);
+
         $user = $this->check($event_id);
 
         $blood = [
@@ -157,6 +161,7 @@ class PublicController extends Controller
             'blood' => $blood,
             'jersey' => $jersey,
             'id' => $event_id,
+            'event' => $event,
             'data_event' => $data_event
         ]);
     }
@@ -185,6 +190,15 @@ class PublicController extends Controller
 
         $event_id = request()->get('id_event');
         $event = Event::findOrFail($event_id);
+
+        $total_event = UserModel::where('id_event', $event_id)
+                        ->where('payment_status', 'PAID')
+                        ->count() + 1;
+
+        if($total_event > $event->event_max)
+        {
+            return redirect()->back()->with(['status' => env('EVENT_MAX', 'Event is Full')]);
+        }
 
         $data = $request->all();
         $year = Carbon::parse($request->date_birth)->age;
@@ -356,8 +370,11 @@ class PublicController extends Controller
             $discount->save();
         }
 
+        $admin_fee = env('ADMIN_FEE', 0);
+
         $user->discount_value = $disc;
-        $user->total = $sub - $disc;
+        $user->fee = $admin_fee;
+        $user->total = ($sub - $disc) - $admin_fee;
         $user->save();
     }
 
@@ -399,6 +416,17 @@ class PublicController extends Controller
     {
         $user = User::with(['has_event','has_relationship'])->find(auth()->user()->id);
         $data = $request->all();
+
+        $event = Event::findOrFail($user->id_event);
+
+        $total_event = UserModel::where('id_event', $event->event_id)
+        ->where('payment_status', 'PAID')
+        ->count() + 1;
+
+        if($total_event > $event->event_max)
+        {
+        return redirect()->back()->with(['status' => env('EVENT_MAX', 'Event is Full')]);
+        }
 
         if(empty($user->payment_status))
         {

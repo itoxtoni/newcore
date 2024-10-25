@@ -149,7 +149,7 @@
             <div class="col-md-6 pd-form">
                 <div class="widget-register background-green">
                     <div class="heading-register">
-                        <h2 class="title-register">Registration Form</h2>
+                        <h2 class="title-register">Create Account</h2>
                     </div>
 
                     <div class="form-register">

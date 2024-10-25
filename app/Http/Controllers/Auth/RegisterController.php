@@ -76,6 +76,10 @@ class RegisterController extends Controller
 
     public function redirectTo()
     {
+        if (empty(auth()->user()) || empty(auth()->user()->role)) {
+            return route('events');
+        }
+
         if (method_exists($this, 'redirectAuthCustom')) {
             return $this->redirectAuthCustom();
         }

@@ -27,6 +27,7 @@ class CheckoutRequest extends FormRequest
             'gender' => 'required',
             'id_event' => 'required',
             'date_birth' => 'required',
+            'confirmation' => 'accepted',
             'key' => 'string|unique:users,key,'.$this->user()->id,
         ];
     }
@@ -35,6 +36,7 @@ class CheckoutRequest extends FormRequest
     {
         return [
             'id_event.required' => 'Category Event is required',
+            'confirmation' => 'Confirmation must Checked',
         ];
     }
 }

@@ -123,8 +123,15 @@
 
                     <div class="event-detail-content">
 
+                        @if (auth()->check())
                         <a href="{{ route('event-register', ['event_id' => $event->field_primary]) }}"
                             class="flat-button wow fadeInUp animated">Register now</a>
+                        @else
+                        <a href="{{ route('register') }}"
+                            class="flat-button wow fadeInUp animated">Create Account</a>
+                        @endif
+
+
 
                     </div>
 

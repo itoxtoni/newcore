@@ -22,11 +22,11 @@ class RegisterForm extends Component
     #[Validate(['required', 'string', 'max:15'])]
     public $phone = '';
 
-    #[Validate(['required', 'date'])]
-    public $birthday = '';
-
-    #[Validate(['required', 'string', 'min:8'])]
+    #[Validate(['required', 'string','min:8', 'confirmed'])]
     public $password = '';
+
+    #[Validate(['required'])]
+    public $password_confirmation = '';
 
     public function save()
     {
@@ -37,7 +37,6 @@ class RegisterForm extends Component
             $user = UserModel::create([
                 'first_name' => $this->first_name,
                 'last_name' => $this->last_name,
-                'birthday' => $this->birthday,
                 'name' => $this->first_name.' '.$this->last_name,
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
@@ -54,11 +53,11 @@ class RegisterForm extends Component
 
             Auth::attempt($credentials);
 
-            return $this->redirect('/', navigate: true);
+            return $this->redirect('/events', navigate: true);
 
         } catch (\Throwable $th)
         {
-            session()->flash('message', 'User Failed!.');
+            session()->flash('message', $th->getMessage());
         }
 
 
