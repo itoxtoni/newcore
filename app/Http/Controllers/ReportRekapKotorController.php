@@ -29,6 +29,7 @@ class ReportRekapKotorController extends ReportController
 
     public function beforeForm()
     {
+        Rs::getModel()->test();
         self::$share = [
             'rs' => Cache::get('cache_rs')->pluck(RsModel::field_name(), RsModel::field_primary()),
         ];

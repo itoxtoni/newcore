@@ -40,4 +40,9 @@ class Rs extends SystemModel
     {
         return $this->hasMany(Jenis::class, 'jenis_id_rs', $this->field_primary());
     }
+
+    public function test()
+    {
+        dd('test');
+    }
 }
