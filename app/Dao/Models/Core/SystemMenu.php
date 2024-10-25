@@ -47,6 +47,16 @@ class SystemMenu extends SystemModel
         'system_menu_can_delete' => 'integer',
     ];
 
+    public static function field_name()
+    {
+        return 'system_link_name';
+    }
+
+    public function fieldSearching()
+    {
+        return $this->field_name();
+    }
+
     public function fieldDatatable(): array
     {
         return [
