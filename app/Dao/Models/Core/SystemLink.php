@@ -61,26 +61,38 @@ class SystemLink extends SystemModel
     public static function boot()
     {
         parent::creating(function ($model) {
-            if (empty($model->{SystemLink::field_action()}) && ($model->{SystemLink::field_type()} == MenuType::Menu)) {
+            if (empty($model->{SystemLink::field_action()}) && ($model->{SystemLink::field_type()} == MenuType::Menu))
+            {
                 $act = '.getTable';
-                if (str_contains($model->{SystemLink::field_name()}, 'report')) {
+                $name = $model->{SystemLink::field_name()};
+
+                if (str_contains($name, 'report'))
+                {
                     $act = '.getCreate';
                 }
+
                 $model->{SystemLink::field_action()} = Core::getControllerName($model->{SystemLink::field_controller()}).$act;
             }
         });
 
-        parent::saving(function ($model) {
-            if ($model->{SystemLink::field_type()} == MenuType::Menu) {
-
+        parent::saving(function ($model)
+        {
+            if ($model->{SystemLink::field_type()} == MenuType::Menu)
+            {
                 $model->{SystemLink::field_primary()} = Core::getControllerName($model->{SystemLink::field_controller()});
-                if (empty($model->{SystemLink::field_url()})) {
+
+                if (empty($model->{SystemLink::field_url()}))
+                {
                     $model->{SystemLink::field_url()} = Core::getControllerName($model->{SystemLink::field_controller()});
                 }
-            } else {
+            }
+
+            else
+            {
                 $model->{SystemLink::field_primary()} = Str::snake($model->{SystemLink::field_name()});
             }
         });
+
         parent::boot();
     }
 }
