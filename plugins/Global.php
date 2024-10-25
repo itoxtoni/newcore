@@ -310,7 +310,7 @@ if (! function_exists('exportCsv')) {
         $batches = [];
 
         for ($i = 1; $i <= $numberOfChunks; $i++) {
-            $batches[] = new $jobClass($name, Eloquent::serialize($query), $i, $chunkSize, $delimiter);
+            $batches[] = new $jobClass($name, Eloquent::serialize($query), $request, $i, $chunkSize, $delimiter);
         }
 
         $user_id = auth()->user()->id;
