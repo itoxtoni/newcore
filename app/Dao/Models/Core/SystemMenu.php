@@ -49,7 +49,7 @@ class SystemMenu extends SystemModel
 
     public static function field_name()
     {
-        return 'system_link_name';
+        return 'system_menu_name';
     }
 
     public function fieldSearching()
