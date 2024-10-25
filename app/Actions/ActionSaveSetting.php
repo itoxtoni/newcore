@@ -23,6 +23,9 @@ class ActionSaveSetting
             EnvEditor::editKey('DEBUGBAR_ENABLED', $request->debugbar_enable);
             EnvEditor::editKey('APP_URL', $request->url);
 
+            EnvEditor::editKey('EVENT_MAX', $request->max);
+            EnvEditor::editKey('ADMIN_FEE', $request->fee);
+
             if ($request->has('logo')) {
                 $file_logo = $request->file('logo');
                 $extension = $file_logo->extension();

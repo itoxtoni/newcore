@@ -317,7 +317,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" name="confirmation" type="checkbox" id="inlineCheckbox1">
+                                                <input class="form-check-input" name="confirmation" {{ !empty($user->confirmation) ? 'checked' : '' }} type="checkbox" id="inlineCheckbox1">
                                                 <label class="form-check-label" for="inlineCheckbox1">
                                                     {!! $event->event_confirm_page ?? 'Confirmation of Agreement' !!}
 

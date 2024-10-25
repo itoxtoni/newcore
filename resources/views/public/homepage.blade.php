@@ -140,6 +140,8 @@
         </div>
     </div><!-- wiget benefits -->
 
+    @if (!Auth::check())
+
     <!-- widge Form register -->
     <div class="widget-form-register">
         <div class="row">
@@ -161,6 +163,9 @@
             </div>
         </div>
     </div>
+
+    @endif
+
     <!-- widge Form register -->
       <!-- Logo partner -->
       <div class="tf-widget-partner" style="background-color: white">

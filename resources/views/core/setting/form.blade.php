@@ -8,6 +8,10 @@
                     <x-form-input col="6" value="{{ env('APP_TITLE') }}" label="Nama Website" name="title" />
                     <x-form-input col="6" value="{{ env('APP_PHONE') }}" label="No. Telp" name="phone" />
                     <x-form-input col="6" value="{{ env('APP_ADDRESS') }}" label="Address" name="address" />
+
+                    <x-form-input col="6" value="{{ env('EVENT_MAX') }}" label="Event Quota Max" name="max" />
+                    <x-form-input col="6" value="{{ env('ADMIN_FEE') }}" label="Adjust Admin Fee" name="fee" />
+
                     <x-form-textarea col="6" value="{{ env('APP_DESCRIPTION') }}" label="Description" name="description" />
                     <x-form-textarea col="6" value="{{ env('APP_ABOUT') }}" label="About" name="about" />
 
