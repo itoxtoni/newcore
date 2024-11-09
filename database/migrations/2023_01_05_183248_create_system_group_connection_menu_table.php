@@ -14,9 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('system_group_connection_menu', function (Blueprint $table) {
-            $table->comment('');
             $table->string('system_group_code');
-            $table->string('system_menu_code')->index('system_menu_code');
+            $table->string('system_menu_code');
 
             $table->primary(['system_group_code', 'system_menu_code']);
         });

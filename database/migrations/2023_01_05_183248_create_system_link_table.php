@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('system_link', function (Blueprint $table) {
-            $table->comment('');
-            $table->string('system_link_code')->index('system_menu_code');
+            $table->string('system_link_code')->index();
             $table->string('system_link_name');
             $table->string('system_link_action')->nullable();
             $table->string('system_link_controller')->nullable();

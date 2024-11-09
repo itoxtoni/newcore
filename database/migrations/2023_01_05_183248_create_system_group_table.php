@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('system_group', function (Blueprint $table) {
-            $table->comment('');
             $table->string('system_group_code')->primary();
             $table->string('system_group_name')->nullable();
             $table->integer('system_group_sort')->nullable()->default(0);

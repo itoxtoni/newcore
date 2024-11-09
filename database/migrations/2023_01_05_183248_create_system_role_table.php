@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('system_role', function (Blueprint $table) {
-            $table->comment('');
             $table->string('system_role_code')->primary();
             $table->string('system_role_name');
             $table->string('system_role_description')->nullable();

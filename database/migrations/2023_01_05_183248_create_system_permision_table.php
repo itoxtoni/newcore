@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('system_permision', function (Blueprint $table) {
-            $table->comment('');
             $table->integer('system_permision_id', true);
             $table->string('system_permision_role')->nullable();
             $table->string('system_permision_code')->nullable();

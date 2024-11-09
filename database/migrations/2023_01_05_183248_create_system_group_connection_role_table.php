@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::create('system_group_connection_role', function (Blueprint $table) {
-            $table->comment('');
             $table->string('system_role_code');
             $table->string('system_group_code')->index('system_group_connection_role_ibfk_2');
 
