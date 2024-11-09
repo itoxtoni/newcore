@@ -185,7 +185,7 @@ class CrudGenerator extends GeneratorCommand
     {
         $this->info('Creating Livewire Component ...');
 
-        $folder = ucfirst(Str::plural($this->name));
+        $folder = ucfirst($this->name);
         $replace = array_merge($this->buildReplacements(), $this->modelReplacements());
 
         foreach (['Index', 'Show', 'Edit', 'Create'] as $component) {

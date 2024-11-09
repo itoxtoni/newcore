@@ -225,15 +225,15 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
             '{{modelName}}' => $this->name,
             '{{tableName}}' => Str::snake($this->name),
             '{{modelTitle}}' => Str::title(Str::snake($this->name, ' ')),
-            '{{modelTitlePlural}}' => Str::title(Str::snake(Str::plural($this->name), ' ')),
+            '{{modelTitlePlural}}' => Str::title(Str::snake($this->name, ' ')),
             '{{modelNamespace}}' => $this->modelNamespace,
             '{{controllerNamespace}}' => $this->controllerNamespace,
             '{{apiControllerNamespace}}' => $this->apiControllerNamespace,
             '{{resourceNamespace}}' => $this->resourceNamespace,
             '{{requestNamespace}}' => $this->requestNamespace,
             '{{livewireNamespace}}' => $this->livewireNamespace,
-            '{{modelNamePluralLowerCase}}' => Str::camel(Str::plural($this->name)),
-            '{{modelNamePluralUpperCase}}' => ucfirst(Str::plural($this->name)),
+            '{{modelNamePluralLowerCase}}' => Str::camel($this->name),
+            '{{modelNamePluralUpperCase}}' => ucfirst($this->name),
             '{{modelNameLowerCase}}' => Str::camel($this->name),
             '{{modelRoute}}' => $this->_getRoute(),
             '{{modelView}}' => Str::kebab($this->name),
@@ -242,7 +242,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     protected function _getRoute()
     {
-        return $this->options['route'] ?? Str::kebab(Str::plural($this->name));
+        return $this->options['route'] ?? Str::kebab($this->name);
     }
 
     /**
