@@ -318,9 +318,9 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
                 default => 'laravel/ui'
             };
 
-            if (! $this->requireComposerPackages([$uiPackage], true)) {
-                throw new Exception("Unable to install $uiPackage. Please install it manually");
-            }
+            // if (! $this->requireComposerPackages([$uiPackage], true)) {
+            //     throw new Exception("Unable to install $uiPackage. Please install it manually");
+            // }
 
             $uiCommand = match ($this->options['stack']) {
                 'tailwind' => 'php artisan breeze:install blade',
