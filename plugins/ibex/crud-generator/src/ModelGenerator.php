@@ -95,8 +95,8 @@ class ModelGenerator
 
             $eloquent[] = [
                 'name' => 'belongsTo',
-                'relation_name' => Str::camel(Str::singular($relation['foreign_table'])),
-                'class' => Str::studly(Str::singular($relation['foreign_table'])),
+                'relation_name' => Str::camel($relation['foreign_table']),
+                'class' => Str::studly($relation['foreign_table']),
                 'foreign_key' => $relation['columns'][0],
                 'owner_key' => $relation['foreign_columns'][0],
             ];
@@ -127,8 +127,8 @@ class ModelGenerator
 
                 $eloquent[] = [
                     'name' => $isUniqueColumn ? 'hasOne' : 'hasMany',
-                    'relation_name' => Str::camel($isUniqueColumn ? Str::singular($table) : $table),
-                    'class' => Str::studly(Str::singular($table)),
+                    'relation_name' => Str::camel($isUniqueColumn ? $table : $table),
+                    'class' => Str::studly($table),
                     'foreign_key' => $relation['foreign_columns'][0],
                     'owner_key' => $relation['columns'][0],
                 ];

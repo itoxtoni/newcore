@@ -315,6 +315,6 @@ class CrudGenerator extends GeneratorCommand
      */
     private function _buildClassName(): string
     {
-        return Str::studly(Str::singular($this->table));
+        return Str::studly($this->table);
     }
 }
