@@ -18,6 +18,8 @@
     @endphp
 
     @section('action')
+    @if ($form != false)
+
     <div {{ $attributes }}>
         @if($form == 'table')
             <input class="btn-check-m d-lg-none" type="checkbox">
@@ -39,4 +41,7 @@
 
         {{ $slot }}
     </div>
+
+    @endif
+
     @endsection
