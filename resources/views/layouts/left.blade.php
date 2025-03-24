@@ -87,7 +87,7 @@
 		@if($groups = SharedData::get('groups'))
 		@foreach($groups as $group_data)
 		<!-- should be open home || in request()->segment(1) == 'home' ? 'open' -->
-		<div class="{{ request()->segment(2) == $group_data->field_primary ? 'open' : '' }}" id="{{ $group_data->field_primary }}">
+		<div class="{{ (request()->segment(2) == $group_data->field_primary) || (request()->segment(1) == 'home') ? 'open' : '' }}" id="{{ $group_data->field_primary }}">
 			<ul>
 				@if($menus = $group_data->has_menu)
 				@foreach($menus as $menu)
@@ -114,6 +114,7 @@
 				<li>
 					<a class="link {{ $active ? 'active' : '' }}" @if(env('APP_SPA')) hx-target="#content" hx-push-url="true" hx-get="{{ $menu->field_action ? route($menu->field_action) : '' }}" @endif href="{{ $menu->field_action ? route($menu->field_action) : '' }}">
 						<span>{{ $menu->field_name }}</span>
+						<i class="left-cursor bi bi-arrow-right"></i>
 					</a>
 				</li>
 				@elseif($menu->field_type == MenuType::Group)

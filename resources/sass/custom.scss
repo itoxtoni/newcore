@@ -121,6 +121,14 @@ body {
 
     ul {
       li {
+        background-color: whitesmoke;
+        margin-top: 5px;
+
+        .left-cursor{
+          position: absolute;
+          right: 15px;
+        }
+
         >a.active {
           background-color: whitesmoke !important;
 
