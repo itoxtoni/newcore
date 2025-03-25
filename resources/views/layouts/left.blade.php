@@ -112,9 +112,9 @@
 				$active = request()->segment(2) == $group_data->field_primary && request()->segment(3) == 'default' && request()->segment(4) == $menu->field_url;
 				@endphp
 				<li>
-					<a class="link {{ $active ? 'active' : '' }}" @if(env('APP_SPA')) hx-target="#content" hx-push-url="true" hx-get="{{ $menu->field_action ? route($menu->field_action) : '' }}" @endif href="{{ $menu->field_action ? route($menu->field_action) : '' }}">
+					<a class="{{ $active ? 'active' : '' }}" @if(env('APP_SPA')) hx-target="#content" hx-push-url="true" hx-get="{{ $menu->field_action ? route($menu->field_action) : '' }}" @endif href="{{ $menu->field_action ? route($menu->field_action) : '' }}">
 						<span>{{ $menu->field_name }}</span>
-						<i class="left-cursor bi bi-arrow-right"></i>
+						<i class="right-cursor bi bi-arrow-right"></i>
 					</a>
 				</li>
 				@elseif($menu->field_type == MenuType::Group)
@@ -141,7 +141,8 @@
 						@else
 						<li>
 							<a class="link {{ $active ? 'active' : '' }}" @if(env('APP_SPA')) hx-target="#content" hx-push-url="true" hx-get="{{ route($link->field_action) }}" @endif href="{{ route($link->field_action) }}">
-								{{ $link->field_name }}
+								<i class="left-cursor bi bi-arrow-right"></i>
+								<span>{{ $link->field_name }}</span>
 							</a>
 						</li>
 						@endif

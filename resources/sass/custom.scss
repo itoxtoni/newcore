@@ -27,11 +27,20 @@ body {
 
 .navigation {
   box-shadow: none !important;
+  border-right: 0.5px solid #ced4da;
 
   .navigation-menu-body {
-    border-right: 0.5px solid #ced4da;
+
+    margin-top: 5px;
 
     ul {
+
+      li{
+        a{
+          background-color: whitesmoke;
+        }
+      }
+
       li>a.active:after {
         background-color: unset !important;
       }
@@ -39,17 +48,18 @@ body {
 
     .navigation-header {
       position: absolute;
-      width: 170px;
+      width: 200px;
       padding: 10px;
       padding-left: 25px;
       background: #fff;
       top: 0px;
-      margin-left: 3px;
+      z-index: 99;
     }
   }
 
   .navigation-menu-group {
-    margin-top: 70px;
+    margin-top: 80px;
+    margin-bottom: 30px;
   }
 
   .navigation-menu-tab {
@@ -121,12 +131,29 @@ body {
 
     ul {
       li {
-        background-color: whitesmoke;
-        margin-top: 5px;
+
+        a{
+          background-color: whitesmoke;
+          margin-top: 5px;
+
+          &.link{
+            justify-content: flex-start;
+          }
+        }
 
         .left-cursor{
-          position: absolute;
-          right: 15px;
+          margin-right: 10px;
+        }
+
+        .right-cursor{
+
+          margin-right: -5px;
+          // position: absolute;
+          // right: 25px;
+
+          &::before{
+            font-size: 15px;
+          }
         }
 
         >a.active {
