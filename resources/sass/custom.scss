@@ -48,9 +48,9 @@ body {
 
     .navigation-header {
       position: absolute;
-      width: 200px;
+      width: 71.5%;
       padding: 10px;
-      padding-left: 25px;
+      padding-left: 10px;
       background: #fff;
       top: 0px;
       z-index: 99;
@@ -58,7 +58,7 @@ body {
   }
 
   .navigation-menu-group {
-    margin-top: 80px;
+    margin-top: 85px;
     margin-bottom: 30px;
   }
 
@@ -133,7 +133,7 @@ body {
       li {
 
         a{
-          background-color: whitesmoke;
+          background-color: #fff;
           margin-top: 5px;
 
           &.link{
@@ -157,7 +157,7 @@ body {
         }
 
         >a.active {
-          background-color: whitesmoke !important;
+          background-color: white !important;
 
           &:before {
             content: unset !important;

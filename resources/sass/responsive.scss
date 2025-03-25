@@ -297,6 +297,10 @@
 		}
 	}
 
+	.navigation{
+		width: 350px;
+	}
+
 }
 
 @media (max-width: 768px) {
@@ -306,6 +310,19 @@
 		.main-content {
 			padding-top: 85px;
 			padding-bottom: 60px;
+		}
+	}
+
+	.navigation-menu-body{
+		background-color: whitesmoke;
+
+		.navigation-header{
+			width: 74% !important;
+		}
+
+		.navigation-menu-group {
+			margin-top: 70px !important;
+			margin-bottom: 30px;
 		}
 	}
 
@@ -537,6 +554,17 @@
 			display: none;
 		}
 	}
+
+	.navigation{
+		width: 90%;
+
+		.navigation-menu-body{
+
+			.navigation-header{
+				width: 237px ;
+			}
+		}
+	}
 }
 
 @media (max-width: 375px) {
@@ -547,7 +575,14 @@
 	}
 
 	.navigation {
-		width: 75%;
+		width: 90%;
+
+		.navigation-menu-body{
+
+			.navigation-header{
+				width: 237px !important;
+			}
+		}
 	}
 }
 
