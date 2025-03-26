@@ -72,10 +72,13 @@
 		}
 	}
 
-	.navigation-menu-body {
-		flex: 1;
+	.navigation-menu-group{
 		display: flex;
 		flex-direction: column;
+	}
+
+	.navigation-menu-body {
+		flex: 1;
 		overflow: auto;
 
 		.navigation-menu-group {

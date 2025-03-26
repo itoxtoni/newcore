@@ -31,8 +31,6 @@ body {
 
   .navigation-menu-body {
 
-    margin-top: 5px;
-
     ul {
 
       li{
@@ -47,18 +45,14 @@ body {
     }
 
     .navigation-header {
-      position: absolute;
-      width: 71.5%;
-      padding: 10px;
-      padding-left: 10px;
-      background: #fff;
-      top: 0px;
+      background: #fff !important;
       z-index: 99;
+      width: 100% !important;
+      padding: 10px 0px;
     }
   }
 
   .navigation-menu-group {
-    margin-top: 85px;
     margin-bottom: 30px;
   }
 

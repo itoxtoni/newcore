@@ -189,10 +189,6 @@
 			margin: 0;
 			border-radius: 0;
 		}
-
-		.navigation-menu-body {
-			padding: 15px 0;
-		}
 	}
 
 	#main {
@@ -304,25 +300,25 @@
 }
 
 @media (max-width: 768px) {
+
+	.navigation-menu-body{
+		background-color: whitesmoke;
+
+		.navigation-header{
+			width: calc(100% - #{$navigation-width}) !important;
+		}
+
+		.navigation-menu-group {
+			margin-bottom: 30px;
+		}
+	}
+
 	#main {
 		width: 100%;
 
 		.main-content {
 			padding-top: 85px;
 			padding-bottom: 60px;
-		}
-	}
-
-	.navigation-menu-body{
-		background-color: whitesmoke;
-
-		.navigation-header{
-			width: 74% !important;
-		}
-
-		.navigation-menu-group {
-			margin-top: 70px !important;
-			margin-bottom: 30px;
 		}
 	}
 
@@ -487,6 +483,17 @@
 
 @media (max-width: 414px) {
 
+	.navigation {
+		width: 350px !important;
+
+		.navigation-menu-body{
+
+			.navigation-header{
+				width: calc(100% - #{350px + 75px}) !important;
+			}
+		}
+	}
+
 	.nav {
 		display: block;
 		border: none;
@@ -554,34 +561,23 @@
 			display: none;
 		}
 	}
-
-	.navigation{
-		width: 90%;
-
-		.navigation-menu-body{
-
-			.navigation-header{
-				width: 237px ;
-			}
-		}
-	}
 }
 
 @media (max-width: 375px) {
-	nav.navbar {
-		.navbar-menu {
-			padding-left: 0;
-		}
-	}
-
 	.navigation {
-		width: 90%;
+		width: 300px !important;
 
 		.navigation-menu-body{
 
 			.navigation-header{
-				width: 237px !important;
+				width: calc(100% - #{$navigation-width});
 			}
+		}
+	}
+
+	nav.navbar {
+		.navbar-menu {
+			padding-left: 0;
 		}
 	}
 }
