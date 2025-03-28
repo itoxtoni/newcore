@@ -112,7 +112,7 @@
 				$active = request()->segment(2) == $group_data->field_primary && request()->segment(3) == 'default' && request()->segment(4) == $menu->field_url;
 				@endphp
 				<li>
-					<a class="{{ $active ? 'active' : '' }}" @if(env('APP_SPA')) hx-target="#content" hx-push-url="true" hx-get="{{ $menu->field_action ? route($menu->field_action) : '' }}" @endif href="{{ $menu->field_action ? route($menu->field_action) : '' }}">
+					<a rel="prefetch" class="{{ $active ? 'active' : '' }}" @if(env('APP_SPA')) hx-target="#content" hx-push-url="true" hx-get="{{ $menu->field_action ? route($menu->field_action) : '' }}" @endif href="{{ $menu->field_action ? route($menu->field_action) : '' }}">
 						<span>{{ $menu->field_name }}</span>
 						<i class="right-cursor bi bi-arrow-right"></i>
 					</a>
@@ -134,7 +134,7 @@
 						@endphp
 						@if($link->field_type == MenuType::External || $link->field_type == MenuType::Internal)
 						<li>
-							<a class="link {{ $active ? 'active' : '' }}" target="{{ $link->field_type == MenuType::External ? '_blank' : '' }}" href="{{ $link->field_url }}">
+							<a rel="prefetch" class="link {{ $active ? 'active' : '' }}" target="{{ $link->field_type == MenuType::External ? '_blank' : '' }}" href="{{ $link->field_url }}">
 								{{ $link->field_name }}
 							</a>
 						</li>
