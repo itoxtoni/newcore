@@ -1,6 +1,6 @@
 <?php
 
-use App\Dao\Enums\Core\NotificationType;
+use App\Dao\Enums\BellType;
 use App\Events\SendBroadcast;
 use App\Facades\Model\UserModel;
 use Carbon\Carbon;
@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravie\SerializesQuery\Eloquent;
-use MBarlow\Megaphone\Types\BaseAnnouncement;
 use MBarlow\Megaphone\Types\General;
+use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Facades\File;
 
 define('ACTION_CREATE', 'getCreate');
 define('ACTION_UPDATE', 'getUpdate');
@@ -23,6 +24,11 @@ define('ACTION_TABLE', 'getTable');
 define('ACTION_PRINT', 'getPrint');
 define('ACTION_EXPORT', 'getExport');
 define('ERROR_PERMISION', 'Maaf anda tidak punya otorisasi untuk melakukan hal ini');
+
+define('HAS_LEVEL_3', 'has_level3');
+define('HAS_LEVEL_2', 'has_level2');
+define('HAS_LEVEL_1', 'has_level1');
+define('HAS_BRAND', 'has_brand');
 
 define('UPLOAD', 'upload');
 define('KEY', 'key');
@@ -168,11 +174,74 @@ function level($value)
     return auth()->check() && auth()->user()->level >= $value;
 }
 
+function uploadImage($file, $folder, $width = 300)
+{
+    if(empty($file))
+    {
+        return false;
+    }
+
+    $extension = $file->extension();
+    $name = time().'.'.$extension;
+
+    $image = Image::read($file);
+    $resizedImage = $image->scaleDown($width);
+
+    if(env('PATH_LINK', false))
+    {
+        File::ensureDirectoryExists(storage_path('app/public/files/'.$folder));
+        $resizedImage->save(storage_path('app/public/files/'.$folder.'/'.$name));
+    }
+    else
+    {
+        File::ensureDirectoryExists(public_path('files/'.$folder));
+        $resizedImage->save(public_path('files/'.$folder.'/'.$name));
+    }
+
+    return $name;
+}
+
 function imageUrl($value, $folder = null)
 {
     $path = $folder ? $folder : moduleCode();
 
-    return asset('public/storage/'.$path.'/'.$value);
+    if(empty($value))
+    {
+        return url('images/noimage.jpeg');
+    }
+
+    if(env('PATH_LINK', false))
+    {
+        return file_exists(storage_path('app/public/files/'.$path.'/'.$value)) ? url('storage/files/'.$path.'/'.$value) : url('images/noimage.jpeg');
+    }
+    else
+    {
+        return file_exists(public_path('files/'.$path.'/'.$value)) ? url('files/'.$path.'/'.$value) : url('images/noimage.jpeg');
+    }
+
+
+    $path = $folder ? $folder : moduleCode();
+
+    return $value ? url('storage/files/' . $path.'/'.$value) : url('images/noimage.jpeg');
+}
+
+function logoUrl($isLogo = true)
+{
+    $logo = env('APP_LOGO');
+
+    if($isLogo == false)
+    {
+        $logo = env('APP_BACKGROUND');
+    }
+
+    if(env('PATH_LINK', false))
+    {
+        return file_exists(storage_path('app/public/'.$logo)) && $logo ? url('storage/'.$logo) : url('images/noimage.jpeg');
+    }
+    else
+    {
+        return file_exists(public_path($logo)) && $logo ? url($logo) : url('images/noimage.jpeg');
+    }
 }
 
 function formatDateMySql($value, $datetime = false)
@@ -197,7 +266,6 @@ function formatDateMySql($value, $datetime = false)
 
 function formatDate($value, $datetime = false)
 {
-
     if ($datetime === false) {
         $format = 'd/m/Y';
     } elseif ($datetime === true) {
@@ -217,6 +285,15 @@ function formatDate($value, $datetime = false)
     }
 
     return $value ?: null;
+}
+
+function statusExpired($date)
+{
+    if (empty($date)) {
+        return null;
+    }
+
+    return $date < date('Y-m-d') ? 'Expired' : 'Berlaku';
 }
 
 function iteration($model, $key)
@@ -283,7 +360,7 @@ if (! function_exists('getMegaphoneAdminTypes')) {
 }
 
 if (! function_exists('sendNotification')) {
-    function sendNotification($data, $type = NotificationType::Info, $user_id = 0)
+    function sendNotification($data, $type = BellType::Info, $user_id = 0)
     {
         if ($data instanceof General) {
             foreach (UserModel::all() as $model) {
@@ -336,7 +413,7 @@ if (! function_exists('exportCsv')) {
 
                 Log::info('notif');
 
-                sendNotification($notification, NotificationType::Success, $user_id);
+                sendNotification($notification, BellType::Success, $user_id);
 
             })
             ->catch(function (Batch $batch, Throwable $e) use ($user_id) {
@@ -348,7 +425,7 @@ if (! function_exists('exportCsv')) {
                     $e->getMessage(),
                 );
 
-                sendNotification($notification, NotificationType::Error, $user_id);
+                sendNotification($notification, BellType::Error, $user_id);
 
             })
             ->finally(function (Batch $batch) use ($name) {
