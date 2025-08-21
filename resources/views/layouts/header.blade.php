@@ -31,32 +31,17 @@
 				 </a>
  			</li>
 
-			@livewire('progress')
-
-			<livewire:megaphone></livewire:megaphone>
-
 			<li class="nav-item profile">
-				<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">[ {{ Auth::user()->name }} ]</a>
-				<div class="dropdown-menu">
-					<a href="{{ route('getProfile') }}" class="dropdown-item">My Profile</a>
-					<a href="#" class="dropdown-item">Settings</a>
-					<a href="#" class="dropdown-item">Billing</a>
-					<a href="{{ route('signout') }}" class="dropdown-item">Logout</a>
+				<a onclick="showDropdown()" class="nav-link dropdown-toggle" data-toggle="dropdown">[ {{ Auth::user()->name }} ]</a>
+				<div class="dropdown-content">
+					<a data-turbo-prefetch="false" href="{{ route('getProfile') }}" class="dropdown-item">My Profile</a>
+					<a data-turbo-prefetch="false" href="{{ route('signout') }}" class="dropdown-item">Logout</a>
 				</div>
 			</li>
 
  		</ul>
 
  	</div>
-
- 	<div style="margin-right: 50px;">
-
- 		<ul class="navbar-nav">
-			<li class="nav-item ">
-			</li>
- 		</ul>
- 	</div>
-
 
  </div>
  <!-- end::header -->

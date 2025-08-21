@@ -1,17 +1,4 @@
-import './bootstrap';
-
-import * as bootstrap from 'bootstrap'
-
-import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm';
-
-// import ajax from '@imacrayon/alpine-ajax';
-
-// Alpine.plugin(ajax)
-
-Livewire.start()
-
-import $ from 'jquery';
-window.$ = window.jQuery = $;
+'use strict';
 
 (function ($) {
 

@@ -28,7 +28,8 @@ class MasterRepository
     {
         $query = $this->model
             ->select($this->model->getSelectedField())
-            ->sortable()->filter();
+            ->sortable()
+            ->filter();
 
         if (request()->hasHeader('authorization')) {
             if ($paging = request()->get('paginate')) {

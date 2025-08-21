@@ -9,24 +9,21 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "aaronfrancis/fast-paginate": "^2.0",
+        "akaunting/laravel-sortable": "^1.0",
         "arielmejiadev/larapex-charts": "*",
         "bensampo/laravel-enum": "^6.2",
-        "hammerstone/fast-paginate": "^1.1",
         "intervention/image-laravel": "^1.5",
         "izniburak/laravel-auto-routes": "1.6.0",
         "kirschbaum-development/eloquent-power-joins": "*",
-        "kyslik/column-sortable": "^6.4",
-        "laravel/framework": "^11.0",
+        "laravel/framework": "^12.0",
         "laravel/sanctum": "*",
         "laravel/telescope": "^5.0",
         "laravel/ui": "^4.5",
-        "laravie/serialize-queries": "^3.0",
-        "livewire/livewire": "^3.5",
+        "livewire/livewire": "^3.6",
         "mehradsadeghi/laravel-filter-querystring": "^1.1",
+        "nativephp/mobile": "^1.5",
         "opcodesio/log-viewer": "^3.1",
-        "predis/predis": "^2.2",
-        "pusher/pusher-php-server": "^7.2",
-        "spatie/laravel-backup": "^9.2",
         "spatie/simple-excel": "^3.6",
         "wildside/userstamps": "^2.2"
     },
@@ -44,6 +41,12 @@
         "phpunit/phpunit": "^9.3",
         "spatie/laravel-mail-preview": "^6.0"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://nativephp.composer.sh"
+        }
+    ],
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
@@ -87,6 +90,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan native:install android --force --without-icu"
         ]
     }
 }

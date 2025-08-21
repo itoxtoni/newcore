@@ -1,4 +1,4 @@
-<div x-cloak x-show="open" @click.outside="open = false" class="w-full fixed z-50 top-0 right-0 h-full overflow-x-hidden transform translate-x-0 transition ease-in-out duration-700" id="notification">
+<div class="w-full fixed z-50 top-0 right-0 h-full overflow-x-hidden transform translate-x-0 transition ease-in-out duration-700" id="notification">
     <div class="fixed w-full h-full top-0 left-0 z-0" @click="open = false"></div>
 
     <div class="2xl:w-4/12 bg-gray-50 shadow-md h-screen overflow-y-auto p-8 pt-3 absolute right-0 z-30">

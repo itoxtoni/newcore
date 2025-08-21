@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class SystemGroupTableSeeder extends Seeder
 {
@@ -14,9 +15,9 @@ class SystemGroupTableSeeder extends Seeder
     public function run()
     {
 
-        \DB::table('system_group')->delete();
+        DB::table('system_group')->delete();
 
-        \DB::table('system_group')->insert([
+        DB::table('system_group')->insert([
             0 => [
                 'system_group_code' => 'aplikasi',
                 'system_group_name' => 'Aplikasi',

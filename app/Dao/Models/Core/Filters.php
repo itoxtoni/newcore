@@ -2,13 +2,13 @@
 
 namespace App\Dao\Models\Core;
 
+use Akaunting\Sortable\Traits\Sortable;
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\FiltersEntity;
 use App\Dao\Traits\ActiveTrait;
 use App\Dao\Traits\DataTableTrait;
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
 use Touhidurabir\ModelSanitize\Sanitizable as Sanitizable;
 
@@ -19,7 +19,6 @@ class Filters extends Model
     use DefaultEntity;
     use FilterQueryString;
     use FiltersEntity;
-    use Sanitizable;
     use Sortable;
 
     protected $table = 'system_filter';

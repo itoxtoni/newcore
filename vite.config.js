@@ -6,8 +6,8 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/js/vite.js',
                 'resources/sass/app.scss',
+                'resources/js/app.js',
                 'resources/auth/css/style.scss',
             ],
             refresh: true,

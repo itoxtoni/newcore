@@ -91,10 +91,6 @@ class FormSelect extends Component
         if (! is_bool($this->label)) {
             $this->label = $this->label ? $this->label : formatLabel($name);
         }
-
-        if (empty($placeholder)) {
-            $this->placeholder = '- Silahkan pilih -';
-        }
     }
 
     public function isSelected($key): bool

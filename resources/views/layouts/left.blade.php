@@ -23,37 +23,16 @@
 			@endforeach
 			@endif
 
-			@auth
-			@if(auth()->user()->level == LevelType::Developer)
-			<li>
-				<a class="icon" href="{{ url('log-viewer') }}">
-					<i class="bi bi-clock-history"></i>
-					<h5 class="text-center text-white">
-						Audit Log
-					</h5>
-				</a>
-			</li>
-			<li>
-				<a class="icon" href="{{ url('env-editor') }}">
-					<i class="bi bi-toggles"></i>
-					<h5 class="text-center text-white">
-						Env Editor
-					</h5>
-				</a>
-			</li>
-			@endif
-			@endauth
-
 			<li>
 				@auth
-				<a class="icon" href="{{ route('signout') }}">
+				<a data-turbo-prefetch="false" class="icon" href="{{ route('signout') }}">
 					<i class="bi bi-person-x"></i>
 					<h5 class="text-center text-white">
 						Logout
 					</h5>
 				</a>
 				@else
-				<a class="icon" href="{{ route('login') }}">
+				<a data-turbo-prefetch="false" class="icon" href="{{ route('login') }}">
 					<i class="bi bi-log-in"></i>
 					<h5 class="text-center text-white">
 						Login
@@ -81,17 +60,16 @@
 	<!-- end::navigation-logo -->
 
 	<div class="navigation-menu-group">
-
 		@if($groups = SharedData::get('groups'))
 		@foreach($groups as $group_data)
 		<!-- should be open home || in request()->segment(1) == 'home' ? 'open' -->
-		<div class="{{ (request()->segment(2) == $group_data->field_primary) || (request()->segment(1) == 'home') ? 'open' : '' }}" id="{{ $group_data->field_primary }}">
+		<div class="{{ (request()->segment(2) == $group_data->field_primary) || in_array(request()->segment(1), ['home', 'profile']) ? 'open' : '' }}" id="{{ $group_data->field_primary }}">
 			<ul>
 				@if($menus = $group_data->has_menu)
 				@foreach($menus as $menu)
 				@if($menu->field_type == MenuType::Internal)
 				<li>
-					<a href="{{ $menu->field_url }}">
+					<a data-turbo-prefetch="false" href="{{ $menu->field_url }}">
 						<span>{{ $menu->field_name }}</span>
 					</a>
 				</li>
@@ -110,7 +88,7 @@
 				$active = request()->segment(2) == $group_data->field_primary && request()->segment(3) == 'default' && request()->segment(4) == $menu->field_url;
 				@endphp
 				<li>
-					<a rel="prefetch" class="{{ $active ? 'active' : '' }}" @if(env('APP_SPA')) hx-target="#content" hx-push-url="true" hx-get="{{ $menu->field_action ? route($menu->field_action) : '' }}" @endif href="{{ $menu->field_action ? route($menu->field_action) : '' }}">
+					<a data-turbo-prefetch="false" class="hot {{ $active ? 'active' : '' }}" @if(env('APP_SPA')) hx-target="#content" hx-push-url="true" hx-get="{{ $menu->field_action ? route($menu->field_action) : '' }}" @endif href="{{ $menu->field_action ? route($menu->field_action) : '' }}">
 						<span>{{ $menu->field_name }}</span>
 						<i class="right-cursor bi bi-arrow-right"></i>
 					</a>
@@ -132,7 +110,7 @@
 						@endphp
 						@if($link->field_type == MenuType::External || $link->field_type == MenuType::Internal)
 						<li>
-							<a rel="prefetch" class="link {{ $active ? 'active' : '' }}" target="{{ $link->field_type == MenuType::External ? '_blank' : '' }}" href="{{ $link->field_url }}">
+							<a data-turbo-prefetch="false"  class="link {{ $active ? 'active' : '' }}" target="{{ $link->field_type == MenuType::External ? '_blank' : '' }}" href="{{ $link->field_url }}">
 								{{ $link->field_name }}
 							</a>
 						</li>

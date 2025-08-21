@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class SystemGroupConnectionMenuTableSeeder extends Seeder
 {
@@ -14,9 +15,8 @@ class SystemGroupConnectionMenuTableSeeder extends Seeder
     public function run()
     {
 
-        \DB::table('system_group_connection_menu')->delete();
-
-        \DB::table('system_group_connection_menu')->insert([
+        DB::table('system_group_connection_menu')->delete();
+        DB::table('system_group_connection_menu')->insert([
             0 => [
                 'system_group_code' => 'setting',
                 'system_menu_code' => 'link',

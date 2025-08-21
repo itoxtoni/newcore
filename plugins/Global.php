@@ -229,18 +229,27 @@ function logoUrl($isLogo = true)
 {
     $logo = env('APP_LOGO');
 
-    if($isLogo == false)
-    {
-        $logo = env('APP_BACKGROUND');
-    }
-
     if(env('PATH_LINK', false))
     {
-        return file_exists(storage_path('app/public/'.$logo)) && $logo ? url('storage/'.$logo) : url('images/noimage.jpeg');
+        return file_exists(storage_path('app/public/'.$logo)) && $logo ? url('storage/'.$logo) : url('images/logo.png');
     }
     else
     {
-        return file_exists(public_path($logo)) && $logo ? url($logo) : url('images/noimage.jpeg');
+        return file_exists(public_path($logo)) && $logo ? url($logo) : url('images/logo.png');
+    }
+}
+
+function backgroundUrl($isLogo = true)
+{
+    $logo = env('APP_BACKGROUND');
+
+    if(env('PATH_LINK', false))
+    {
+        return file_exists(storage_path('app/public/'.$logo)) && $logo ? url('storage/'.$logo) : url('images/background.jpg');
+    }
+    else
+    {
+        return file_exists(public_path($logo)) && $logo ? url($logo) : url('images/background.jpg');
     }
 }
 

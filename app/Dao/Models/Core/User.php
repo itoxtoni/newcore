@@ -2,6 +2,7 @@
 
 namespace App\Dao\Models\Core;
 
+use Akaunting\Sortable\Traits\Sortable;
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\UserEntity;
@@ -18,8 +19,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail as AuthMustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Kirschbaum\PowerJoins\PowerJoins;
-use Kyslik\ColumnSortable\Sortable;
 use Laravel\Sanctum\HasApiTokens;
 use MBarlow\Megaphone\HasMegaphone;
 use Mehradsadeghi\FilterQueryString\FilterQueryString as FilterQueryString;
@@ -61,8 +60,8 @@ class User extends Authenticatable implements AuthMustVerifyEmail
 
     public $sortable = [
         'name',
-        'email',
-        'roles.role_name',
+        'username',
+        'system_role_name',
     ];
 
     protected $filters = [
@@ -133,7 +132,7 @@ class User extends Authenticatable implements AuthMustVerifyEmail
             ->sortable()
             ->filter();
 
-        $query = env('PAGINATION_SIMPLE') ? $query->simplePaginate(env('PAGINATION_NUMBER')) : $query->paginate(env('PAGINATION_NUMBER'));
+        $query = env('PAGINATION_SIMPLE') ? $query->simplePaginate(env('PAGINATION_NUMBER')) : $query->fastPaginate(env('PAGINATION_NUMBER'));
 
         return $query;
     }

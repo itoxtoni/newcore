@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class SystemGroupConnectionRoleTableSeeder extends Seeder
 {
@@ -14,9 +15,8 @@ class SystemGroupConnectionRoleTableSeeder extends Seeder
     public function run()
     {
 
-        \DB::table('system_group_connection_role')->delete();
-
-        \DB::table('system_group_connection_role')->insert([
+        DB::table('system_group_connection_role')->delete();
+        DB::table('system_group_connection_role')->insert([
             0 => [
                 'system_role_code' => 'admin',
                 'system_group_code' => 'aplikasi',

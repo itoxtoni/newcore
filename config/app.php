@@ -172,7 +172,6 @@ return [
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
-        Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
@@ -180,7 +179,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\WebDavServiceProvider::class,
         Illuminate\Concurrency\ConcurrencyServiceProvider::class,
-        Spatie\Backup\BackupServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -196,7 +194,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
         BenSampo\Enum\EnumServiceProvider::class,
-        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         CacheableAuthUserServiceProvider::class,
         LaravelWebConsoleServiceProvider::class,
         ProtoneMedia\LaravelFormComponents\Support\ServiceProvider::class,

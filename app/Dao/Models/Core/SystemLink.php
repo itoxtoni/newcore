@@ -6,7 +6,6 @@ use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\SystemLinkEntity;
 use App\Dao\Enums\Core\MenuType;
 use Illuminate\Support\Str;
-use Plugins\Core;
 
 class SystemLink extends SystemModel
 {

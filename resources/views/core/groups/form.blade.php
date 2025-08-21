@@ -9,7 +9,7 @@
                     <x-form-input col="6" name="system_group_name" />
                     <x-form-input col="6" label="Icon - https://icons.getbootstrap.com" name="system_group_icon" />
                     <x-form-input col="6" name="system_group_url" />
-                    <x-form-select col="12" class="tag" multiple name="menu[]" :default="$selected ?? []"
+                    <x-form-select col="12" class="search" multiple name="menu[]" :default="$selected ?? []"
                         :options="$menu" />
                 @endbind
 

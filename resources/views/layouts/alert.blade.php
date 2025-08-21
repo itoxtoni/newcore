@@ -1,7 +1,6 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script>
-    var toastr = new Notyf({
+    var toastr = new window.Notyf({
         duration: 5000,
         dismissible: true,
         position: {

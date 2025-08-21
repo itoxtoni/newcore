@@ -16,7 +16,6 @@ class SystemMenuTableSeeder extends Seeder
     {
 
         DB::table('system_menu')->delete();
-
         DB::table('system_menu')->insert([
             [
                 'system_menu_code' => 'roles',
