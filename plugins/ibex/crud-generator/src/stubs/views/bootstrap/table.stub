@@ -25,7 +25,7 @@
                                     @foreach ($fields as $value)
                                         <th {{ Template::extractColumn($value) }}>
                                             @if ($value->sort)
-                                                @sortablelink($value->code, __($value->name))
+                                                lang($value->code, __($value->name))
                                             @else
                                                 {{ __($value->name) }}
                                             @endif

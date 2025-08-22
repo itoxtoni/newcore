@@ -174,6 +174,16 @@ function level($value)
     return auth()->check() && auth()->user()->level >= $value;
 }
 
+function lang($key, $default = null)
+{
+    if (is_array($key)) {
+        return collect($key)->map(function ($item) use ($default) {
+            return $this->lang($item, $default);
+        })->all();
+    }
+    return trans($key, [], $default);
+}
+
 function uploadImage($file, $folder, $width = 300)
 {
     if(empty($file))

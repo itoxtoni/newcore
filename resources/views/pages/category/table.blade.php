@@ -25,7 +25,7 @@
                                     @foreach ($fields as $value)
                                         <th {{ Template::extractColumn($value) }}>
                                             @if ($value->sort)
-                                                @sortablelink($value->code, __($value->name))
+                                                lang($value->code, __($value->name))
                                             @else
                                                 {{ __($value->name) }}
                                             @endif
@@ -43,7 +43,7 @@
                                         <td class="col-md-2 text-center column-action">
                                             <x-crud :model="$table" />
                                         </td>
-                                        
+
 										<td >{{ $table->category_id }}</td>
 										<td >{{ $table->category_name }}</td>
 

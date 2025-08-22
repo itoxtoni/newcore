@@ -1,48 +1,50 @@
-<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 <script>
-    var toastr = new window.Notyf({
-        duration: 5000,
-        dismissible: true,
-        position: {
-            x: 'right',
-            y: 'top',
-        },
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize JavaScript functions after the DOM is fully loaded
+        test();
+
     });
-</script>
-@if ($errors->any())
-<script type="text/javascript">
-    @foreach($errors->all() as $error)
-        @php
-            $string = Str::of($error);
-            $required = ' wajib diisi';
-            if($string->contains($required)){
-                $error = formatAttribute($string->before($required)).$required ?? $error;
-            }
-        @endphp
-        toastr.error('{{ $error }}');
-    @endforeach
-</script>
-@endif
 
-@if(session()->has('success') && !request()->ajax())
-<script type="text/javascript">
-    toastr.success("{{ session()->get('success') }}");
-</script>
-@php
-session()->forget('success');
-@endphp
-@endif
+    // Run when Turbo visits a new page
+    document.addEventListener("turbo:load", function () {
+        // initialClick();
+        test();
+    });
 
-@if(session()->has('error') && !request()->ajax())
-<script type="text/javascript">
-    // cuteToast({
-    //     type: "error",
-    //     message: "{{ session()->get('error') }}",
-    //     timer: 5000
-    // });
-    toastr.error("{{ session()->get('error') }}");
+    // Optional: Handle when Turbo renders a frame
+    document.addEventListener("turbo:render", function () {
+        test();
+    });
+
+    function test() {
+        var toastr = new Notif({
+            duration: 5000,
+            dismissible: true,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+        });
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                @php
+                    $string = Str::of($error);
+                    $required = ' wajib diisi';
+                    if ($string->contains($required)) {
+                        $error = formatAttribute($string->before($required)) . $required ?? $error;
+                    }
+                @endphp
+                toastr.error('{{ $error }}');
+            @endforeach
+        @endif
+
+        @if (session()->has('success') && !request()->ajax())
+            toastr.success("{{ session()->get('success') }}");
+            @php
+                session()->forget('success');
+            @endphp
+        @endif
+    }
+
 </script>
-@php
-session()->forget('error');
-@endphp
-@endif

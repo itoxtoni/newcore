@@ -6,6 +6,8 @@ use Alkhachatryan\LaravelWebConsole\LaravelWebConsole;
 use App\Charts\Dashboard;
 use App\Dao\Traits\RedirectAuth;
 use App\Http\Controllers\Controller;
+use Native\Mobile\Facades\Camera;
+use Native\Mobile\Facades\Browser;
 
 class HomeController extends Controller
 {

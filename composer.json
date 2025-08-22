@@ -10,7 +10,6 @@
     "require": {
         "php": "^8.1",
         "aaronfrancis/fast-paginate": "^2.0",
-        "akaunting/laravel-sortable": "^1.0",
         "arielmejiadev/larapex-charts": "*",
         "bensampo/laravel-enum": "^6.2",
         "intervention/image-laravel": "^1.5",

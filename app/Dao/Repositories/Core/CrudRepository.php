@@ -11,7 +11,6 @@ trait CrudRepository
     {
         $query = $this
             ->select($this->getSelectedField())
-            ->sortable()
             ->filter();
 
         $query = env('PAGINATION_SIMPLE') ? $query->simplePaginate(env('PAGINATION_NUMBER')) : $query->paginate(env('PAGINATION_NUMBER'));

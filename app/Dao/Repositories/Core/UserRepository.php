@@ -10,7 +10,6 @@ trait UserRepository
             ->select($this->model->getSelectedField())
             ->leftJoinRelationship('has_role')
             ->active()
-            ->sortable()
             ->filter();
 
         $query = env('PAGINATION_SIMPLE') ? $query->simplePaginate(env('PAGINATION_NUMBER')) : $query->paginate(env('PAGINATION_NUMBER'));

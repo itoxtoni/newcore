@@ -24,11 +24,7 @@
                                     <th class="text-center column-action">{{ __('Action') }}</th>
                                     @foreach ($fields as $value)
                                         <th {{ Template::extractColumn($value) }}>
-                                            @if ($value->sort)
-                                                @sortablelink($value->code, __($value->name))
-                                            @else
-                                                {{ __($value->name) }}
-                                            @endif
+                                             {{ __($value->name) }}
                                         </th>
                                     @endforeach
                                 </tr>

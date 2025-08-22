@@ -60,7 +60,6 @@ class Team extends SystemModel
         $query = $this
             ->select($this->getSelectedField())
             ->leftJoinRelationship('has_lead')
-            ->sortable()
             ->filter();
 
         $query = env('PAGINATION_SIMPLE') ? $query->simplePaginate(env('PAGINATION_NUMBER')) : $query->paginate(env('PAGINATION_NUMBER'));

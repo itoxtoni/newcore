@@ -2,7 +2,6 @@
 
 namespace App\Dao\Models\Core;
 
-use Akaunting\Sortable\Traits\Sortable;
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\FiltersEntity;
@@ -19,7 +18,6 @@ class Filters extends Model
     use DefaultEntity;
     use FilterQueryString;
     use FiltersEntity;
-    use Sortable;
 
     protected $table = 'system_filter';
 

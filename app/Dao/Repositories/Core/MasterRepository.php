@@ -28,7 +28,6 @@ class MasterRepository
     {
         $query = $this->model
             ->select($this->model->getSelectedField())
-            ->sortable()
             ->filter();
 
         if (request()->hasHeader('authorization')) {

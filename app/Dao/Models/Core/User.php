@@ -2,7 +2,6 @@
 
 namespace App\Dao\Models\Core;
 
-use Akaunting\Sortable\Traits\Sortable;
 use App\Dao\Builder\DataBuilder;
 use App\Dao\Entities\Core\DefaultEntity;
 use App\Dao\Entities\Core\UserEntity;
@@ -36,7 +35,6 @@ class User extends Authenticatable implements AuthMustVerifyEmail
     use MustVerifyEmail;
     use Notifiable;
     use OptionTrait;
-    use Sortable;
     use UserEntity;
 
     protected $table = 'users';
@@ -129,7 +127,6 @@ class User extends Authenticatable implements AuthMustVerifyEmail
             ->select($this->getSelectedField())
             ->leftJoinRelationship('has_role')
             ->active()
-            ->sortable()
             ->filter();
 
         $query = env('PAGINATION_SIMPLE') ? $query->simplePaginate(env('PAGINATION_NUMBER')) : $query->fastPaginate(env('PAGINATION_NUMBER'));
