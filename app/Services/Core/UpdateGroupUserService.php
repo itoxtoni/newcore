@@ -2,7 +2,7 @@
 
 namespace App\Services\Core;
 
-use App\Http\Services\Master\UpdateService;
+use App\Services\Master\UpdateService;
 use Plugins\Alert;
 
 class UpdateGroupUserService extends UpdateService
