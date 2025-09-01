@@ -19,7 +19,12 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'http://localhost:5173',
+        'http://localhost',
+        'capacitor://localhost',
+        'https://newcore.nexeratech.co.id',
+    ],
 
     'allowed_origins_patterns' => [],
 
