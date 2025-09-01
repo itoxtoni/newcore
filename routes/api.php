@@ -20,7 +20,6 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
  */
 
 Route::post('login', [UserController::class, 'postLoginApi'])->name('postLoginApi');
-Route::post('deploy', [WebhookController::class, 'deploy'])->name('deploy');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('profile', [UserController::class, 'getProfile']);
