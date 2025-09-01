@@ -15,9 +15,7 @@ return new class extends Migration
     {
         Schema::create('system_group_connection_role', function (Blueprint $table) {
             $table->string('system_role_code');
-            $table->string('system_group_code')->index('system_group_connection_role_ibfk_2');
-
-            $table->primary(['system_role_code', 'system_group_code']);
+            $table->string('system_group_code');
         });
     }
 

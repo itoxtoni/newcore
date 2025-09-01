@@ -129,7 +129,13 @@ class User extends Authenticatable implements AuthMustVerifyEmail
             ->active()
             ->filter();
 
-        $query = env('PAGINATION_SIMPLE') ? $query->simplePaginate(env('PAGINATION_NUMBER')) : $query->fastPaginate(env('PAGINATION_NUMBER'));
+        $per_page = env('PAGINATION_NUMBER', 10);
+        if(request()->get('per_page'))
+        {
+            $per_page = request()->get('per_page');
+        }
+
+        $query = env('PAGINATION_SIMPLE') ? $query->simplePaginate($per_page) : $query->fastPaginate($per_page);
 
         return $query;
     }

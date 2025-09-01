@@ -10,6 +10,7 @@ use App\Services\Master\CreateService;
 use App\Services\Master\SingleService;
 use App\Services\Master\UpdateService;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Plugins\Notes;
 use Plugins\Response;
 
@@ -45,9 +46,18 @@ class UserController extends MasterController
         return Response::redirectBack($data);
     }
 
+    public function getTable()
+    {
+        $data = $this->getData();
+
+        return moduleView(modulePathTable('user', true), [
+            'data' => $data,
+            'fields' => $this->model::getModel()->getShowField(),
+        ]);
+    }
+
     public function changePassword()
     {
-
         if (request()->method() == 'POST') {
 
             UserModel::find(auth()->user()->id)->update([
@@ -86,6 +96,11 @@ class UserController extends MasterController
     public function getProfile()
     {
         $this->beforeForm();
+
+        if(request()->header('authorization'))
+        {
+            return auth()->user();
+        }
 
         return moduleView(modulePathForm(name: 'form', path: 'core.profile'), $this->share([
             'model' => auth()->user(),

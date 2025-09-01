@@ -5,13 +5,16 @@ namespace App\Exceptions;
 use Doctrine\DBAL\Query\QueryException;
 use GuzzleHttp\Client;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Container\Attributes\Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException as DatabaseQueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Plugins\Notes;
+use Plugins\Query;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
@@ -92,26 +95,30 @@ class Handler extends ExceptionHandler
             }
         }
 
-        if (request()->hasHeader('authorization')) {
+        // if (request()->hasHeader('authorization')) {
 
-            if ($e instanceof ValidationException) {
-                return Notes::validation($e->getMessage());
-            }
+        //     if ($e instanceof ValidationException) {
+        //         return Notes::validation($e->getMessage());
+        //     }
 
-            if ($e instanceof ModelNotFoundException) {
-                return Notes::error($e->getMessage());
-            }
+        //     if ($e instanceof ModelNotFoundException) {
+        //         return Notes::error($e->getMessage());
+        //     }
 
-            if ($e instanceof NotFoundHttpException) {
-                return Notes::error($e->getMessage());
-            }
+        //     if ($e instanceof NotFoundHttpException) {
+        //         return Notes::error($e->getMessage());
+        //     }
 
-            if ($e instanceof QueryException) {
-                return Notes::error($e->getMessage());
-            }
+        //     if ($e instanceof DatabaseQueryException) {
+        //         return Notes::error($e->getMessage());
+        //     }
 
-            return Notes::error($e->getMessage(), 'Error '.$e->getCode());
-        }
+        //     if ($e instanceof AuthenticationException) {
+        //         return Notes::error($e->getMessage());
+        //     }
+
+        //     return Notes::error($e->getMessage(), 'Error '.$e->getCode());
+        // }
 
         $e = $this->mapException($e);
 

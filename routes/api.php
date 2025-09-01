@@ -1,5 +1,7 @@
 <?php
 
+use App\Dao\Enums\Core\LevelType;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Core\GroupsController;
 use App\Http\Controllers\Core\UserController;
 use App\Http\Controllers\Core\WebhookController;
@@ -20,6 +22,18 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 Route::post('login', [UserController::class, 'postLoginApi'])->name('postLoginApi');
 Route::post('deploy', [WebhookController::class, 'deploy'])->name('deploy');
 
-Route::middleware(['auth:sanctum'])->group(function () {});
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('profile', [UserController::class, 'getProfile']);
+    Route::post('profile', 'App\Http\Controllers\Core\UserController@updateProfile');
+    Route::post('register', [UserController::class, 'postCreate'])->name('register');
+
+    Route::auto('api-user', UserController::class);
+
+    Route::get('level', function(){
+        $level = LevelType::getApi();
+        return $level;
+    });
+
+});
 
 Route::get('groups', [GroupsController::class, 'getData']);

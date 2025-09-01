@@ -1,6 +1,6 @@
 {
   "resources/auth/css/style.scss": {
-    "file": "assets/style-COnwVtwP.css",
+    "file": "assets/style-CWspmG4a.css",
     "src": "resources/auth/css/style.scss",
     "isEntry": true
   },
@@ -13,16 +13,13 @@
     "src": "resources/auth/images/bg-registration-form-9.jpg"
   },
   "resources/js/app.js": {
-    "file": "assets/app-Bg08eU23.js",
+    "file": "assets/app-D-O1ymL_.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true,
-    "css": [
-      "assets/app-KOmfmGu7.css"
-    ]
+    "isEntry": true
   },
   "resources/sass/app.scss": {
-    "file": "assets/app-BKLJlSen.css",
+    "file": "assets/app-CkruPh6M.css",
     "src": "resources/sass/app.scss",
     "isEntry": true
   }

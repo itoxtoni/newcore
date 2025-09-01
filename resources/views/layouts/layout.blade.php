@@ -3,10 +3,13 @@
 @include('layouts.meta')
 
 <head>
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.bootstrap4.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js" integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     @livewireStyles
 
-    <script src="{{ url('assets/js/test-turbo.js') }}"></script>
     <style>
         .navigation .navigation-menu-tab ul li, .navigation .navigation-menu-tab   {
             background-color: {{ env('APP_COLOR') ?? '#1565C0' }} !important;
@@ -48,6 +51,8 @@
     </div>
 
     @include('layouts.alert')
+
+    <script src="{{ url('assets/js/app.min.js') }}"></script>
 
     @stack('footer')
 

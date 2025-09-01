@@ -44,7 +44,6 @@ trait DataTableTrait
     {
         $search = request()->get('search');
         $value = request()->get('filter') ? request()->get('filter') : $this->fieldSearching();
-
         if ($search) {
             if ($this->fieldStatus() && isset($this->fieldStatus()[$value])) {
                 $type = new \ReflectionClass($this->fieldStatus()[$value]);
@@ -58,14 +57,40 @@ trait DataTableTrait
                 $query = $query->where($value, 'like', "%{$search}%");
             }
 
-            foreach (request()->except(['filter', 'search']) as $key => $val) {
+            foreach (request()->except(['filter', 'page', 'search', 'per_page', 'draw', 'orderDir']) as $key => $val) {
                 if (! empty($val)) {
-                    $query = $query->where($key, $val);
+                    if(in_array($key, ['start', 'draw', 'length']))
+                    {
+                        if($key == 'start')
+                        {
+                            $query = $query->skip($val);
+                        }
+
+                        if($key == 'length')
+                        {
+                            $query = $query->take($val);
+                        }
+                    }
+                    else
+                    {
+                        $query = $query->where($key, $val);
+                    }
+
                 }
             }
         }
 
         return $query;
+    }
+
+    public function start($query, $start)
+    {
+        return $query->skip($start);
+    }
+
+    public function length($query, $length)
+    {
+        return $query->take($length);
     }
 
     public function start_date($query)
@@ -91,7 +116,6 @@ trait DataTableTrait
 
     public function fieldSearching()
     {
-
         return $this->getKeyName();
     }
 }

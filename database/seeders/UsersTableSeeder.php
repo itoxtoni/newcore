@@ -33,6 +33,9 @@ class UsersTableSeeder extends Seeder
             'updated_at' => '2023-02-25 10:54:19',
         ]);
 
-        User::factory(500)->create();
+        foreach(range(1, 100) as $i)
+        {
+            User::factory(100)->create();
+        }
     }
 }
