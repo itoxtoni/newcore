@@ -1,6 +1,7 @@
 <?php
 
 use App\Dao\Enums\Core\LevelType;
+use App\Dao\Enums\Core\RoleType;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Core\GroupsController;
 use App\Http\Controllers\Core\UserController;
@@ -27,10 +28,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('register', [UserController::class, 'postCreate'])->name('register');
 
     Route::auto('api-user', UserController::class);
+    Route::get('roles', function(){
+        $data = RoleType::getApi();
+        return $data;
+    });
 
     Route::get('level', function(){
-        $level = LevelType::getApi();
-        return $level;
+        $data = LevelType::getApi();
+        return $data;
     });
 
 });
