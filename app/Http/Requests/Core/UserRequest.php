@@ -14,22 +14,8 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|min:2',
-            'email' => 'required|email|unique:users,name,'.$this->id,
+            'email' => 'required|email',
+            'password' => ['required', 'string', 'min:4', 'confirmed'],
         ];
-    }
-
-    public function prepareForValidation()
-    {
-        if ($this->password) {
-            $this->merge([
-                'password' => Hash::make($this->password),
-            ]);
-        } else {
-            $this->offsetUnset('password');
-        }
-
-        $this->merge([
-            'active' => 1,
-        ]);
     }
 }
