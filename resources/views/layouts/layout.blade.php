@@ -6,12 +6,6 @@
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
-/>
-    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-
     @livewireStyles
 
     <style>
@@ -20,15 +14,17 @@
         }
 
         .navigation .navigation-menu-body ul li>a.active{
-            color: {{ env('APP_COLOR') ?? '#1565C0' }} !important;
+            background-color: {{ env('APP_COLOR') ?? '#1565C0' }} !important;
         }
 
         .navigation .navigation-menu-body ul li.open>a{
             color: {{ env('APP_COLOR') ?? '#1565C0' }} !important;
         }
 
-        .navigation .navigation-menu-body ul li>a:hover{
-            color: {{ env('APP_COLOR') ?? '#1565C0' }} !important;
+        @media (max-width: 768px) {
+            .header {
+                background-color: {{ env('APP_COLOR') ?? '#1565C0' }} !important;
+            }
         }
     </style>
 

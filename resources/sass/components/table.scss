@@ -6,9 +6,10 @@
     thead {
         th {
             vertical-align: middle;
-			padding: 1rem 0.5rem;
+			padding: 0.8rem 0.9rem;
 			font-size: 1rem;
 			color: $default-text-color;
+            background-color: $body-light;
 
 			a{
 				color: $default-text-color !important;
@@ -62,7 +63,6 @@
     table-layout: auto;
     border-collapse: collapse;
     border-radius: 10px;
-    margin: 2rem auto 0;
 }
 
 thead, tbody, tfoot, tr, td, th {
@@ -101,7 +101,7 @@ thead, tbody, tfoot, tr, td, th {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.7rem;
+    gap: 0.5rem;
     border: none;
 }
 
@@ -110,7 +110,6 @@ thead, tbody, tfoot, tr, td, th {
 }
 
 .action-table .button, .action-table a {
-    padding: 0.1rem 0.9rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -147,18 +146,21 @@ thead, tbody, tfoot, tr, td, th {
     .table tr {
         display: block;
         margin-bottom: 1.5rem;
-        border-radius: 0.5rem;
     }
 
     .table td {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid var(--bg-light);
+        border-bottom: 1.5px solid #ced4da;
     }
 
     .table td:last-child {
-        border-bottom: 1px solid var(--color-lightGrey);
+          border-bottom: 1.5px solid #ced4da;
+    }
+
+    .table td:first-child {
+          border-top: 1.5px solid #ced4da;
     }
 
     .table td::before {
@@ -185,4 +187,53 @@ thead, tbody, tfoot, tr, td, th {
     table tbody{
         border-style: none;
     }
+}
+
+// Table column width utilities
+.column-action,
+.table-action {
+    width: 120px !important;
+}
+
+.column-active {
+    width: 80px !important;
+}
+
+.column-status {
+    width: 50px !important;
+    text-align: center;
+}
+
+.column-sort {
+    width: 50px !important;
+}
+
+.column-checkbox {
+    width: 30px !important;
+}
+
+// Stacktable styles for responsive tables
+.st-head-row {
+    padding-top: 1em;
+}
+
+.st-head-row.st-head-row-main {
+    font-size: 1.5em;
+    padding-top: 0;
+}
+
+.st-key {
+    width: 35%;
+    text-align: left;
+    padding-right: 1%;
+
+    .btn-check-d {
+        display: none;
+    }
+}
+
+.st-val {
+    width: 70%;
+    padding-left: 1%;
+    text-align: left !important;
 }

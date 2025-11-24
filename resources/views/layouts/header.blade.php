@@ -27,7 +27,7 @@
 
  			<li class="nav-item navigation-toggler mobile-toggler">
  				<a href="#" class="nav-link" title="Show navigation">
- 					<i class="bi bi-list"></i>
+ 					<i class="bi bi-sliders"></i>
 				 </a>
  			</li>
 

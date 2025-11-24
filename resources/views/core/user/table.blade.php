@@ -15,10 +15,10 @@
 
                 <div class="container-fluid" id="table">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered ">
                             <thead>
                                 <tr>
-                                    <th width="9" class="center">
+                                    <th data width="9" class="center">
                                         <input class="btn-check-d" type="checkbox">
                                     </th>
                                     <th class="text-center column-action">{{ __('Action') }}</th>
@@ -36,13 +36,13 @@
                                             <input type="checkbox" class="checkbox" name="code[]"
                                                 value="{{ $table->field_primary }}">
                                         </td>
-                                        <td class="col-md-2 text-center column-action">
+                                        <td data-label="Actions" class="col-md-2 text-center column-action">
                                             <x-crud :model="$table" />
                                         </td>
-                                        <td>{{ $table->field_name }}</td>
-                                        <td>{{ $table->field_username }}</td>
-                                        <td>{{ $table->field_role_name }}</td>
-                                        <td>{{ $table->field_phone }}</td>
+                                        <td data-label="Name">{{ $table->field_name }}</td>
+                                        <td data-label="Username">{{ $table->field_username }}</td>
+                                        <td data-label="Role">{{ $table->field_role_name }}</td>
+                                        <td data-label="Phone">{{ $table->field_phone }}</td>
                                     </tr>
                                 @empty
                                 @endforelse
