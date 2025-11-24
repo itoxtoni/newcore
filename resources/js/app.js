@@ -37,7 +37,7 @@ window.TomSelect = TomSelect;
 
     // Helper function to check if element is within a parent
     function isWithin(element, parent) {
-        return parent.contains(element);
+        return parent && parent.contains(element);
     }
 
     // Add event listener helper
@@ -76,19 +76,50 @@ window.TomSelect = TomSelect;
     // Also try to initialize immediately in case elements are already loaded
 
     // Checkbox functionality - Master checkbox toggle
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('btn-check-m') || e.target.classList.contains('btn-check-d')) {
-            // Find the table that contains this checkbox
-            const table = e.target.closest('table');
-            if (table) {
-                // Get all checkboxes within the same table (excluding the master checkbox)
-                const checkboxes = table.querySelectorAll('input[type="checkbox"]:not(.btn-check-d):not(.btn-check-m)');
+    function toggleRowCheckboxes(masterCheckbox) {
+        var isChecked = masterCheckbox.checked;
 
-                // Toggle all checkboxes to match the master checkbox state
+        // Try to find table first (for btn-check-d in table header)
+        var table = masterCheckbox.closest('table');
+        if (table) {
+            // Only affect row checkboxes within the same table, excluding the master checkbox
+            const checkboxes = table.querySelectorAll('tbody input[type="checkbox"]:not(.btn-check-m):not(.btn-check-d), input.checkbox');
+            checkboxes.forEach(cb => {
+                cb.checked = isChecked;
+            });
+        } else {
+            // For btn-check-m outside table, find all checkboxes within the same form or container
+            const form = masterCheckbox.closest('form');
+            if (form) {
+                const checkboxes = form.querySelectorAll('input[type="checkbox"]:not(.btn-check-m):not(.btn-check-d), input.checkbox');
                 checkboxes.forEach(cb => {
-                    cb.checked = e.target.checked;
+                    cb.checked = isChecked;
+                });
+            } else {
+                // Fallback to all checkboxes on the page (excluding master checkboxes)
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]:not(.btn-check-m):not(.btn-check-d)');
+                checkboxes.forEach(cb => {
+                    cb.checked = isChecked;
                 });
             }
+        }
+        console.log('Master checkbox clicked. Setting row checkboxes to:', isChecked);
+    }
+
+    // Handle click events
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn-check-m') || e.target.classList.contains('btn-check-d')) {
+            // Let the browser handle the checkbox state change naturally
+            setTimeout(() => {
+                toggleRowCheckboxes(e.target);
+            }, 0);
+        }
+    });
+
+    // Handle change events (in case click doesn't work)
+    document.addEventListener('change', function(e) {
+        if (e.target.classList.contains('btn-check-m') || e.target.classList.contains('btn-check-d')) {
+            toggleRowCheckboxes(e.target);
         }
     });
 

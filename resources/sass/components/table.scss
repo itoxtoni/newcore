@@ -130,7 +130,7 @@ thead, tbody, tfoot, tr, td, th {
 
 .pagination{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 @media (max-width: 768px) {
@@ -153,6 +153,14 @@ thead, tbody, tfoot, tr, td, th {
         justify-content: space-between;
         align-items: center;
         border-bottom: 1.5px solid #ced4da;
+    }
+
+    .flex-start{
+        justify-content: flex-start !important;
+    }
+
+    .checkbox{
+        margin-left: -1rem;
     }
 
     .table td:last-child {
@@ -186,6 +194,10 @@ thead, tbody, tfoot, tr, td, th {
 
     table tbody{
         border-style: none;
+    }
+
+    .pagination{
+        justify-content: center;
     }
 }
 
