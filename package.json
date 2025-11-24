@@ -37,6 +37,7 @@
         "ably": "^1.2.50",
         "alpinejs": "^3.14.1",
         "bootstrap-icons": "^1.11.3",
+        "choices.js": "^11.1.0",
         "dotenv": "^16.4.5",
         "gridjs-vue": "^5.0.4",
         "i": "^0.3.7",

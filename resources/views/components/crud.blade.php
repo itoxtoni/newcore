@@ -3,7 +3,7 @@
     'model' => null,
 ])
 
-<div {{ $attributes }}>
+<div class="action-table" {{ $attributes }}>
     @foreach ($action as $act)
     @switch($act)
         @case('update')
