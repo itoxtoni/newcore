@@ -63,30 +63,90 @@
         <x-form-errors :name="$name" />
     @endif
 
-    @if($api)
+    @if($search)
     @push('javascript')
         <script>
-            $(".{{ $api }}").select2({
-                ajax: {
-                    dataType: 'json',
-                    allowClear: true,
-                    minimumResultsForSearch: Infinity,
-                    url: "{{ route($api) }}",
-                    delay: 300,
-                    data: function(params) {
-                        return {
-                            search: params.term
-                        }
-                    },
-                    processResults: function (data, page) {
-                        return {
-                            results: data
-                        };
-                    },
+            document.addEventListener('DOMContentLoaded', function() {
+                // Check if TomSelect is loaded
+                if (typeof window.TomSelect === 'undefined') {
+                    console.warn('TomSelect library is not loaded. Please include tom-select.js');
+                    return;
+                }
+
+                // Initialize TomSelect for this select element
+                const selectElement = document.getElementById('{{ $id }}');
+                if (selectElement && !selectElement.dataset.tomselectInitialized) {
+                    selectElement.dataset.tomselectInitialized = 'true';
+
+                    try {
+                        new TomSelect(selectElement, {
+                            create: false,
+                            sortField: {
+                                field: "text",
+                                direction: "asc"
+                            },
+                            placeholder: selectElement.getAttribute('data-placeholder') || 'Choose an option',
+                            allowEmptyOption: true,
+                            maxOptions: 1000,
+                            plugins: {
+                                dropdown_input: {},
+                                remove_button: {
+                                    title: 'Remove this item',
+                                }
+                            }
+                        });
+                    } catch (error) {
+                        console.error('Error initializing TomSelect:', error);
+                    }
                 }
             });
         </script>
     @endpush
     @endif
 
+    @if($search)
+    @push('javascript')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get all select elements with the .search class
+                const searchSelects = document.querySelectorAll('select.search');
+
+                searchSelects.forEach(function(select) {
+                    // Add input event listener for filtering
+                    select.addEventListener('input', function() {
+                        const filterText = this.value.toLowerCase();
+                        const options = this.querySelectorAll('option');
+
+                        // Show/hide options based on filter text
+                        options.forEach(function(option) {
+                            const optionText = option.text.toLowerCase();
+
+                            // Keep the first option (empty/placeholder) always visible
+                            if (option === options[0] || optionText.includes(filterText)) {
+                                option.style.display = '';
+                            } else {
+                                option.style.display = 'none';
+                            }
+                        });
+
+                        // Reset selection if current selection doesn't match filter
+                        if (filterText && this.selectedOptions[0] && this.selectedOptions[0].style.display === 'none') {
+                            this.selectedIndex = 0;
+                        }
+                    });
+
+                    // Add change event listener to ensure valid selection
+                    select.addEventListener('change', function() {
+                        const selectedOption = this.selectedOptions[0];
+
+                        // If selected option is hidden (filtered out), reset to first option
+                        if (selectedOption && selectedOption.style.display === 'none') {
+                            this.selectedIndex = 0;
+                        }
+                    });
+                });
+            });
+        </script>
+    @endpush
+    @endif
 </div>

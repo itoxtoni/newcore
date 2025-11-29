@@ -41,17 +41,63 @@ window.$ = window.jQuery = $;
     // });
 
     $('.table').cardtable();
-    $(".search").selectize({
-        allowEmptyOption:true,
-        create: false,
-        plugins: ["remove_button"],
+
+    // Enhanced selectize initialization with error handling (DISABLED)
+    function initSelectize() {
+        // Selectize functionality has been disabled
+        console.log('Selectize functionality is disabled');
+        return;
+
+        /* Commented out original selectize initialization
+        // Check if selectize is available
+        if (typeof $.fn.selectize === 'undefined') {
+            console.warn('Selectize library is not loaded. Please include selectize.js');
+            return;
+        }
+
+        // Initialize search selectize with error handling
+        try {
+            $(".search").each(function() {
+                var $this = $(this);
+                // Check if already initialized to avoid multiple initializations
+                if ($this.data('selectize') === undefined) {
+                    $this.selectize({
+                        allowEmptyOption: true,
+                        create: false,
+                        plugins: ["remove_button"],
+                    });
+                }
+            });
+        } catch (error) {
+            console.error('Error initializing search selectize:', error);
+        }
+
+        // Initialize tag selectize with error handling
+        try {
+            $(".tag").each(function() {
+                var $this = $(this);
+                // Check if already initialized to avoid multiple initializations
+                if ($this.data('selectize') === undefined) {
+                    $this.selectize({
+                        allowEmptyOption: false,
+                        create: false,
+                        plugins: ["remove_button"],
+                    });
+                }
+            });
+        } catch (error) {
+            console.error('Error initializing tag selectize:', error);
+        }
+        */
+    }
+
+    // Initialize selectize when DOM is ready
+    $(document).ready(function() {
+        initSelectize();
     });
 
-    $(".tag").selectize({
-        allowEmptyOption:false,
-        create: false,
-        plugins: ["remove_button"],
-    });
+    // Also try to initialize immediately in case elements are already loaded
+    initSelectize();
 
     $(document).on('click', '.btn-check-m, .btn-check-d', function () {
         $('input:checkbox').not(this).prop('checked', this.checked);

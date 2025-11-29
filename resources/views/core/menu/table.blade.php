@@ -33,18 +33,18 @@
                             <tbody>
                                 @forelse($data as $table)
                                     <tr>
-                                        <td>
+                                        <td data-label="Actions">
                                             <input type="checkbox" class="checkbox" name="code[]"
                                                 value="{{ $table->field_primary }}">
                                         </td>
-                                        <td class="col-md-2 text-center column-action">
+                                        <td data-label="Actions" class="text-center n">
                                             <x-crud :model="$table" />
                                         </td>
-                                        <td>{{ $table->field_primary }}</td>
-                                        <td>{{ $table->field_name }}</td>
-                                        <td>{{ $table->field_controller }}</td>
-                                        <td>{{ $table->field_url }}</td>
-                                        <td class="text-center">
+                                        <td data-label="Actions">{{ $table->field_primary }}</td>
+                                        <td data-label="Actions">{{ $table->field_name }}</td>
+                                        <td data-label="Actions">{{ $table->field_controller }}</td>
+                                        <td data-label="Actions">{{ $table->field_url }}</td>
+                                        <td data-label="Actions" class="text-center">
                                             <x-form-input name="sort[{{ $table->field_primary }}]" :label="false"
                                                 col="false" value="{{ $table->field_sort }}" />
                                         </td>

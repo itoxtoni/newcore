@@ -1,10 +1,11 @@
 $header-height: 70px;
 
 $navigation-width: 350px;
-$small-navigation-width: 75px;
+$small-navigation-width: 97px;
 
 $default-font-size: 14px;
 
+$body-light : #f3f4f6;
 $border-style: 1px solid #ebebeb;
 $border-style-color: #ebebeb;
 $dark-border-style: 1px solid rgba(white, .1);
@@ -54,3 +55,10 @@ $color-github: #00405d;
 $color-behance: #1769ff;
 $color-skype: #00aff0;
 $color-yahoo: #410093;
+
+// Additional UI Colors (Used in custom.scss and other components)
+$color-circle-blue: #33B5E5;
+$color-progress-blue: #1565C0;
+$color-badge-white: #fff;
+$color-text-dark: #505050;
+$color-border-medium: #ced4da;

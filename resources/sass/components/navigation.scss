@@ -34,12 +34,26 @@
 
 		ul {
 			li {
+				border-bottom: 1px solid rgba(white, .8);
+
 				a {
 					color: white;
 					display: flex;
-					height: 55px;
+					min-height: 9rem;
 					justify-content: center;
+					flex-direction: column;
 					align-items: center;
+
+					i{
+						margin-top: -10px;
+						font-size: 1.9rem;
+						margin-bottom: .5rem;
+					}
+
+					h5{
+						font-size: 0.8rem;
+						margin: 0;
+					}
 
 					&.active {
 						position: relative;
@@ -47,13 +61,13 @@
 
 						&:after {
 							content: '';
-							right: 15px;
-							left: 15px;
+							right: 8px;
+							left: 8px;
 							top: 10px;
 							bottom: 10px;
 							border-radius: .5rem;
 							display: block;
-							background: rgba(white, .2);
+							background: rgba(white, .3);
 							position: absolute;
 						}
 					}
@@ -63,25 +77,20 @@
 						color: white;
 					}
 
-					svg {
-						width: 20px;
-						height: 20px;
-					}
 				}
 			}
 		}
 	}
 
-	.navigation-menu-group{
-		display: flex;
-		flex-direction: column;
-	}
-
 	.navigation-menu-body {
 		flex: 1;
 		overflow: auto;
+		background-color: $body-bg;
 
 		.navigation-menu-group {
+
+			display: flex;
+			flex-direction: column;
 
 			& > div {
 				display: none;
@@ -94,13 +103,12 @@
 
 		#navigation-logo {
 			display: flex;
-			height: $header-height;
-			border-bottom: 1px solid #ebebeb;
+			height: $header-height + 20px;
 			align-items: center;
 			justify-content: center;
 
-			img:not(.logo) {
-				display: none;
+			img{
+				max-height: 100px;
 			}
 		}
 
@@ -126,10 +134,20 @@
 				& > a {
 					display: flex;
 					align-items: center;
-					padding: 10px 20px;
-					color: #505050;
 					transition: background .3s;
 					justify-content: space-between;
+
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					padding: 0.6rem 1rem;
+					border-radius: 0.375rem;
+					margin-bottom: 7px;
+					margin-right: 7px;
+					margin-left: 7px;
+					font-weight: normal;
+					text-decoration: none;
+					background-color: $body-light;
 
 					.nav-link-icon {
 						margin-right: .8rem;
@@ -139,30 +157,23 @@
 						height: 20px;
 					}
 
-					&:hover {
-						color: $color-primary;
-
-						.nav-link-icon {
-							stroke: $color-primary;
-						}
-					}
-
 					&.active {
 						position: relative;
-						color: $color-primary;
+						color: $color-light;
 						font-weight: 600;
+						background-color: $color-primary;
 
 						&:after {
 							content: '';
 							position: absolute;
 							display: block;
 							width: 3px;
-							border-top-left-radius: 5px;
-							border-bottom-left-radius: 5px;
+							// border-top-left-radius: 5px;
+							// border-bottom-left-radius: 5px;
 							top: 0;
 							bottom: 0;
 							right: 0;
-							background-color: $color-primary;
+							// background-color: $color-primary;
 						}
 					}
 
@@ -214,23 +225,6 @@
 						}
 					}
 
-					& > ul {
-						display: block;
-
-						a.active {
-							background-color: inherit;
-
-							&:before {
-								content: '';
-								display: inline-block;
-								width: 5px;
-								height: 5px;
-								background-color: $color-primary;
-								border-radius: 50%;
-								margin-right: .5rem;
-							}
-						}
-					}
 				}
 			}
 		}
