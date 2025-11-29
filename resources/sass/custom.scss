@@ -219,3 +219,7 @@ body {
     padding-bottom: 0.5rem !important;
   }
 }
+
+.fl-wrapper[data-position^=top-]{
+  top: 4rem !important;
+}

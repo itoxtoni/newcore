@@ -50,13 +50,9 @@
 
     </div>
 
-    @include('layouts.alert')
-
     @stack('footer')
 
     @livewireScriptConfig
-
-    @include('layouts.alert')
 
 </body>
 

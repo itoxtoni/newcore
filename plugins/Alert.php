@@ -24,6 +24,7 @@ class Alert
 
     public static function create($data = null)
     {
+        // flash()->use('theme.crystal')->success($data ?? 'Data berhasil di '.self::create.' !');
         session()->put(self::success, $data ?? 'Data berhasil di '.self::create.' !');
     }
 
