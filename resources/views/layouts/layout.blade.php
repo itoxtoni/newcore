@@ -56,6 +56,8 @@
 
     @livewireScriptConfig
 
+    @include('layouts.alert')
+
 </body>
 
 </html>
