@@ -2,20 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Facades\Model\CategoryModel;
-use App\Http\Controllers\Core\MasterController;
-use App\Http\Function\CreateFunction;
-use App\Http\Function\UpdateFunction;
-use App\Services\Master\SingleService;
+use App\Http\Controllers\Core\CrudController;
+use App\Models\Category;
 
-class CategoryController extends MasterController
+class CategoryController extends CrudController
 {
-    use CreateFunction;
-    use UpdateFunction;
-
-    public function __construct(CategoryModel $model, SingleService $service)
+    public function __construct(Category $model)
     {
-        self::$service = self::$service ?? $service;
         $this->model = $model::getModel();
     }
 }

@@ -6,7 +6,9 @@
 
             <x-form method="GET" x-init="" x-target="table" role="search" aria-label="Contacts"
                 autocomplete="off" action="{{ moduleRoute('getTable') }}">
-                <x-filter toggle="Filter" :fields="$fields" />
+
+                <x-filter toggle="Filter" :fields="[]" :model="$model" />
+
             </x-form>
 
             <x-form method="POST" action="{{ moduleRoute('getTable') }}">
@@ -22,15 +24,8 @@
                                         <input class="btn-check-d" type="checkbox">
                                     </th>
                                     <th class="text-center column-action">{{ __('Action') }}</th>
-                                    @foreach ($fields as $value)
-                                        <th {{ Template::extractColumn($value) }}>
-                                            @if ($value->sort)
-                                                lang($value->code, __($value->name))
-                                            @else
-                                                {{ __($value->name) }}
-                                            @endif
-                                        </th>
-                                    @endforeach
+                                    <th>ID</th>
+                                    <th>Name</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,8 +39,8 @@
                                             <x-crud :model="$table" />
                                         </td>
 
-										<td >{{ $table->category_id }}</td>
-										<td >{{ $table->category_name }}</td>
+										<td data-label="ID">{{ $table->category_id }}</td>
+										<td data-label="Name">{{ $table->category_name }}</td>
 
                                     </tr>
                                 @empty

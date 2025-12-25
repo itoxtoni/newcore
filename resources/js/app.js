@@ -103,7 +103,6 @@ window.TomSelect = TomSelect;
                 });
             }
         }
-        console.log('Master checkbox clicked. Setting row checkboxes to:', isChecked);
     }
 
     // Handle click events
@@ -549,7 +548,7 @@ window.TomSelect = TomSelect;
     // TomSelect initialization
     function initializeTomSelect() {
         // Initialize TomSelect on ALL select.form-control elements and select.search
-        $$('select.form-control, select.search').forEach(select => {
+        $$('select.search').forEach(select => {
             if (!select.classList.contains('ts-hidden-accessible') &&
                 !select.hasAttribute('data-exclude-tom-select')) {
 

@@ -16,8 +16,6 @@ use App\Dao\Models\Core\SystemModel;
  */
 class Category extends SystemModel
 {
-    protected $perPage = 20;
-
     protected $table = 'category';
 
     protected $primaryKey = 'category_id';
