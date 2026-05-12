@@ -12,8 +12,9 @@ class ReportRequest extends FormRequest
     public function validation(): array
     {
         return [
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'start_report' => 'required',
+            'end_report' => 'required',
+            'customer_code' => 'required',
         ];
     }
 }

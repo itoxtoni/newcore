@@ -103,6 +103,7 @@ window.TomSelect = TomSelect;
                 });
             }
         }
+        console.log('Master checkbox clicked. Setting row checkboxes to:', isChecked);
     }
 
     // Handle click events

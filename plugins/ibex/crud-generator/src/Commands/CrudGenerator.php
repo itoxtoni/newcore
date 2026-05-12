@@ -5,10 +5,6 @@ namespace Ibex\CrudGenerator\Commands;
 use Exception;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-
-use function Laravel\Prompts\select;
 
 /**
  * Class CrudGenerator.
@@ -24,7 +20,6 @@ class CrudGenerator extends GeneratorCommand
      */
     protected $signature = 'make:crud
                             {name : Table name}
-                            {stack : The development stack that should be installed (bootstrap,tailwind,livewire,api)}
                             {--route= : Custom route name}';
 
     /**
@@ -67,32 +62,6 @@ class CrudGenerator extends GeneratorCommand
         return true;
     }
 
-    protected function promptForMissingArgumentsUsing(): array
-    {
-        return [
-            'stack' => fn () => select(
-                label: 'Which stack would you like to install?',
-                options: [
-                    'bootstrap' => 'Blade with Bootstrap css',
-                    'tailwind' => 'Blade with Tailwind css',
-                    'livewire' => 'Livewire with Tailwind css',
-                    'api' => 'API only',
-                ],
-                scroll: 4,
-            ),
-        ];
-    }
-
-    protected function afterPromptingForMissingArguments(InputInterface $input, OutputInterface $output): void
-    {
-        $this->options['stack'] = match ($input->getArgument('stack')) {
-            'tailwind' => 'tailwind',
-            'livewire' => 'livewire',
-            'react' => 'react',
-            'vue' => 'vue',
-            default => 'bootstrap',
-        };
-    }
 
     protected function writeRoute(): static
     {

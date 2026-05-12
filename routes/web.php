@@ -10,25 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Plugins\Query;
 
-Route::get('console', [HomeController::class, 'console'])->name('console');
-Route::get('test', function () {
-
-    $notification = new \MBarlow\Megaphone\Types\Important(
-        'Expected Downtime!', // Notification Title
-        'We are expecting some downtime today at around 15:00 UTC for some planned maintenance.', // Notification Body
-        'https://example.com/link', // Optional: URL. Megaphone will add a link to this URL within the Notification display.
-        'Read More...' // Optional: Link Text. The text that will be shown on the link button.
-    );
-
-    sendNotification($notification, NotificationType::Error);
-
-//     $ably   = new \Ably\AblyRest(env('ABLY_KEY'));
-
-//     $channel = $ably->channels->get('private-broadcast');
-//   $channel->publish('bell', 'test');
-
-});
-
 Route::get('/signout', 'App\Http\Controllers\Auth\LoginController@logout')->name('signout');
 Route::get('/home', 'App\Http\Controllers\Core\HomeController@index')->middleware(['access'])->name('home');
 Route::get('/cms', 'App\Http\Controllers\Core\HomeController@cms')->middleware(['access'])->name('cms');
@@ -41,7 +22,6 @@ Route::post('profile', 'App\Http\Controllers\Core\UserController@updateProfile')
 Auth::routes(['verify' => true]);
 
 Route::get('/', [PublicController::class, 'index'])->name('public');
-Route::post('/checkout', [PublicController::class, 'checkout'])->middleware('auth')->name('checkout');
 
 try {
     $routes = Query::groups();

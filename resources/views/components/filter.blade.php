@@ -1,6 +1,5 @@
 @props([
     'fields' => [],
-    'model' => null,
     'toggle' => '',
     'hide' => false,
     ])
@@ -8,36 +7,12 @@
     @php
 
         $fields = collect($attributes->get('fields', $fields));
-
-        if(!empty($model))
-        {
-            $fields = $fields->merge([
-                (object)[
-                    'code' => $model->field_name(),
-                    'name' => 'Name',
-                ]
-            ]);
-
-            foreach ($model->filterable as $key => $value) {
-                $fields = $fields->merge([
-                    (object)[
-                        'code' => $key,
-                        'name' => ucwords(str_replace('_', ' ', $value)),
-                    ]
-                ]);
-            }
-
-        }
-
         $total = count($fields);
         $col = 'col';
-
-        if($total > 5)
-        {
-            $col = (12 / $total);
-            $hide = boolval($attributes->get('hide', $hide));
+        if($total > 5){
+        $col = (12 / $total);
+        $hide = boolval($attributes->get('hide', $hide));
         }
-
         $show = isset($_GET['search']) ? true : false;
         $show_toggle = $show ? 'collapse show' : 'collapse';
 
@@ -49,7 +24,7 @@
     @endphp
 
     <div {{ $attributes }}>
-        @if(!$hide)
+        @if(false)
         <div class="{{ $show_toggle }}" id="{{ $toggle }}">
 
         @if($total > 4)

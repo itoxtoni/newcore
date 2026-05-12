@@ -6,9 +6,7 @@
 
             <x-form method="GET" x-init="" x-target="table" role="search" aria-label="Contacts"
                 autocomplete="off" action="{{ moduleRoute('getTable') }}">
-
-                <x-filter toggle="Filter" :fields="[]" :model="$model" />
-
+                <x-filter toggle="Filter" :fields="$fields" />
             </x-form>
 
             <x-form method="POST" action="{{ moduleRoute('getTable') }}">
@@ -24,8 +22,12 @@
                                         <input class="btn-check-d" type="checkbox">
                                     </th>
                                     <th class="text-center column-action">{{ __('Action') }}</th>
-                                    <th>ID</th>
-                                    <th>Name</th>
+                                    @foreach ($fields as $value)
+                                        <th {{ Template::extractColumn($value) }}>
+                                            {{ __($value->name) }}
+                                        </th>
+                                    @endforeach
+                                    <th style="width: 120px">Warna</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,12 +37,17 @@
                                             <input type="checkbox" class="checkbox" name="code[]"
                                                 value="{{ $table->field_primary }}">
                                         </td>
-                                        <td class="col-md-2 text-center column-action">
+                                        <td data-label="Action" class="col-md-2 text-center column-action">
                                             <x-crud :model="$table" />
                                         </td>
 
-										<td data-label="ID">{{ $table->category_id }}</td>
-										<td data-label="Name">{{ $table->category_name }}</td>
+										<td data-label="Code">{{ $table->category_code }}</td>
+										<td data-label="Nama">{{ $table->category_nama }}</td>
+										<td data-label="Warna">
+                                            <button style="color:white; background-color: {{ $table->category_warna }}" class="btn btn-block">
+                                                {{ $table->category_nama }}
+                                            </button>
+                                        </td>
 
                                     </tr>
                                 @empty

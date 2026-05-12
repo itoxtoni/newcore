@@ -20,7 +20,7 @@
 		display: flex;
 		flex-direction: column;
 		padding-bottom: 10px;
-		overflow-y: auto;
+		overflow-y: scroll;
 
 		.navigation-menu-tab-header {
 			height: $header-height;
@@ -40,18 +40,18 @@
 				a {
 					color: white;
 					display: flex;
-					min-height: 9rem;
+					min-height: 8.5rem;
 					justify-content: center;
 					flex-direction: column;
 					align-items: center;
 
-					i{
+					i {
 						margin-top: -10px;
 						font-size: 1.9rem;
 						margin-bottom: .5rem;
 					}
 
-					h5{
+					h5 {
 						font-size: 0.8rem;
 						margin: 0;
 					}
@@ -87,13 +87,14 @@
 		flex: 1;
 		overflow: auto;
 		background-color: $body-bg;
+		padding-bottom: 2rem;
 
 		.navigation-menu-group {
 
 			display: flex;
 			flex-direction: column;
 
-			& > div {
+			&>div {
 				display: none;
 
 				&.open {
@@ -108,7 +109,7 @@
 			align-items: center;
 			justify-content: center;
 
-			img{
+			img {
 				max-height: 100px;
 			}
 		}
@@ -132,7 +133,7 @@
 					}
 				}
 
-				& > a {
+				&>a {
 					display: flex;
 					align-items: center;
 					transition: background .3s;
@@ -146,6 +147,7 @@
 					margin-bottom: 7px;
 					margin-right: 7px;
 					margin-left: 7px;
+					font-size: 0.9rem;
 					font-weight: normal;
 					text-decoration: none;
 					background-color: $body-light;
@@ -178,6 +180,14 @@
 						}
 					}
 
+					&.devider{
+						background-color: unset;
+						padding: 0;
+						margin-top: 1rem;
+						margin-left: 0.6rem;
+						font-weight: bold;
+					}
+
 					.sub-menu-arrow {
 						margin-left: auto;
 						font-size: .550rem;
@@ -193,7 +203,7 @@
 						padding: 3px 7px;
 					}
 
-					& + ul {
+					&+ul {
 						display: none;
 
 						li {
@@ -217,7 +227,7 @@
 				}
 
 				&.open {
-					& > a {
+					&>a {
 						color: $color-primary;
 						font-weight: 600;
 

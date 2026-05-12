@@ -35,13 +35,13 @@
                                             <input type="checkbox" class="checkbox" name="code[]"
                                                 value="{{ $table->field_primary }}">
                                         </td>
-                                        <td class="col-md-2 text-center column-action">
+                                        <td data-label="Action" class="col-md-2 text-center column-action">
                                             <x-crud :model="$table" />
                                         </td>
-                                        <td>{{ $table->field_key }}</td>
-                                        <td>{{ $table->field_name }}</td>
-                                        <td>{{ $table->field_level_name }}</td>
-                                        <td>{{ $table->field_description }}</td>
+                                        <td data-label="Key">{{ $table->field_key }}</td>
+                                        <td data-label="Name">{{ $table->field_name }}</td>
+                                        <td data-label="Level">{{ $table->field_level_name }}</td>
+                                        <td data-label="Description">{{ $table->field_description }}</td>
                                     </tr>
                                 @empty
                                 @endforelse

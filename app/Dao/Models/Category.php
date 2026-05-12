@@ -7,7 +7,7 @@ use App\Dao\Models\Core\SystemModel;
 /**
  * Class Category
  *
- * @property $category_id
+ * @property $category_code
  * @property $category_name
  * @property $category_user_id
  * @property User $user
@@ -16,24 +16,31 @@ use App\Dao\Models\Core\SystemModel;
  */
 class Category extends SystemModel
 {
+    protected $perPage = 20;
+
     protected $table = 'category';
 
-    protected $primaryKey = 'category_id';
+    protected $primaryKey = 'category_code';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = ['category_id', 'category_name'];
+    protected $fillable = ['category_code', 'category_nama', 'category_keterangan', 'category_warna'];
 
     public static function field_name()
     {
-        return 'category_name';
+        return 'category_nama';
     }
 
     public function getFieldNameAttribute()
     {
         return $this->{$this->field_name()};
+    }
+
+    public function fieldSearching()
+    {
+        return 'category_nama';
     }
 }

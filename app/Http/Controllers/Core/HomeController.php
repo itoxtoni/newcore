@@ -66,11 +66,6 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function console()
-    {
-        return LaravelWebConsole::show();
-    }
-
     public function doc()
     {
         return view('doc');

@@ -48,7 +48,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     private ?array $tableColumns = null;
 
-    protected string $modelNamespace = 'App\Dao\Models';
+    protected string $modelNamespace = 'App\Models';
 
     protected string $controllerNamespace = 'App\Http\Controllers';
 
@@ -58,7 +58,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
 
     protected string $livewireNamespace = 'App\Livewire';
 
-    protected string $requestNamespace = 'App\Facades\Model';
+    protected string $requestNamespace = 'App\Models';
 
     protected string $layout = 'layouts.app';
 
@@ -459,7 +459,7 @@ abstract class GeneratorCommand extends Command implements PromptsForMissingInpu
     protected function buildOptions(): static
     {
         $this->options['route'] = null;
-        $this->options['stack'] = $this->argument('stack');
+        $this->options['stack'] = 'bootstrap';
 
         return $this;
     }

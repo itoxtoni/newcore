@@ -19,9 +19,10 @@ class Dashboard
             ->setTitle('San Francisco vs Boston.')
             ->setSubtitle('Wins during season 2021.')
             ->setGrid()
-            ->addData( [6, 9, 3, 4, 10, 8], 'San Francisco')
+            ->addData([6, 9, 3, 4, 10, 8], 'Francisco')
             ->addData([7, 3, 8, 2, 6, 4], 'Boston')
             ->addData([7, 3, 8, 2, 6, 4], 'Wales')
-            ->setXAxis(['January', 'February', 'March', 'April', 'May', 'June']);
+            ->setXAxis(['January', 'February', 'March', 'April', 'May', 'June'])
+            ->setGrid();
     }
 }

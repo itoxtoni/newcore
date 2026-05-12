@@ -38,14 +38,14 @@
                                             <input type="checkbox" class="checkbox" name="code[]"
                                                 value="{{ $table->field_primary }}">
                                         </td>
-                                        <td class="col-md-2 text-center column-action">
+                                        <td data-label="Action" class="col-md-2 text-center column-action">
                                             <x-crud :model="$table" />
                                         </td>
-                                        <td>{{ $table->field_primary }}</td>
-                                        <td>{{ $table->field_name }}</td>
-                                        <td>{{ $table->field_controller }}</td>
-                                        <td>{{ $table->field_url }}</td>
-                                        <td class="text-center">
+                                        <td data-label="ID">{{ $table->field_primary }}</td>
+                                        <td data-label="Name">{{ $table->field_name }}</td>
+                                        <td data-label="Controller">{{ $table->field_controller }}</td>
+                                        <td data-label="URL">{{ $table->field_url }}</td>
+                                        <td data-label="Sort" class="text-center">
                                             <x-form-input name="sort[{{ $table->field_primary }}]" :label="false"
                                                 col="false" value="{{ $table->field_sort }}" />
                                         </td>

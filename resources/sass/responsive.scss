@@ -318,8 +318,7 @@
 	}
 
 	.action-table{
-		position: absolute;
-		right: 1.5rem;
+		position: relative;
 	}
 
 	#main {
@@ -377,8 +376,8 @@
 	.header {
 		position: fixed;
 		background-color: $color-primary;
-		border-bottom-left-radius: 1rem;
-		border-bottom-right-radius: 1rem;
+		border-bottom-left-radius: 1.5rem;
+		border-bottom-right-radius: 1.5rem;
 
 		#header-logo {
 			width: auto;
@@ -505,13 +504,15 @@
 
         &.text-center{
             text-align: left !important;
-
-			.form-group{
-				.form-control{
-					text-align: right;
-				}
-			}
         }
+
+		.form-control{
+			text-align: left;
+		}
+
+		.input-group{
+			margin-left: -10px;
+		}
 
 		&::before{
 			min-width: 30% !important;

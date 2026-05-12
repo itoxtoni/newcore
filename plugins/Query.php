@@ -2,6 +2,12 @@
 
 namespace Plugins;
 
+use App\Dao\Models\Customer;
+use App\Dao\Models\Jenis;
+use App\Dao\Models\Lokasi;
+use App\Dao\Models\Opname;
+use App\Dao\Models\Pending;
+use App\Dao\Models\Transaksi;
 use App\Facades\Model\FilterModel;
 use App\Facades\Model\GroupModel;
 use App\Facades\Model\LinkModel;
@@ -31,14 +37,14 @@ class Query
         try {
             $groups = GroupModel::with([
                 'has_menu' => function ($query) {
-                    $query->orderBy('system_menu_sort', 'DESC');
+                    $query->orderBy('system_menu_sort', 'ASC');
                 },
                 'has_menu.has_link' => function ($query) {
-                    $query->orderBy('system_link_sort', 'DESC');
+                    $query->orderBy('system_link_sort', 'ASC');
                 },
             ])
                 ->leftJoin('system_group_connection_role', 'system_group_connection_role.system_group_code', 'system_group.system_group_code')
-                ->orderBy('system_group_sort', 'DESC')
+                ->orderBy('system_group_sort', 'ASC')
                 ->get();
             Cache::put('groups', $groups);
 
@@ -177,19 +183,5 @@ class Query
         $newcode = $prefix.str_pad($countcode, $codelength - strlen($prefix), '0', STR_PAD_LEFT);
 
         return $newcode;
-    }
-
-    public static function getUserByRole($role)
-    {
-        $data = [];
-        $user = UserModel::select(UserModel::field_primary(), UserModel::field_name())
-            ->where(UserModel::field_type(), $role)
-            ->get();
-
-        if ($user) {
-            $data = $user->pluck(UserModel::field_name(), UserModel::field_primary());
-        }
-
-        return $data;
     }
 }

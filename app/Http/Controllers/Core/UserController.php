@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Core;
 
 use App\Dao\Models\Core\User;
+use App\Dao\Models\Customer;
 use App\Facades\Model\RoleModel;
 use App\Facades\Model\UserModel;
 use App\Http\Requests\Core\LoginRequest;
@@ -26,10 +27,12 @@ class UserController extends MasterController
     protected function share($data = [])
     {
         $roles = RoleModel::getOptions();
+        $customer = Customer::getOptions();
         $selected = [];
 
         $view = [
             'roles' => $roles,
+            'customer' => $customer,
             'selected' => $selected,
             'model' => $this->model
         ];
@@ -40,21 +43,31 @@ class UserController extends MasterController
     public function postCreate(UserRequest $request, CreateService $service)
     {
         $data = $service->save($this->model, $request);
+        if(!empty($request->get('customer')))
+        {
+            $save = User::where('username',$request->username)->firstOrFail();
+            $save->has_customer()->sync($request->get('customer'));
+        }
+
         return Response::redirectBack($data);
     }
 
     public function getUpdate($code)
     {
-        $model = $this->get($code);
+        $model = $this->get($code, ['has_customer']);
+        $selected = $model->has_customer->pluck(Customer::field_primary()) ?? [];
 
         return $this->views($this->template(core : self::$is_core), $this->share([
             'model' => $this->get($code),
+            'selected' => $selected
         ]));
     }
 
     public function postUpdate($code, UserRequest $request, UpdateService $service)
     {
         $data = $service->update($this->model, $request, $code);
+        $data['data']->has_customer()->sync($request->get('customer'));
+
         return Response::redirectBack($data);
     }
 

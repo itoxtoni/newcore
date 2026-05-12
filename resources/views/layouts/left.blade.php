@@ -13,10 +13,10 @@
 			@foreach($groups as $group_data)
 			<li>
 				<a class="icon {{ request()->segment(2) == $group_data->field_primary ? 'active' : '' }}" href="{{ $group_data->field_url ?? '#' }}"
-					data-nav-target="#{{ $group_data->field_primary }}">
+					{{ empty($group_data->field_url) ? 'data-nav-target=#'.$group_data->field_primary : '' }}>
 					<i class="bi bi-{{ $group_data->field_icon }}"></i>
 					<h5 class="text-center text-white">
-						{{ __($group_data->field_name) }}
+						{{ $group_data->field_name }}
 					</h5>
 				</a>
 			</li>
@@ -53,7 +53,7 @@
 	<div class="navigation-header">
 		<div id="navigation-logo">
 			<a href="{{ url('/') }}">
-				<img class="logo" src="{{ logoUrl() }}" alt="logo">
+				<img style="width: 90%;margin-left:10px" class="logo" src="{{ logoUrl() }}" alt="logo">
 			</a>
 		</div>
 	</div>
@@ -81,7 +81,9 @@
 				</li>
 				@elseif($menu->field_type == MenuType::Devider)
 				<li>
-					<hr>
+					<a class="devider">
+						<span>{{ $menu->field_name }}</span>
+					</a>
 				</li>
 				@elseif($menu->field_type == MenuType::Menu)
 				@php
