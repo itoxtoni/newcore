@@ -59,12 +59,9 @@ class AccessMiddleware
         return $group;
     }
 
-    private function checkPermision($data_access, $access, $action_code)
+    private function checkPermision($data_access, $access, $action_code, $controller = false)
     {
         if ($data_access) {
-            Blade::if('can', function ($value) use ($access) {
-                return ! (in_array(moduleAction($value), $access));
-            });
 
             $check = $data_access
                 ->where(SystemPermision::field_code(), $action_code);
@@ -152,6 +149,9 @@ class AccessMiddleware
         $access = $data_access->pluck('system_permision_code')->toArray() ?? [];
 
         $this->checkPermision($data_access, $access, $action_code);
+        Blade::if('can', function ($value) use ($access) {
+            return ! (in_array(moduleAction($value), $access));
+        });
 
         try {
 

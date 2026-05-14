@@ -29,6 +29,10 @@ class SystemGroupConnectionRoleTableSeeder extends Seeder
                 'system_role_code' => 'admin',
                 'system_group_code' => 'setting',
             ],
+            3 => [
+                'system_role_code' => 'admin',
+                'system_group_code' => 'master',
+            ],
         ]);
 
     }

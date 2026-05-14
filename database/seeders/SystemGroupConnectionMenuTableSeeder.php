@@ -49,6 +49,10 @@ class SystemGroupConnectionMenuTableSeeder extends Seeder
                 'system_group_code' => 'laporan',
                 'system_menu_code' => 'report_user',
             ],
+            8 => [
+                'system_group_code' => 'master',
+                'system_menu_code' => 'category',
+            ],
         ]);
 
     }

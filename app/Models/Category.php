@@ -1,22 +1,17 @@
 <?php
 namespace App\Models;
 
-use App\Models\Traits\DefaultEntity;
-use App\Models\Traits\Filterable;
-use App\Models\Traits\OptionModel;
-use Illuminate\Database\Eloquent\Model;
+use App\Dao\Models\Core\SystemModel;
 
-class Category extends Model
+class Category extends SystemModel
 {
-    use Filterable, DefaultEntity, OptionModel;
-
     protected $table   = 'category';
     public $timestamps = false;
 
     protected $primaryKey = 'category_id';
 
     public $filterable = [
-        'category_name' => 'Category Nama',
+        'category_nama' => 'Category Nama',
         'category_id' => 'Category ID',
     ];
 
@@ -29,11 +24,11 @@ class Category extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['category_id', 'category_name'];
+    protected $fillable = ['category_id', 'category_nama', 'category_keterangan'];
 
     public static function field_name()
     {
-        return 'category_name';
+        return 'category_nama';
     }
 
     public function getFieldNameAttribute()

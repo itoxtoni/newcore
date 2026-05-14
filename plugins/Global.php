@@ -114,6 +114,35 @@ function modulePathForm($name = null, $template = null, $path = false)
     return $path.moduleController().'.form';
 }
 
+function currentModule($action = false)
+{
+    $module = strtolower(request()->route()->getAction('as'));
+    if(str_contains($module, '.'))
+    {
+        $explode = explode('.', $module);
+
+        if($action)
+        {
+            return str_replace(['get', 'post'], '', explode('.', $module)[1]);
+        }
+
+        return $explode[0];
+    }
+
+    return $module;
+}
+
+function currentController($model = false)
+{
+    $controller = request()->route();
+    if($model)
+    {
+        return $controller->getController()->model ?? false;
+    }
+
+    return $controller;
+}
+
 function cleanCode($code)
 {
     $clean_url = strpos($code, '&') !== false ? strstr($code, '&', true) : $code;

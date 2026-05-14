@@ -4,6 +4,7 @@ namespace App\Http\Function;
 
 use App\Http\Requests\Core\GeneralRequest;
 use App\Services\Master\CreateService;
+use Illuminate\Support\Facades\Log;
 use Plugins\Response;
 
 trait CreateFunction

@@ -125,6 +125,18 @@ class SystemMenuTableSeeder extends Seeder
                 'system_menu_enable' => null,
                 'system_menu_can_delete' => 1,
             ],
+            [
+                'system_menu_code' => 'category',
+                'system_menu_name' => 'Category',
+                'system_menu_url' => 'category',
+                'system_menu_controller' => 'App\\Http\\Controllers\\CategoryController',
+                'system_menu_action' => 'category.getTable',
+                'system_menu_type' => 1,
+                'system_menu_sort' => null,
+                'system_menu_description' => null,
+                'system_menu_enable' => null,
+                'system_menu_can_delete' => 1,
+            ],
         ]);
 
     }

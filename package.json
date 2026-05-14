@@ -15,8 +15,6 @@
         "cross-env": "^5.2.1",
         "jquery": "^3.7.1",
         "laravel-echo": "^1.16.1",
-        "laravel-mix": "^4.0.7",
-        "laravel-mix-purgecss": "^6.0.0",
         "laravel-vite-plugin": "^1.0.5",
         "lodash": "^4.17.13",
         "notyf": "^3.10.0",
@@ -39,10 +37,12 @@
         "bootstrap-icons": "^1.11.3",
         "choices.js": "^11.1.0",
         "dotenv": "^16.4.5",
+        "edge.js": "^6.5.0",
         "gridjs-vue": "^5.0.4",
         "i": "^0.3.7",
         "npm": "^11.5.2",
         "nprogress": "^0.2.0",
+        "playwright": "^1.60.0",
         "slim-select": "^2.12.1",
         "sweetalert2": "^11.12.4"
     }

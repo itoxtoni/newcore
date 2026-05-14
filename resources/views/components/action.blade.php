@@ -13,6 +13,7 @@
     if ($form == null) {
         $form = 'table';
     }
+
 @endphp
 
 @section('action')
@@ -20,21 +21,13 @@
         <div {{ $attributes }}>
             @if ($form == 'table')
                 <input class="btn-check-m d-lg-none" type="checkbox">
-                @can(ACTION_EMPTY)
-                    <x-button onclick="return confirm('Apakah anda yakin ingin menghapus ?')" name="delete" type="submit"
+                <x-button onclick="return confirm('Apakah anda yakin ingin menghapus ?')" name="delete" type="submit"
                         color="danger" label="Kosongkan" />
-                @endcan
-                @can(ACTION_CREATE)
-                    <x-button :module="ACTION_CREATE" color="success" label="Buat" />
-                @endcan
+                <x-button :module="ACTION_CREATE" color="success" label="Buat" />
             @elseif($form == 'print')
-                @can(ACTION_PRINT)
                     <x-button name="type" value="report" type="submit" label="Print" />
-                @endcan
             @elseif($form == 'form')
-                @can(ACTION_CREATE || ACTION_UPDATE)
                     <x-button type="submit" label="Simpan" />
-                @endcan
             @endif
 
             {{ $slot }}

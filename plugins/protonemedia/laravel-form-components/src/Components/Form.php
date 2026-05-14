@@ -48,8 +48,10 @@ class Form extends Component
         $this->upload = $upload;
         $this->javascript = $javascript;
         $this->spoofMethod = in_array($this->method, ['PUT', 'PATCH', 'DELETE']);
-        if (! $this->action) {
-            $this->action =  (request()->segment(5) != 'create') ? moduleRoute('postUpdate', ['code' => $model->{$model->getKeyName()}]) : moduleRoute('postCreate');
+
+        if (! $this->action)
+        {
+            $this->action =  (currentModule(true) != 'create') ? moduleRoute('postUpdate', ['code' => $model->{currentController(true)->getKeyName()}]) : route(currentModule().'.postCreate');
         }
     }
 

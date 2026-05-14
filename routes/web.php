@@ -3,8 +3,11 @@
 use App\Dao\Enums\Core\MenuType;
 use App\Dao\Enums\Core\NotificationType;
 use App\Events\SendBroadcast;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Core\HomeController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PublicController;
+use App\Http\Middleware\AccessMiddleware;
 use Buki\AutoRoute\AutoRouteFacade as AutoRoute;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +31,8 @@ try {
 } catch (\Throwable $th) {
     $routes = [];
 }
+
+AutoRoute::auto('category', CategoryController::class, ['name' => 'category', 'middleware' => AccessMiddleware::class]);
 
 if ($routes) {
     Route::middleware(['auth', 'access'])->group(function () use ($routes) {
